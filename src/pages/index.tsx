@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NextPage } from 'next';
 import tw, { styled, TwStyle } from 'twin.macro';
-
-import Layout from '@/components/Layout';
+import Layout from '../components/Layout';
 
 export const getServerSideProps = ({ query }) => ({ props: query });
 
