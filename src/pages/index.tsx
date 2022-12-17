@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import { Avatar } from '@mui/material';
-import tw from 'twin.macro';
 
 const IndexPage: NextPage = () => {
   return (

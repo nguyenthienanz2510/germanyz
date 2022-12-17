@@ -1,6 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
 
-const middleware = (req: NextRequest) => {
+const middleware = () => {
 //   const { nextUrl, geo } = req;
 //   const country = geo?.country || 'Viet Nam';
 //   nextUrl.searchParams.set('country', country);

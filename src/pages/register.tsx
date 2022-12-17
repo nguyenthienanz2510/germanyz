@@ -1,6 +1,6 @@
-import { FormControl, Input, InputLabel } from '@mui/material';
-import { Formik, Form } from 'formik';
-import tw from 'twin.macro';
+import { Button } from '@mui/material';
+import { Form, Formik } from 'formik';
+import InputField from '../components/Form/InputField';
 import { Heading1 } from '../components/Text/Heading';
 import { FormWrapper } from '../components/Wrapper';
 
@@ -12,31 +12,21 @@ const Register = () => {
         initialValues={{ username: '', password: '' }}
         onSubmit={(values) => console.log(values)}
       >
-        {({ values, handleChange }) => {
+        {() => {
           return (
             <>
               <Form>
-                <FormControl fullWidth tw='mt-6'>
-                  <InputLabel htmlFor="username">Username</InputLabel>
-                  <Input
-                    id="username"
-                    placeholder="Username"
-                    value={values.username}
-                    onChange={handleChange}
-                  />
-                </FormControl>
-              </Form>
-              <Form>
-                <FormControl fullWidth tw='mt-6'>
-                  <InputLabel htmlFor="password">Password</InputLabel>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Password"
-                    value={values.password}
-                    onChange={handleChange}
-                  />
-                </FormControl>
+                <InputField
+                  name="username"
+                  label="Username"
+                  type='text'
+                />
+                <InputField
+                  name="password"
+                  label="Password"
+                  type="password"
+                />
+                <Button variant='contained' type='submit' sx={{marginTop: '1rem', padding: '8px 20px'}}>Register</Button>
               </Form>
             </>
           );
