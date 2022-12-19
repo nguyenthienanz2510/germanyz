@@ -4,15 +4,18 @@ import '../styles/global.css'
 import GlobalStyles from '../components/GlobalStyles'
 import SpinnerComponent from '../components/Loading'
 import { LoadingProvider } from '../context/loading'
+import { ThemeProvider } from 'next-themes'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <GlobalStyles />
-      <LoadingProvider>
-        <SpinnerComponent />
-        <Component {...pageProps} />
-      </LoadingProvider>
+      <ThemeProvider attribute="class">
+        <LoadingProvider>
+          <SpinnerComponent />
+          <Component {...pageProps} />
+        </LoadingProvider>
+      </ThemeProvider>
     </>
   )
 }
