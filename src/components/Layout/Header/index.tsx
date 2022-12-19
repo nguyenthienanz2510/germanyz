@@ -3,7 +3,7 @@ import tw from "twin.macro";
 const Header = () => {
     return (
         <HeaderContainer>
-            Header
+            <p className="text-center text-color-danger bg-color-success">Header</p>
         </HeaderContainer>
     );
 }
@@ -11,5 +11,5 @@ const Header = () => {
 export default Header;
 
 const HeaderContainer = tw.div`
-    h-16 bg-white dark:bg-color-gray-rgba-06 flex justify-center items-center shadow-inner
+    h-16 bg-primary dark:bg-color-gray-rgba-06 flex justify-center items-center shadow-inner
 `
