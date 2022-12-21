@@ -1,7 +1,7 @@
 import React from 'react'
 import type { AppProps } from 'next/app'
 import '../styles/global.css'
-import GlobalStyles from '../components/GlobalStyles'
+import '../styles/index.scss'
 import SpinnerComponent from '../components/Loading'
 import { LoadingProvider } from '../context/loading'
 import { ThemeProvider } from 'next-themes'
@@ -9,7 +9,6 @@ import { ThemeProvider } from 'next-themes'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <GlobalStyles />
       <ThemeProvider attribute="class">
         <LoadingProvider>
           <SpinnerComponent />
