@@ -7,6 +7,6 @@ interface WrapperProps {
 
 export const FormWrapper = ({children} : WrapperProps) => {
   return (
-    <Box mt='120px' maxWidth='600px' width='100%' mx='auto'>{children}</Box>
+    <Box mt='120px' maxWidth='400px' width='100%' mx='auto'>{children}</Box>
   )
 }
