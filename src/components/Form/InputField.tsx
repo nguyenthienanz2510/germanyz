@@ -14,6 +14,7 @@ const InputField = (props: InputFieldProps) => {
       <TextField
         variant="outlined"
         id={field.name}
+        size="small"
         {...field}
         {...props}
       />

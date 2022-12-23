@@ -4,9 +4,9 @@ import tw from 'twin.macro'
 import { useLoadingContext } from '../../context/loading'
 
 export default function SpinnerComponent() {
-  const { loading, setLoading } = useLoadingContext()
+  const { loading } = useLoadingContext()
 
-  console.log('[LOADING ==>]', loading, setLoading)
+  // console.log('[LOADING ==>]', loading, setLoading)
 
   return (
     <>

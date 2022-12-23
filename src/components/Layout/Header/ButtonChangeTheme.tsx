@@ -3,24 +3,26 @@ import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import tw from 'twin.macro'
 import { IconButton } from '@mui/material'
-import { useEffect } from 'react'
 
 const ButtonChangeTheme = () => {
   const { theme, setTheme } = useTheme()
-  useEffect(() => {
-    setTheme('dark')
-  }, [])
   return (
     <>
       {theme == 'light' ? (
         <IconButtonStyle
-          onClick={() => setTheme('dark')}
+          onClick={() => {
+            setTheme('dark')
+            // window.location.reload()
+          }}
         >
           <DarkModeIconStyle />
         </IconButtonStyle>
       ) : (
         <IconButtonStyle
-          onClick={() => setTheme('light')}
+          onClick={() => {
+            setTheme('light')
+            // window.location.reload()
+          }}
         >
           <LightModeIconStyle />
         </IconButtonStyle>

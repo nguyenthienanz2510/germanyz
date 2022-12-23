@@ -5,6 +5,7 @@ module.exports = {
     "./src/components/**/*.{js,jsx,ts,tsx}",
   ],
   darkMode: 'class',
+  important: true,
   theme: {
     extend: {
       colors: {
@@ -13,8 +14,8 @@ module.exports = {
         'color-black': '#000000',
         'color-danger': '#ff5758',
         'color-success': '#3be58a',
-        'color-bg-btn-primary': 'linear-gradient(to right bottom,#d9b432,#e8cd62)',
-        'color-bg-btn-primary-hover': 'linear-gradient(to left top,#d9b432,#e8cd62)',
+        'color-bg-btn-primary': '#B69F58',
+        'color-bg-btn-primary-hover': '#D4B155',
         'text-primary': '#333333',
         'text-link': '#cfb160',
         'color-gray-rgba-06': 'rgba(33,33,33,.6)',

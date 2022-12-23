@@ -18,7 +18,7 @@ export default function MainLayout({title, children}: MainLayoutProps) {
         <meta name="description" content="Germanyz shop" />
       </Head>
       <MainLayoutContainerStyle>
-        <Header />
+        <Header/>
         <MainContainerStyle>{children}</MainContainerStyle>
         <Footer />
       </MainLayoutContainerStyle>
