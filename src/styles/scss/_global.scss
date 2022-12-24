@@ -1,13 +1,28 @@
-* {
-    line-height: 1.4em;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;700&display=swap');
+
+body {
+  line-height: 1.4em;
+  font-family: 'Roboto Slab', serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a {
+  line-height: 1.4em;
 }
 
 html.light {
-    color: $text-primary;
-    background-color: $color-white;
+  color: $text-primary;
+  background-color: $color-white;
 }
 
 html.dark {
-    color: $text-white;
-    background-color: $color-black;
+  color: $text-white;
+  background-color: $color-black;
 }

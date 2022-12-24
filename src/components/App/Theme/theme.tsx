@@ -3,34 +3,60 @@ import { createTheme } from '@mui/material'
 export const lightTheme = createTheme({
   palette: {
     mode: 'light',
+    text: {
+      primary: '#1e2329',
+    },
+    background: {
+      default: '#000000',
+      paper: '#a84c4c',
+    },
     primary: {
-      light: 'red',
-      main: 'red',
-      dark: 'red',
-      contrastText: 'red',
+      main: '#F0B90B',
     },
     secondary: {
-      light: 'red',
-      main: 'red',
-      dark: 'blue',
-      contrastText: 'red',
+      main: '#a84c4c',
+    },
+    error: {
+      main: '#cf304a',
+    },
+    warning: {
+      main: '#ffc107',
+    },
+    info: {
+      main: '#17a2b8',
+    },
+    success: {
+      main: '#03a66d',
     },
   },
 })
 export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
-    // primary: {
-    //   light: 'red',
-    //   main: 'red',
-    //   dark: 'red',
-    //   contrastText: 'red',
-    // },
-    // secondary: {
-    //   light: 'red',
-    //   main: 'red',
-    //   dark: 'blue',
-    //   contrastText: 'red',
-    // },
+    text: {
+      primary: '#EAECEF',
+    },
+    background: {
+      default: '#ffffff',
+      paper: '#a84c4c',
+    },
+    primary: {
+      main: '#F0B90B',
+    },
+    secondary: {
+      main: '#a84c4c',
+    },
+    error: {
+      main: '#cf304a',
+    },
+    warning: {
+      main: '#ffc107',
+    },
+    info: {
+      main: '#17a2b8',
+    },
+    success: {
+      main: '#03a66d',
+    },
   },
 })

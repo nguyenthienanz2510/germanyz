@@ -17,5 +17,6 @@ const Header = () => {
 export default Header
 
 const HeaderContainer = tw.div`
-    h-16 bg-white dark:bg-color-gray-rgba-06 flex items-center shadow-inner border-b dark:border-0
+    h-16 bg-white flex items-center shadow-inner border-b 
+    dark:border-0 dark:bg-color-bg-dark-primary
 `

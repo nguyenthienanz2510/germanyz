@@ -5,7 +5,7 @@ import rocket_json from "../assets/lottie/rocket.json"
 import { ButtonPrimary } from '../components/Buttons'
 import { Container } from '../components/Common/Container'
 import InputField from '../components/Form/InputField'
-import { Heading1 } from '../components/Text/Heading'
+import { Heading1 } from '../components/Common/Text/Heading'
 
 const Login = () => {
   const initialValues = { username: '', password: '' }

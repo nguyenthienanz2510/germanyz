@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { Form, Formik } from 'formik';
 import InputField from '../components/Form/InputField';
-import { Heading1 } from '../components/Text/Heading';
+import { Heading1 } from '../components/Common/Text/Heading';
 import { FormWrapper } from '../components/Wrapper';
 
 const Register = () => {

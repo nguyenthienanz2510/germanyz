@@ -1,10 +1,10 @@
 import tw from "twin.macro";
 
 const ButtonCore = tw.button`
-    px-5 py-2 rounded
+    px-5 py-2 rounded transition-all
 `
 
 export const ButtonPrimary = tw(ButtonCore)`
-    text-color-white bg-color-bg-btn-primary
-    hover:bg-color-bg-btn-primary-hover
+    text-color-text-dark bg-color-btn-primary
+    hover:opacity-90
 `
