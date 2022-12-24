@@ -3,8 +3,15 @@ import { Form, Formik } from 'formik';
 import InputField from '../components/Form/InputField';
 import { Heading1 } from '../components/Common/Text/Heading';
 import { FormWrapper } from '../components/Wrapper';
+import { localStorageService } from '../services/localStorageService';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const Register = () => {
+  const router = useRouter();
+  useEffect(() => {
+    localStorageService.getUserInfo() && router.push('/')
+  }, [])
   return (
     <FormWrapper>
       <Heading1>Register</Heading1>

@@ -8,3 +8,8 @@ export const ButtonPrimary = tw(ButtonCore)`
     text-color-text-dark bg-color-primary
     hover:opacity-90
 `
+
+export const ButtonSecondary = tw(ButtonCore)`
+    text-color-text-dark bg-color-secondary
+    hover:opacity-90
+`

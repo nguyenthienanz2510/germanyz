@@ -38,9 +38,9 @@ const IconButtonStyle = tw(IconButton)`
 `
 
 const LightModeIconStyle = tw(LightModeIcon)`
-  text-color-white
+  text-color-text-light hover:text-color-primary
 `
 
 const DarkModeIconStyle = tw(DarkModeIcon)`
-  text-color-black
+  text-color-text-dark hover:text-color-primary
 `

@@ -1,6 +1,7 @@
 import tw from 'twin.macro'
 import ButtonChangeTheme from './ButtonChangeTheme'
 import HeaderNav from './HeaderNav'
+import UserInfo from './UserInfo'
 
 const Header = () => {
   return (
@@ -11,6 +12,7 @@ const Header = () => {
         </PageTitle>
         <HeaderNav/>
         <ButtonChangeTheme />
+        <UserInfo />
       </div>
     </HeaderContainer>
   )

@@ -1,3 +1,3 @@
 import tw from "twin.macro";
 
-export const FlexWrapper = tw.div`flex flex-row`
+export const FlexWrapper = tw.div`flex justify-center items-center`
