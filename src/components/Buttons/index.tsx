@@ -5,6 +5,6 @@ const ButtonCore = tw.button`
 `
 
 export const ButtonPrimary = tw(ButtonCore)`
-    text-color-text-dark bg-color-btn-primary
+    text-color-text-dark bg-color-primary
     hover:opacity-90
 `

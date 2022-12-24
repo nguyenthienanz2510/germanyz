@@ -1,6 +1,6 @@
 import { ThemeProvider } from 'next-themes'
 import type { AppProps } from 'next/app'
-import PageProvider from '../components/App/Theme/PageProvider'
+import PageProvider from '../config/theme/PageProvider'
 import SpinnerComponent from '../components/Loading'
 import { LoadingProvider } from '../context/loading'
 import '../styles/global.css'

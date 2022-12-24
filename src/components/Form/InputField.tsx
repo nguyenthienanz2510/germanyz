@@ -12,13 +12,15 @@ const InputField = (props: InputFieldProps) => {
   return (
     <FormControl fullWidth sx={{ marginTop: '1rem' }}>
       <TextField
-        variant="outlined"
+        error={!!error}
+        helperText={!!error && error}
+        variant="standard"
         id={field.name}
         size="small"
         {...field}
         {...props}
       />
-      {error && <span>{error}</span>}
+      {/* {error && <span>{error}</span>} */}
     </FormControl>
   );
 };

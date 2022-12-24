@@ -11,7 +11,7 @@ export const lightTheme = createTheme({
       paper: '#a84c4c',
     },
     primary: {
-      main: '#F0B90B',
+      main: '#FCD535',
     },
     secondary: {
       main: '#a84c4c',
@@ -41,7 +41,7 @@ export const darkTheme = createTheme({
       paper: '#a84c4c',
     },
     primary: {
-      main: '#F0B90B',
+      main: '#FCD535',
     },
     secondary: {
       main: '#a84c4c',

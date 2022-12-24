@@ -8,10 +8,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'color-primary': '#F0B90B',
+        'color-primary': '#FCD535',
+        'color-secondary': '#eaecef',
         'color-white': '#ffffff',
         'color-black': '#000000',
         'color-text': '#333333',
+        'color-text-primary': '#F0B90B',
         'color-text-light': '#EAECEF',
         'color-text-dark': '#1e2329',
         'color-text-link': '#c99400',
@@ -19,7 +21,6 @@ module.exports = {
         'color-info': '#17a2b8',
         'color-warning': '#ffc107',
         'color-danger': '#cf304a',
-        'color-btn-primary': '#FCD535',
         'color-bg-dark-primary': '#181A20',
         'color-bg-dark-secondary': '#0B0E11',
         'color-bg-light-hover': '#f5f5f5',
