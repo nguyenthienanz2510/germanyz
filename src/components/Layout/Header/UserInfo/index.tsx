@@ -1,22 +1,22 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import tw from 'twin.macro'
-import { localStorageService } from '../../../../services/localStorageService'
 import { ButtonPrimary, ButtonSecondary } from '../../../Buttons'
 import { FlexWrapper } from '../../../Common/Layout'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useRouter } from 'next/router'
 import { IconButton } from '@mui/material'
+import { useAppContext } from '../../../../context/appContext'
 
 const UserInfo = () => {
   const [userDisplayName, setUserDisplayName] = useState()
   const router = useRouter()
+  const { state, dispatch } = useAppContext()
   useEffect(() => {
-    const userInfo = localStorageService.getUserInfo()
-    setUserDisplayName(userInfo?.user_display_name)
-  }, [])
+    setUserDisplayName(state.user.user_display_name)
+  }, [state])
   const logoutHandler = () => {
-    localStorageService.removeUserInfo()
+    dispatch({type: "REMOVE_USER_INFO"})
     router.push('/login')
   }
   return (
@@ -24,8 +24,8 @@ const UserInfo = () => {
       {userDisplayName ? (
         <FlexWrapper>
           <UserName>{userDisplayName}</UserName>
-          <IconButton>
-            <UserLogoutIcon onClick={logoutHandler} />
+          <IconButton onClick={logoutHandler} >
+            <UserLogoutIcon/>
           </IconButton>
         </FlexWrapper>
       ) : (
