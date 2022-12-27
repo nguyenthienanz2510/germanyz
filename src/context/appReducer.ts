@@ -1,5 +1,8 @@
-export const initialState = {
-  user: {}
+interface initialStateInterface {
+  user?: object
+}
+
+export const initialState:initialStateInterface = {
 }
 
 export const AppReducer = (state: any, action: any) => {
@@ -14,9 +17,10 @@ export const AppReducer = (state: any, action: any) => {
       }
     }
     case "REMOVE_USER_INFO": {
+      let updateState = initialState
+      delete updateState?.user
       return {
-        ...state,
-        user: {},
+        ...updateState
       }
     }
   }

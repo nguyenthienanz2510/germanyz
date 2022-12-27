@@ -14,13 +14,12 @@ import { useAppContext } from '../context/appContext'
 
 const Login = () => {
   const { state, dispatch } = useAppContext()
-  console.log("state in login page:", state)
 
   const initialValues = { username: '', password: '' }
   const router = useRouter()
   const { setLoading } = useLoadingContext()
 
-  state.user.token && router.push('/')
+  state.user?.token && router.push('/')
 
   interface DataLogin {
     username: string
@@ -47,8 +46,6 @@ const Login = () => {
         dispatch({type: "SET_USER_INFO", value: res.data})
         setLoading(false)
       } catch (err: any) {
-        console.log(err?.response?.data.message)
-        console.log(err)
         setErrors({
           username:
             err?.response?.data.message.includes('The username') &&

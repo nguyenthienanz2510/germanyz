@@ -20,12 +20,12 @@ const IndexPage: NextPage = () => {
       </div>
       <Snackbar
         open={openSnackbar}
-        autoHideDuration={5000}
+        autoHideDuration={7000}
         onClose={() => {
           setOpenSnackbar(false)
         }}
       >
-        {state.user.user_display_name ? (
+        {state.user?.user_display_name ? (
           <Alert
             onClose={() => {
               setOpenSnackbar(false)
@@ -35,7 +35,7 @@ const IndexPage: NextPage = () => {
           >
             Welcome to Germanyz,{' '}
             <span className="font-bold capitalize">
-              {state.user.user_display_name}
+              {state.user?.user_display_name}
             </span> !!!
           </Alert>
         ) : (

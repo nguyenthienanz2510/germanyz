@@ -5,9 +5,6 @@ import { useLoadingContext } from '../../context/loading'
 
 export default function SpinnerComponent() {
   const { loading } = useLoadingContext()
-
-  // console.log('[LOADING ==>]', loading, setLoading)
-
   return (
     <>
       {loading && (

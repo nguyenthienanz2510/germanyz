@@ -13,7 +13,7 @@ const UserInfo = () => {
   const router = useRouter()
   const { state, dispatch } = useAppContext()
   useEffect(() => {
-    setUserDisplayName(state.user.user_display_name)
+    setUserDisplayName(state.user?.user_display_name)
   }, [state])
   const logoutHandler = () => {
     dispatch({type: "REMOVE_USER_INFO"})

@@ -18,24 +18,24 @@ interface AppContextProps {
 const AppContext = createContext({} as AppContextProps)
 export function AppProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(AppReducer, initialState)
-  console.log("Global state ==>", state)
 
   const contextValue = useMemo(() => {
     return { state, dispatch }
   }, [state, dispatch])
 
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("state") || '{}')
-    if (userInfo?.user) {
+    if (localStorage.getItem("state")) {
       console.log("get item from localStorage")
       dispatch({
         type: 'INIT_STATE',
-        value: JSON.parse(localStorage.getItem("state")|| '{}'),
+        value: JSON.parse(localStorage.getItem("state") || ''),
       })
     }
   }, [])
   useEffect(() => {
-    console.log(initialState == state)
+    console.log("STATE==>", state)
+    console.log("INITIALSTATE==>", initialState)
+    console.log("COMPARE==>", initialState == state)
     if (state !== initialState) {
       console.log("update LocalStorage")
       localStorage.setItem("state", JSON.stringify(state))
