@@ -25,7 +25,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (localStorage.getItem("state")) {
-      console.log("get item from localStorage")
+      // console.log("get item from localStorage")
       dispatch({
         type: 'INIT_STATE',
         value: JSON.parse(localStorage.getItem("state") || ''),
@@ -33,11 +33,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }, [])
   useEffect(() => {
-    console.log("STATE==>", state)
-    console.log("INITIALSTATE==>", initialState)
-    console.log("COMPARE==>", initialState == state)
+    // console.log("STATE==>", state)
+    // console.log("INITIALSTATE==>", initialState)
+    // console.log("COMPARE==>", initialState == state)
     if (state !== initialState) {
-      console.log("update LocalStorage")
+      // console.log("update LocalStorage")
       localStorage.setItem("state", JSON.stringify(state))
     }
   }, [state])

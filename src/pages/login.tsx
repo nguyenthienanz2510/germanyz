@@ -11,6 +11,8 @@ import { useRouter } from 'next/router'
 import { useLoadingContext } from '../context/loading'
 import * as Yup from 'yup'
 import { useAppContext } from '../context/appContext'
+import { loginMutation } from '../graphql-client/mutations'
+import { useMutation } from '@apollo/client'
 
 const Login = () => {
   const { state, dispatch } = useAppContext()
@@ -34,30 +36,55 @@ const Login = () => {
     password: Yup.string().required('Required'),
   })
 
+  interface UserMutationResponse {
+    authToken: string,
+    refreshToken: string,
+    user: string
+  }
+
+  interface LoginUserInput {
+    username: string,
+    password: string
+  }
+
+  const [loginUser, {loading ,data, error}] = useMutation<
+    {login: UserMutationResponse},
+    {loginInput: LoginUserInput}
+  >(loginMutation)
+  console.log('LOADING==>', loading)
+  console.log('DATA==>', data)
+  console.log('ERROR==>', error)
+  setLoading(loading)
+  
   const loginHandler = (dataLogin: DataLogin, setErrors: any) => {
-    const postLoginRequest = async () => {
-      setLoading(true)
-      console.log(dataLogin)
-      try {
-        const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_WP_SITE_URL}/wp-json/jwt-auth/v1/token`,
-          dataLogin,
-        )
-        dispatch({type: "SET_USER_INFO", value: res.data})
-        setLoading(false)
-      } catch (err: any) {
-        setErrors({
-          username:
-            err?.response?.data.message.includes('The username') &&
-            'Invalid username',
-          password:
-            err?.response?.data.message.includes('The password') &&
-            'Invalid password',
-        })
-        setLoading(false)
+    loginUser({
+      variables: {
+        loginInput: dataLogin
       }
-    }
-    postLoginRequest()
+    })
+    // const postLoginRequest = async () => {
+    //   setLoading(true)
+    //   console.log(dataLogin)
+    //   try {
+    //     const res = await axios.post(
+    //       `${process.env.NEXT_PUBLIC_WP_SITE_URL}/wp-json/jwt-auth/v1/token`,
+    //       dataLogin,
+    //     )
+    //     dispatch({type: "SET_USER_INFO", value: res.data})
+    //     setLoading(false)
+    //   } catch (err: any) {
+    //     setErrors({
+    //       username:
+    //         err?.response?.data.message.includes('The username') &&
+    //         'Invalid username',
+    //       password:
+    //         err?.response?.data.message.includes('The password') &&
+    //         'Invalid password',
+    //     })
+    //     setLoading(false)
+    //   }
+    // }
+    // postLoginRequest()
   }
 
   return (
