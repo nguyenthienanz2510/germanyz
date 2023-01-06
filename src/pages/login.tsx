@@ -1,32 +1,20 @@
 import { Form, Formik, FormikHelpers } from 'formik'
 import Lottie from 'lottie-react'
 import tw from 'twin.macro'
+import * as Yup from 'yup'
 import rocket_json from '../assets/lottie/rocket.json'
 import { ButtonPrimary } from '../components/Buttons'
 import { Container } from '../components/Common/Container'
-import InputField from '../components/Form/InputField'
 import { Heading1 } from '../components/Common/Text/Heading'
-import axios from 'axios'
-import { useRouter } from 'next/router'
+import InputField from '../components/Form/InputField'
 import { useLoadingContext } from '../context/loading'
-import * as Yup from 'yup'
-import { useAppContext } from '../context/appContext'
-import { loginMutation } from '../graphql-client/mutations/mutations.graphql'
-import { useMutation } from '@apollo/client'
+import {
+  LoginInput, useLoginMutation
+} from '../generated/graphql'
 
 const Login = () => {
-  const { state, dispatch } = useAppContext()
-
-  const initialValues = { username: '', password: '' }
-  const router = useRouter()
+  const initialValues: LoginInput = { username: '', password: '' }
   const { setLoading } = useLoadingContext()
-
-  state.user?.token && router.push('/')
-
-  interface DataLogin {
-    username: string
-    password: string
-  }
 
   const DisplayingErrorMessagesSchema = Yup.object().shape({
     username: Yup.string()
@@ -36,55 +24,29 @@ const Login = () => {
     password: Yup.string().required('Required'),
   })
 
-  interface UserMutationResponse {
-    authToken: string,
-    refreshToken: string,
-    user: string
-  }
-
-  interface LoginUserInput {
-    username: string,
-    password: string
-  }
-
-  const [loginUser, {loading ,data, error}] = useMutation<
-    {login: UserMutationResponse},
-    {loginInput: LoginUserInput}
-  >(loginMutation)
-  console.log('LOADING==>', loading)
-  console.log('DATA==>', data)
-  console.log('ERROR==>', error)
+  const [loginUser, { loading, data, error }] = useLoginMutation()
   setLoading(loading)
-  
-  const loginHandler = (dataLogin: DataLogin, setErrors: any) => {
-    loginUser({
-      variables: {
-        loginInput: dataLogin
-      }
-    })
-    // const postLoginRequest = async () => {
-    //   setLoading(true)
-    //   console.log(dataLogin)
-    //   try {
-    //     const res = await axios.post(
-    //       `${process.env.NEXT_PUBLIC_WP_SITE_URL}/wp-json/jwt-auth/v1/token`,
-    //       dataLogin,
-    //     )
-    //     dispatch({type: "SET_USER_INFO", value: res.data})
-    //     setLoading(false)
-    //   } catch (err: any) {
-    //     setErrors({
-    //       username:
-    //         err?.response?.data.message.includes('The username') &&
-    //         'Invalid username',
-    //       password:
-    //         err?.response?.data.message.includes('The password') &&
-    //         'Invalid password',
-    //     })
-    //     setLoading(false)
-    //   }
-    // }
-    // postLoginRequest()
+
+  const loginHandler = async (
+    dataLogin: LoginInput,
+    { setErrors }: FormikHelpers<LoginInput>,
+  ) => {
+    try {
+      const response = await loginUser({
+        variables: {
+          loginInput: dataLogin,
+        },
+      })
+      console.log('RESPONSE', response)
+    } catch (err: any) {
+      console.log('ERROR ==> ', err?.message)
+      setErrors({
+        username:
+          err?.message.includes('invalid_username') && 'Invalid username',
+        password:
+          err?.message.includes('incorrect_password') && 'Incorrect password',
+      })
+    }
   }
 
   return (
@@ -102,9 +64,9 @@ const Login = () => {
                 validationSchema={DisplayingErrorMessagesSchema}
                 onSubmit={(
                   dataLogin,
-                  { setErrors }: FormikHelpers<DataLogin>,
+                  formikHelpers: FormikHelpers<LoginInput>,
                 ) => {
-                  loginHandler(dataLogin, setErrors)
+                  loginHandler(dataLogin, formikHelpers)
                 }}
               >
                 {() => {
