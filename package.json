@@ -8,12 +8,13 @@
     "start": "next start",
     "export": "next export -o dist",
     "stage": "yarn build; yarn start",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
     "axios": "^1.2.1",
-    "graphql": "^16.6.0",
+    "graphql": "^15.7.2",
     "next": "13.0.6",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -22,6 +23,9 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@graphql-codegen/cli": "^2.16.2",
+    "@graphql-codegen/typescript": "1.23.0",
+    "@graphql-codegen/typescript-operations": "1.18.4",
+    "@graphql-codegen/typescript-react-apollo": "2.3.1",
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.17",
     "@types/node": "18.11.10",

@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import { useLoadingContext } from '../context/loading'
 import * as Yup from 'yup'
 import { useAppContext } from '../context/appContext'
-import { loginMutation } from '../graphql-client/mutations'
+import { loginMutation } from '../graphql-client/mutations/mutations.graphql'
 import { useMutation } from '@apollo/client'
 
 const Login = () => {

@@ -1,0 +1,12 @@
+mutation Login($loginInput: LoginInput!) {
+  login(input: $loginInput) {
+    authToken
+    refreshToken
+    user {
+      email
+      avatar {
+        url
+      }
+    }
+  }
+}
