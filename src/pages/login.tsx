@@ -1,5 +1,6 @@
 import { Form, Formik, FormikHelpers } from 'formik'
 import Lottie from 'lottie-react'
+import { useRouter } from 'next/router'
 import tw from 'twin.macro'
 import * as Yup from 'yup'
 import rocket_json from '../assets/lottie/rocket.json'
@@ -13,8 +14,9 @@ import {
 } from '../generated/graphql'
 
 const Login = () => {
-  const initialValues: LoginInput = { username: '', password: '' }
   const { setLoading } = useLoadingContext()
+  const router = useRouter();
+  const initialValues: LoginInput = { username: '', password: '' }
 
   const DisplayingErrorMessagesSchema = Yup.object().shape({
     username: Yup.string()
@@ -38,6 +40,7 @@ const Login = () => {
         },
       })
       console.log('RESPONSE', response)
+      router.push('/')
     } catch (err: any) {
       console.log('ERROR ==> ', err?.message)
       setErrors({

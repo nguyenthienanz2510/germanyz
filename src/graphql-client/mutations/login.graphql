@@ -3,10 +3,7 @@ mutation Login($loginInput: LoginInput!) {
     authToken
     refreshToken
     user {
-      email
-      avatar {
-        url
-      }
+      ...userInfo
     }
   }
 }

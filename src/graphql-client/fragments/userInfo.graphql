@@ -1,0 +1,6 @@
+fragment userInfo on User {
+  email
+  avatar {
+    url
+  }
+}

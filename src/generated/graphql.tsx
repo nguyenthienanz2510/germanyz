@@ -8538,6 +8538,15 @@ export type WritingSettings = {
   useSmilies?: Maybe<Scalars['Boolean']>;
 };
 
+export type UserInfoFragment = (
+  { __typename?: 'User' }
+  & Pick<User, 'email'>
+  & { avatar?: Maybe<(
+    { __typename?: 'Avatar' }
+    & Pick<Avatar, 'url'>
+  )> }
+);
+
 export type LoginMutationVariables = Exact<{
   loginInput: LoginInput;
 }>;
@@ -8550,30 +8559,30 @@ export type LoginMutation = (
     & Pick<LoginPayload, 'authToken' | 'refreshToken'>
     & { user?: Maybe<(
       { __typename?: 'User' }
-      & Pick<User, 'email'>
-      & { avatar?: Maybe<(
-        { __typename?: 'Avatar' }
-        & Pick<Avatar, 'url'>
-      )> }
+      & UserInfoFragment
     )> }
   )> }
 );
 
-
+export const UserInfoFragmentDoc = gql`
+    fragment userInfo on User {
+  email
+  avatar {
+    url
+  }
+}
+    `;
 export const LoginDocument = gql`
     mutation Login($loginInput: LoginInput!) {
   login(input: $loginInput) {
     authToken
     refreshToken
     user {
-      email
-      avatar {
-        url
-      }
+      ...userInfo
     }
   }
 }
-    `;
+    ${UserInfoFragmentDoc}`;
 export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
 
 /**
