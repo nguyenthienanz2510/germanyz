@@ -1,0 +1,16 @@
+query MenuItems {
+  menuItems(where: {location: HCMS_MENU_HEADER, parentId: "0"}) {
+    edges {
+      node {
+        ...menuItemFragment
+        childItems {
+          edges {
+            node {
+              ...menuItemFragment
+            }
+          }
+        }
+      }
+    }
+  }
+}

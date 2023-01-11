@@ -1,18 +1,13 @@
+import { ApolloProvider } from '@apollo/client'
 import { ThemeProvider } from 'next-themes'
 import type { AppProps } from 'next/app'
-import PageProvider from '../config/theme/PageProvider'
 import SpinnerComponent from '../components/Loading'
-import { LoadingProvider } from '../context/loading'
+import PageProvider from '../config/theme/PageProvider'
 import { AppProvider } from '../context/appContext'
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
+import { LoadingProvider } from '../context/loading'
+import client from '../lib/apolloClient'
 import '../styles/global.css'
 import '../styles/index.scss'
-
-const client = new ApolloClient({
-  uri: `${process.env.NEXT_PUBLIC_WP_SITE_URL}/graphql`,
-  cache: new InMemoryCache(),
-  // credentials: 'include',
-})
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

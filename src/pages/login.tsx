@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { Form, Formik, FormikHelpers } from 'formik'
 import Lottie from 'lottie-react'
 import { useRouter } from 'next/router'
@@ -9,13 +10,12 @@ import { Container } from '../components/Common/Container'
 import { Heading1 } from '../components/Common/Text/Heading'
 import InputField from '../components/Form/InputField'
 import { useLoadingContext } from '../context/loading'
-import {
-  LoginInput, useLoginMutation
-} from '../generated/graphql'
+import { LoginInput, useLoginMutation } from '../generated/graphql'
+import { getPreviewRedirectUrl } from '../utils/redirects'
 
 const Login = () => {
   const { setLoading } = useLoadingContext()
-  const router = useRouter();
+  const router = useRouter()
   const initialValues: LoginInput = { username: '', password: '' }
 
   const DisplayingErrorMessagesSchema = Yup.object().shape({
@@ -33,22 +33,35 @@ const Login = () => {
     dataLogin: LoginInput,
     { setErrors }: FormikHelpers<LoginInput>,
   ) => {
+    const { postType, previewPostId } = router?.query ?? {}
+
     try {
-      const response = await loginUser({
-        variables: {
-          loginInput: dataLogin,
-        },
+      const response = await axios({
+        data: dataLogin,
+        method: 'post',
+        url: '/api/login',
       })
-      console.log('RESPONSE', response)
-      router.push('/')
-    } catch (err: any) {
-      console.log('ERROR ==> ', err?.message)
-      setErrors({
-        username:
-          err?.message.includes('invalid_username') && 'Invalid username',
-        password:
-          err?.message.includes('incorrect_password') && 'Incorrect password',
-      })
+      const { success, error } = response.data ?? {}
+
+      // If has errors
+      if (!success) {
+        setErrors({
+          username:
+            error?.message.includes('invalid_username') && 'Invalid username',
+          password:
+            error?.message.includes('incorrect_password') &&
+            'Incorrect password',
+        })
+      }
+
+      // If its a preview request
+      if (success && postType && previewPostId) {
+        const previewUrl = getPreviewRedirectUrl(postType, previewPostId)
+        router.push(previewUrl)
+      }
+      
+    } catch (err) {
+      console.log(err)
     }
   }
 

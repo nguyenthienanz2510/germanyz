@@ -2,12 +2,33 @@ import Link from "next/link"
 import tw from "twin.macro"
 
 const HeaderNav = () => {
+
+  const menu = [
+    {
+      name: 'Home',
+      path: '/'
+    },
+    {
+      name: 'About us',
+      path: '/about-us'
+    },
+    {
+      name: 'Blog',
+      path: '/blog'
+    },
+    {
+      name: 'Shop',
+      path: '/shop'
+    }
+  ]
+
   return (
     <HeaderNavContainer>
-        <NavLink href='/'>Home</NavLink>
-        <NavLink href='/about-us'>About us</NavLink>
-        <NavLink href='/shop'>Shop</NavLink>
-        <NavLink href='/blog'>Blog</NavLink>
+        {
+          menu.map((item, index) => { 
+            return <NavLink key={index} href={item.path}>{item.name}</NavLink>
+          })
+        }
     </HeaderNavContainer>
   )
 }

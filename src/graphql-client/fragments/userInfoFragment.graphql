@@ -1,0 +1,11 @@
+fragment userInfoFragment on User {
+  id
+  username
+  name
+  email
+  firstName
+  lastName
+  avatar {
+    url
+  }
+}

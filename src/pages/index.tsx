@@ -1,8 +1,10 @@
-import { NextPage } from 'next'
 import { Alert, Avatar, Snackbar } from '@mui/material'
-import MainLayout from '../components/Layout/Mainlayout'
+import { GetStaticProps, NextPage } from 'next'
 import { useState } from 'react'
+import MainLayout from '../components/Layout/Mainlayout'
 import { useAppContext } from '../context/appContext'
+import { MenuItemsDocument } from '../generated/graphql'
+import client from '../lib/apolloClient'
 
 const IndexPage: NextPage = () => {
   const [openSnackbar, setOpenSnackbar] = useState(true)
@@ -36,7 +38,8 @@ const IndexPage: NextPage = () => {
             Welcome to Germanyz,{' '}
             <span className="font-bold capitalize">
               {state.user?.user_display_name}
-            </span> !!!
+            </span>{' '}
+            !!!
           </Alert>
         ) : (
           <Alert
@@ -52,6 +55,21 @@ const IndexPage: NextPage = () => {
       </Snackbar>
     </MainLayout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  // const { data, error } = await useMenuItemsQuery()
+  const { data } = await client.query({
+    query: MenuItemsDocument
+  })
+  const menuItems = data
+  return {
+    props: {
+      data: {
+        menu: menuItems,
+      }
+    },
+  }
 }
 
 export default IndexPage

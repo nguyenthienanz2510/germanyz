@@ -120,6 +120,8 @@ export type Category = DatabaseIdentifier & HierarchicalNode & HierarchicalTermN
   parentId?: Maybe<Scalars['ID']>;
   /** Connection between the Category type and the post type */
   posts?: Maybe<CategoryToPostConnection>;
+  /** The Yoast SEO data of the Categories taxonomy. */
+  seo?: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug?: Maybe<Scalars['String']>;
   /** Connection between the Category type and the Taxonomy type */
@@ -892,6 +894,8 @@ export type ContentNode = {
   previewRevisionDatabaseId?: Maybe<Scalars['Int']>;
   /** Whether the object is a node in the preview state */
   previewRevisionId?: Maybe<Scalars['ID']>;
+  /** The Yoast SEO data of the ContentNode */
+  seo?: Maybe<PostTypeSeo>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
   slug?: Maybe<Scalars['String']>;
   /** The current status of the object */
@@ -1961,6 +1965,8 @@ export type HierarchicalContentNode = {
   previewRevisionDatabaseId?: Maybe<Scalars['Int']>;
   /** Whether the object is a node in the preview state */
   previewRevisionId?: Maybe<Scalars['ID']>;
+  /** The Yoast SEO data of the ContentNode */
+  seo?: Maybe<PostTypeSeo>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
   slug?: Maybe<Scalars['String']>;
   /** The current status of the object */
@@ -2343,6 +2349,8 @@ export type MediaItem = ContentNode & DatabaseIdentifier & HierarchicalContentNo
   previewRevisionDatabaseId?: Maybe<Scalars['Int']>;
   /** Whether the object is a node in the preview state */
   previewRevisionId?: Maybe<Scalars['ID']>;
+  /** The Yoast SEO data of the ContentNode */
+  seo?: Maybe<PostTypeSeo>;
   /** The sizes attribute value for an image. */
   sizes?: Maybe<Scalars['String']>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
@@ -3234,6 +3242,8 @@ export type NodeWithTemplate = {
 export type NodeWithTitle = {
   /** The globally unique ID for the object */
   id: Scalars['ID'];
+  /** The Yoast SEO data of the ContentNode */
+  seo?: Maybe<PostTypeSeo>;
   /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
   title?: Maybe<Scalars['String']>;
 };
@@ -3372,6 +3382,8 @@ export type Page = ContentNode & DatabaseIdentifier & HierarchicalContentNode & 
   revisionOf?: Maybe<NodeWithRevisionsToContentNodeConnectionEdge>;
   /** Connection between the Page type and the page type */
   revisions?: Maybe<PageToRevisionConnection>;
+  /** The Yoast SEO data of the ContentNode */
+  seo?: Maybe<PostTypeSeo>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
   slug?: Maybe<Scalars['String']>;
   /** The current status of the object */
@@ -3790,6 +3802,8 @@ export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & 
   revisionOf?: Maybe<NodeWithRevisionsToContentNodeConnectionEdge>;
   /** Connection between the Post type and the post type */
   revisions?: Maybe<PostToRevisionConnection>;
+  /** The Yoast SEO data of the ContentNode */
+  seo?: Maybe<PostTypeSeo>;
   /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
   slug?: Maybe<Scalars['String']>;
   /** The current status of the object */
@@ -3974,6 +3988,8 @@ export type PostFormat = DatabaseIdentifier & MenuItemLinkable & Node & TermNode
   postFormatId?: Maybe<Scalars['Int']>;
   /** Connection between the PostFormat type and the post type */
   posts?: Maybe<PostFormatToPostConnection>;
+  /** The Yoast SEO data of the Formats taxonomy. */
+  seo?: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug?: Maybe<Scalars['String']>;
   /** Connection between the PostFormat type and the Taxonomy type */
@@ -4371,6 +4387,8 @@ export type PostToCategoryConnectionEdge = CategoryConnectionEdge & Edge & {
   __typename?: 'PostToCategoryConnectionEdge';
   /** A cursor for use in pagination */
   cursor?: Maybe<Scalars['String']>;
+  /** The Yoast SEO Primary category */
+  isPrimary?: Maybe<Scalars['Boolean']>;
   /** The item at the end of the edge */
   node: Category;
 };
@@ -4519,6 +4537,8 @@ export type PostToPostFormatConnectionEdge = Edge & PostFormatConnectionEdge & {
   __typename?: 'PostToPostFormatConnectionEdge';
   /** A cursor for use in pagination */
   cursor?: Maybe<Scalars['String']>;
+  /** The Yoast SEO Primary post_format */
+  isPrimary?: Maybe<Scalars['Boolean']>;
   /** The item at the end of the edge */
   node: PostFormat;
 };
@@ -4680,6 +4700,8 @@ export type PostToTagConnectionEdge = Edge & TagConnectionEdge & {
   __typename?: 'PostToTagConnectionEdge';
   /** A cursor for use in pagination */
   cursor?: Maybe<Scalars['String']>;
+  /** The Yoast SEO Primary post_tag */
+  isPrimary?: Maybe<Scalars['Boolean']>;
   /** The item at the end of the edge */
   node: Tag;
 };
@@ -4851,6 +4873,37 @@ export type PostTypeLabelDetails = {
   viewItem?: Maybe<Scalars['String']>;
   /** Label for viewing post type archives. */
   viewItems?: Maybe<Scalars['String']>;
+};
+
+export type PostTypeSeo = {
+  __typename?: 'PostTypeSEO';
+  breadcrumbs?: Maybe<Array<Maybe<SeoPostTypeBreadcrumbs>>>;
+  canonical?: Maybe<Scalars['String']>;
+  cornerstone?: Maybe<Scalars['Boolean']>;
+  focuskw?: Maybe<Scalars['String']>;
+  fullHead?: Maybe<Scalars['String']>;
+  metaDesc?: Maybe<Scalars['String']>;
+  metaKeywords?: Maybe<Scalars['String']>;
+  metaRobotsNofollow?: Maybe<Scalars['String']>;
+  metaRobotsNoindex?: Maybe<Scalars['String']>;
+  opengraphAuthor?: Maybe<Scalars['String']>;
+  opengraphDescription?: Maybe<Scalars['String']>;
+  opengraphImage?: Maybe<MediaItem>;
+  opengraphModifiedTime?: Maybe<Scalars['String']>;
+  opengraphPublishedTime?: Maybe<Scalars['String']>;
+  opengraphPublisher?: Maybe<Scalars['String']>;
+  opengraphSiteName?: Maybe<Scalars['String']>;
+  opengraphTitle?: Maybe<Scalars['String']>;
+  opengraphType?: Maybe<Scalars['String']>;
+  opengraphUrl?: Maybe<Scalars['String']>;
+  readingTime?: Maybe<Scalars['Float']>;
+  schema?: Maybe<SeoPostTypeSchema>;
+  /** Yoast SEO Schema */
+  schemaDetails?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  twitterDescription?: Maybe<Scalars['String']>;
+  twitterImage?: Maybe<MediaItem>;
+  twitterTitle?: Maybe<Scalars['String']>;
 };
 
 /** Nodes that can be seen in a preview (unpublished) state. */
@@ -5378,6 +5431,8 @@ export type RootQuery = {
   registeredStylesheets?: Maybe<RootQueryToEnqueuedStylesheetConnection>;
   /** Connection between the RootQuery type and the ContentNode type */
   revisions?: Maybe<RootQueryToRevisionsConnection>;
+  /** Returns seo site data */
+  seo?: Maybe<SeoConfig>;
   /** Shipping Zones */
   shippingInfo?: Maybe<ShippingInfo>;
   /** A 0bject */
@@ -6728,6 +6783,289 @@ export type RootQueryToUserRoleConnectionEdge = Edge & UserRoleConnectionEdge & 
   node: UserRole;
 };
 
+/** The Yoast SEO breadcrumb config */
+export type SeoBreadcrumbs = {
+  __typename?: 'SEOBreadcrumbs';
+  archivePrefix?: Maybe<Scalars['String']>;
+  boldLast?: Maybe<Scalars['Boolean']>;
+  enabled?: Maybe<Scalars['Boolean']>;
+  homeText?: Maybe<Scalars['String']>;
+  notFoundText?: Maybe<Scalars['String']>;
+  prefix?: Maybe<Scalars['String']>;
+  searchPrefix?: Maybe<Scalars['String']>;
+  separator?: Maybe<Scalars['String']>;
+  showBlogPage?: Maybe<Scalars['Boolean']>;
+};
+
+/** Types of cards */
+export enum SeoCardType {
+  Summary = 'summary',
+  SummaryLargeImage = 'summary_large_image'
+}
+
+/** The Yoast SEO site level configuration data */
+export type SeoConfig = {
+  __typename?: 'SEOConfig';
+  breadcrumbs?: Maybe<SeoBreadcrumbs>;
+  contentTypes?: Maybe<SeoContentTypes>;
+  meta?: Maybe<SeoGlobalMeta>;
+  openGraph?: Maybe<SeoOpenGraph>;
+  redirects?: Maybe<Array<Maybe<SeoRedirect>>>;
+  schema?: Maybe<SeoSchema>;
+  social?: Maybe<SeoSocial>;
+  webmaster?: Maybe<SeoWebmaster>;
+};
+
+/** The Yoast SEO search appearance content types fields */
+export type SeoContentType = {
+  __typename?: 'SEOContentType';
+  archive?: Maybe<SeoContentTypeArchive>;
+  metaDesc?: Maybe<Scalars['String']>;
+  metaRobotsNoindex?: Maybe<Scalars['Boolean']>;
+  schema?: Maybe<SeoPageInfoSchema>;
+  schemaType?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+/** The Yoast SEO search appearance content types fields */
+export type SeoContentTypeArchive = {
+  __typename?: 'SEOContentTypeArchive';
+  archiveLink?: Maybe<Scalars['String']>;
+  breadcrumbTitle?: Maybe<Scalars['String']>;
+  fullHead?: Maybe<Scalars['String']>;
+  hasArchive?: Maybe<Scalars['Boolean']>;
+  metaDesc?: Maybe<Scalars['String']>;
+  metaRobotsFollow?: Maybe<Scalars['String']>;
+  metaRobotsIndex?: Maybe<Scalars['String']>;
+  metaRobotsNofollow?: Maybe<Scalars['Boolean']>;
+  metaRobotsNoindex?: Maybe<Scalars['Boolean']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+/** The Yoast SEO search appearance content types */
+export type SeoContentTypes = {
+  __typename?: 'SEOContentTypes';
+  mediaItem?: Maybe<SeoContentType>;
+  page?: Maybe<SeoContentType>;
+  post?: Maybe<SeoContentType>;
+};
+
+/** The Yoast SEO meta data */
+export type SeoGlobalMeta = {
+  __typename?: 'SEOGlobalMeta';
+  author?: Maybe<SeoGlobalMetaAuthor>;
+  config?: Maybe<SeoGlobalMetaConfig>;
+  homepage?: Maybe<SeoGlobalMetaHome>;
+  notFound?: Maybe<SeoGlobalMeta404>;
+};
+
+/** The Yoast SEO meta 404 data */
+export type SeoGlobalMeta404 = {
+  __typename?: 'SEOGlobalMeta404';
+  breadcrumb?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+/** The Yoast SEO Author data */
+export type SeoGlobalMetaAuthor = {
+  __typename?: 'SEOGlobalMetaAuthor';
+  description?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+/** The Yoast SEO meta config data */
+export type SeoGlobalMetaConfig = {
+  __typename?: 'SEOGlobalMetaConfig';
+  separator?: Maybe<Scalars['String']>;
+};
+
+/** The Yoast SEO homepage data */
+export type SeoGlobalMetaHome = {
+  __typename?: 'SEOGlobalMetaHome';
+  description?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+/** The Open Graph data */
+export type SeoOpenGraph = {
+  __typename?: 'SEOOpenGraph';
+  defaultImage?: Maybe<MediaItem>;
+  frontPage?: Maybe<SeoOpenGraphFrontPage>;
+};
+
+/** The Open Graph Front page data */
+export type SeoOpenGraphFrontPage = {
+  __typename?: 'SEOOpenGraphFrontPage';
+  description?: Maybe<Scalars['String']>;
+  image?: Maybe<MediaItem>;
+  title?: Maybe<Scalars['String']>;
+};
+
+/** The Schema for post type */
+export type SeoPageInfoSchema = {
+  __typename?: 'SEOPageInfoSchema';
+  raw?: Maybe<Scalars['String']>;
+};
+
+export type SeoPostTypeBreadcrumbs = {
+  __typename?: 'SEOPostTypeBreadcrumbs';
+  text?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+/** The page info SEO details */
+export type SeoPostTypePageInfo = {
+  __typename?: 'SEOPostTypePageInfo';
+  schema?: Maybe<SeoPageInfoSchema>;
+};
+
+/** The Schema types */
+export type SeoPostTypeSchema = {
+  __typename?: 'SEOPostTypeSchema';
+  articleType?: Maybe<Array<Maybe<Scalars['String']>>>;
+  pageType?: Maybe<Array<Maybe<Scalars['String']>>>;
+  raw?: Maybe<Scalars['String']>;
+};
+
+/** The Yoast redirect data  (Yoast Premium only) */
+export type SeoRedirect = {
+  __typename?: 'SEORedirect';
+  format?: Maybe<Scalars['String']>;
+  origin?: Maybe<Scalars['String']>;
+  target?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['Int']>;
+};
+
+/** The Yoast SEO schema data */
+export type SeoSchema = {
+  __typename?: 'SEOSchema';
+  companyLogo?: Maybe<MediaItem>;
+  companyName?: Maybe<Scalars['String']>;
+  companyOrPerson?: Maybe<Scalars['String']>;
+  homeUrl?: Maybe<Scalars['String']>;
+  inLanguage?: Maybe<Scalars['String']>;
+  logo?: Maybe<MediaItem>;
+  personLogo?: Maybe<MediaItem>;
+  personName?: Maybe<Scalars['String']>;
+  siteName?: Maybe<Scalars['String']>;
+  siteUrl?: Maybe<Scalars['String']>;
+  wordpressSiteName?: Maybe<Scalars['String']>;
+};
+
+/** The Yoast SEO Social media links */
+export type SeoSocial = {
+  __typename?: 'SEOSocial';
+  facebook?: Maybe<SeoSocialFacebook>;
+  instagram?: Maybe<SeoSocialInstagram>;
+  linkedIn?: Maybe<SeoSocialLinkedIn>;
+  mySpace?: Maybe<SeoSocialMySpace>;
+  otherSocials?: Maybe<Array<Maybe<Scalars['String']>>>;
+  pinterest?: Maybe<SeoSocialPinterest>;
+  twitter?: Maybe<SeoSocialTwitter>;
+  wikipedia?: Maybe<SeoSocialWikipedia>;
+  youTube?: Maybe<SeoSocialYoutube>;
+};
+
+export type SeoSocialFacebook = {
+  __typename?: 'SEOSocialFacebook';
+  defaultImage?: Maybe<MediaItem>;
+  url?: Maybe<Scalars['String']>;
+};
+
+export type SeoSocialInstagram = {
+  __typename?: 'SEOSocialInstagram';
+  url?: Maybe<Scalars['String']>;
+};
+
+export type SeoSocialLinkedIn = {
+  __typename?: 'SEOSocialLinkedIn';
+  url?: Maybe<Scalars['String']>;
+};
+
+export type SeoSocialMySpace = {
+  __typename?: 'SEOSocialMySpace';
+  url?: Maybe<Scalars['String']>;
+};
+
+export type SeoSocialPinterest = {
+  __typename?: 'SEOSocialPinterest';
+  metaTag?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+export type SeoSocialTwitter = {
+  __typename?: 'SEOSocialTwitter';
+  cardType?: Maybe<SeoCardType>;
+  username?: Maybe<Scalars['String']>;
+};
+
+export type SeoSocialWikipedia = {
+  __typename?: 'SEOSocialWikipedia';
+  url?: Maybe<Scalars['String']>;
+};
+
+export type SeoSocialYoutube = {
+  __typename?: 'SEOSocialYoutube';
+  url?: Maybe<Scalars['String']>;
+};
+
+/** The Schema types for Taxonomy */
+export type SeoTaxonomySchema = {
+  __typename?: 'SEOTaxonomySchema';
+  raw?: Maybe<Scalars['String']>;
+};
+
+export type SeoUser = {
+  __typename?: 'SEOUser';
+  breadcrumbTitle?: Maybe<Scalars['String']>;
+  canonical?: Maybe<Scalars['String']>;
+  fullHead?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+  metaDesc?: Maybe<Scalars['String']>;
+  metaRobotsNofollow?: Maybe<Scalars['String']>;
+  metaRobotsNoindex?: Maybe<Scalars['String']>;
+  opengraphDescription?: Maybe<Scalars['String']>;
+  opengraphImage?: Maybe<MediaItem>;
+  opengraphTitle?: Maybe<Scalars['String']>;
+  region?: Maybe<Scalars['String']>;
+  schema?: Maybe<SeoUserSchema>;
+  social?: Maybe<SeoUserSocial>;
+  title?: Maybe<Scalars['String']>;
+  twitterDescription?: Maybe<Scalars['String']>;
+  twitterImage?: Maybe<MediaItem>;
+  twitterTitle?: Maybe<Scalars['String']>;
+};
+
+/** The Schema types for User */
+export type SeoUserSchema = {
+  __typename?: 'SEOUserSchema';
+  articleType?: Maybe<Array<Maybe<Scalars['String']>>>;
+  pageType?: Maybe<Array<Maybe<Scalars['String']>>>;
+  raw?: Maybe<Scalars['String']>;
+};
+
+export type SeoUserSocial = {
+  __typename?: 'SEOUserSocial';
+  facebook?: Maybe<Scalars['String']>;
+  instagram?: Maybe<Scalars['String']>;
+  linkedIn?: Maybe<Scalars['String']>;
+  mySpace?: Maybe<Scalars['String']>;
+  pinterest?: Maybe<Scalars['String']>;
+  soundCloud?: Maybe<Scalars['String']>;
+  twitter?: Maybe<Scalars['String']>;
+  wikipedia?: Maybe<Scalars['String']>;
+  youTube?: Maybe<Scalars['String']>;
+};
+
+/** The Yoast SEO  webmaster fields */
+export type SeoWebmaster = {
+  __typename?: 'SEOWebmaster';
+  baiduVerify?: Maybe<Scalars['String']>;
+  googleVerify?: Maybe<Scalars['String']>;
+  msVerify?: Maybe<Scalars['String']>;
+  yandexVerify?: Maybe<Scalars['String']>;
+};
+
 /** Input for the sendPasswordResetEmail mutation. */
 export type SendPasswordResetEmailInput = {
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
@@ -6827,6 +7165,8 @@ export type Tag = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & Unif
   name?: Maybe<Scalars['String']>;
   /** Connection between the Tag type and the post type */
   posts?: Maybe<TagToPostConnection>;
+  /** The Yoast SEO data of the Tags taxonomy. */
+  seo?: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug?: Maybe<Scalars['String']>;
   /**
@@ -7156,6 +7496,34 @@ export enum TaxonomyIdTypeEnum {
   /** The name of the taxonomy */
   Name = 'NAME'
 }
+
+export type TaxonomySeo = {
+  __typename?: 'TaxonomySEO';
+  breadcrumbs?: Maybe<Array<Maybe<SeoPostTypeBreadcrumbs>>>;
+  canonical?: Maybe<Scalars['String']>;
+  cornerstone?: Maybe<Scalars['Boolean']>;
+  focuskw?: Maybe<Scalars['String']>;
+  fullHead?: Maybe<Scalars['String']>;
+  metaDesc?: Maybe<Scalars['String']>;
+  metaKeywords?: Maybe<Scalars['String']>;
+  metaRobotsNofollow?: Maybe<Scalars['String']>;
+  metaRobotsNoindex?: Maybe<Scalars['String']>;
+  opengraphAuthor?: Maybe<Scalars['String']>;
+  opengraphDescription?: Maybe<Scalars['String']>;
+  opengraphImage?: Maybe<MediaItem>;
+  opengraphModifiedTime?: Maybe<Scalars['String']>;
+  opengraphPublishedTime?: Maybe<Scalars['String']>;
+  opengraphPublisher?: Maybe<Scalars['String']>;
+  opengraphSiteName?: Maybe<Scalars['String']>;
+  opengraphTitle?: Maybe<Scalars['String']>;
+  opengraphType?: Maybe<Scalars['String']>;
+  opengraphUrl?: Maybe<Scalars['String']>;
+  schema?: Maybe<SeoTaxonomySchema>;
+  title?: Maybe<Scalars['String']>;
+  twitterDescription?: Maybe<Scalars['String']>;
+  twitterImage?: Maybe<MediaItem>;
+  twitterTitle?: Maybe<Scalars['String']>;
+};
 
 /** Connection between the Taxonomy type and the ContentType type */
 export type TaxonomyToContentTypeConnection = Connection & ContentTypeConnection & {
@@ -7819,6 +8187,8 @@ export type User = Commenter & DatabaseIdentifier & Node & UniformResourceIdenti
   revisions?: Maybe<UserToRevisionsConnection>;
   /** Connection between the User type and the UserRole type */
   roles?: Maybe<UserToUserRoleConnection>;
+  /** The Yoast SEO data of a user */
+  seo?: Maybe<SeoUser>;
   /** The slug for the user. This field is equivalent to WP_User-&gt;user_nicename */
   slug?: Maybe<Scalars['String']>;
   /** The unique resource identifier path */
@@ -7992,6 +8362,10 @@ export enum UserRoleEnum {
   Customer = 'CUSTOMER',
   /** User role with specific capabilities */
   Editor = 'EDITOR',
+  /** User role with specific capabilities */
+  SeoEditor = 'SEO_EDITOR',
+  /** User role with specific capabilities */
+  SeoManager = 'SEO_MANAGER',
   /** User role with specific capabilities */
   ShopManager = 'SHOP_MANAGER',
   /** User role with specific capabilities */
@@ -8469,6 +8843,8 @@ export type WpPageInfo = {
   hasNextPage: Scalars['Boolean'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
   startCursor?: Maybe<Scalars['String']>;
 };
@@ -8538,9 +8914,14 @@ export type WritingSettings = {
   useSmilies?: Maybe<Scalars['Boolean']>;
 };
 
-export type UserInfoFragment = (
+export type MenuItemFragmentFragment = (
+  { __typename?: 'MenuItem' }
+  & Pick<MenuItem, 'id' | 'label' | 'url' | 'path'>
+);
+
+export type UserInfoFragmentFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'email'>
+  & Pick<User, 'id' | 'username' | 'name' | 'email' | 'firstName' | 'lastName'>
   & { avatar?: Maybe<(
     { __typename?: 'Avatar' }
     & Pick<Avatar, 'url'>
@@ -8559,14 +8940,54 @@ export type LoginMutation = (
     & Pick<LoginPayload, 'authToken' | 'refreshToken'>
     & { user?: Maybe<(
       { __typename?: 'User' }
-      & UserInfoFragment
+      & UserInfoFragmentFragment
     )> }
   )> }
 );
 
-export const UserInfoFragmentDoc = gql`
-    fragment userInfo on User {
+export type MenuItemsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MenuItemsQuery = (
+  { __typename?: 'RootQuery' }
+  & { menuItems?: Maybe<(
+    { __typename?: 'RootQueryToMenuItemConnection' }
+    & { edges: Array<(
+      { __typename?: 'RootQueryToMenuItemConnectionEdge' }
+      & { node: (
+        { __typename?: 'MenuItem' }
+        & { childItems?: Maybe<(
+          { __typename?: 'MenuItemToMenuItemConnection' }
+          & { edges: Array<(
+            { __typename?: 'MenuItemToMenuItemConnectionEdge' }
+            & { node: (
+              { __typename?: 'MenuItem' }
+              & MenuItemFragmentFragment
+            ) }
+          )> }
+        )> }
+        & MenuItemFragmentFragment
+      ) }
+    )> }
+  )> }
+);
+
+export const MenuItemFragmentFragmentDoc = gql`
+    fragment menuItemFragment on MenuItem {
+  id
+  label
+  url
+  path
+}
+    `;
+export const UserInfoFragmentFragmentDoc = gql`
+    fragment userInfoFragment on User {
+  id
+  username
+  name
   email
+  firstName
+  lastName
   avatar {
     url
   }
@@ -8578,11 +8999,11 @@ export const LoginDocument = gql`
     authToken
     refreshToken
     user {
-      ...userInfo
+      ...userInfoFragment
     }
   }
 }
-    ${UserInfoFragmentDoc}`;
+    ${UserInfoFragmentFragmentDoc}`;
 export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
 
 /**
@@ -8609,3 +9030,48 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const MenuItemsDocument = gql`
+    query MenuItems {
+  menuItems(where: {location: HCMS_MENU_HEADER, parentId: "0"}) {
+    edges {
+      node {
+        ...menuItemFragment
+        childItems {
+          edges {
+            node {
+              ...menuItemFragment
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    ${MenuItemFragmentFragmentDoc}`;
+
+/**
+ * __useMenuItemsQuery__
+ *
+ * To run a query within a React component, call `useMenuItemsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMenuItemsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMenuItemsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMenuItemsQuery(baseOptions?: Apollo.QueryHookOptions<MenuItemsQuery, MenuItemsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MenuItemsQuery, MenuItemsQueryVariables>(MenuItemsDocument, options);
+      }
+export function useMenuItemsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MenuItemsQuery, MenuItemsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MenuItemsQuery, MenuItemsQueryVariables>(MenuItemsDocument, options);
+        }
+export type MenuItemsQueryHookResult = ReturnType<typeof useMenuItemsQuery>;
+export type MenuItemsLazyQueryHookResult = ReturnType<typeof useMenuItemsLazyQuery>;
+export type MenuItemsQueryResult = Apollo.QueryResult<MenuItemsQuery, MenuItemsQueryVariables>;
