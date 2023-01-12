@@ -1,7 +1,6 @@
 var cookie = require('cookie');
 
 export function parseCookies( req: any ) {
-	console.log(req.headers.cookie)
 	return cookie.parse( req.headers.cookie ? req.headers.cookie : '' );
 }
 

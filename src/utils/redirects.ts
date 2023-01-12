@@ -20,7 +20,7 @@ export const getPreviewRedirectUrl = (
 
 export const getLoginPreviewRedirectUrl = (
   postType = '',
-  previewPostId = '',
+  previewPostId:any = '',
 ) => {
   return `/login/?postType=${postType || ''}&previewPostId=${
     previewPostId || ''

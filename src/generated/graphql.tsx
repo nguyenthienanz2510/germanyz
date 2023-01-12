@@ -8945,6 +8945,19 @@ export type LoginMutation = (
   )> }
 );
 
+export type GetPostByIdQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetPostByIdQuery = (
+  { __typename?: 'RootQuery' }
+  & { post?: Maybe<(
+    { __typename?: 'Post' }
+    & Pick<Post, 'id' | 'title' | 'content' | 'slug' | 'uri' | 'status'>
+  )> }
+);
+
 export type MenuItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -9030,6 +9043,46 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const GetPostByIdDocument = gql`
+    query GetPostById($id: ID!) {
+  post(idType: DATABASE_ID, id: $id) {
+    id
+    title
+    content
+    slug
+    uri
+    status
+  }
+}
+    `;
+
+/**
+ * __useGetPostByIdQuery__
+ *
+ * To run a query within a React component, call `useGetPostByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetPostByIdQuery(baseOptions: Apollo.QueryHookOptions<GetPostByIdQuery, GetPostByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostByIdQuery, GetPostByIdQueryVariables>(GetPostByIdDocument, options);
+      }
+export function useGetPostByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostByIdQuery, GetPostByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostByIdQuery, GetPostByIdQueryVariables>(GetPostByIdDocument, options);
+        }
+export type GetPostByIdQueryHookResult = ReturnType<typeof useGetPostByIdQuery>;
+export type GetPostByIdLazyQueryHookResult = ReturnType<typeof useGetPostByIdLazyQuery>;
+export type GetPostByIdQueryResult = Apollo.QueryResult<GetPostByIdQuery, GetPostByIdQueryVariables>;
 export const MenuItemsDocument = gql`
     query MenuItems {
   menuItems(where: {location: HCMS_MENU_HEADER, parentId: "0"}) {

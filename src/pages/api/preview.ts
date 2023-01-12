@@ -11,8 +11,6 @@ import { getPreviewRedirectUrl } from '../../utils/redirects';
 export default async function preview( req: any, res:any ) {
 	const {postType, postId} = req.query;
 
-	console.log('review')
-
 	const authToken = getAuthToken( req );
 
 	if ( isEmpty( authToken ) ) {

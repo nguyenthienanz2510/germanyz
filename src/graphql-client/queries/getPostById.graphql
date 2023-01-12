@@ -1,0 +1,10 @@
+query GetPostById($id: ID!) {
+  post(idType: DATABASE_ID, id: $id) {
+    id
+    title
+    content
+    slug
+    uri
+    status
+  }
+}
