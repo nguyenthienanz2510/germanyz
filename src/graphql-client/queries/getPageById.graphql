@@ -1,0 +1,10 @@
+query getPageById($id: ID!) {
+  page(idType: DATABASE_ID, id: $id) {
+    id
+    title
+    content
+    slug
+    uri
+    status
+  }
+}

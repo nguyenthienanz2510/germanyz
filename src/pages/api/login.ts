@@ -30,7 +30,8 @@ export default async function login(req: any, res: any) {
         httpOnly: true,
         secure: 'development' !== process.env.NODE_ENV,
         path: '/',
-        maxAge: 60 * 60 * 24 * 7, // 1 week
+        // maxAge: 60 * 60 * 24 * 7, // 1 week
+        maxAge: 60 * 5,
       }),
     )
     // Only sending a message that successful, because we dont want to send JWT to client.

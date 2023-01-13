@@ -8945,6 +8945,19 @@ export type LoginMutation = (
   )> }
 );
 
+export type GetPageByIdQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetPageByIdQuery = (
+  { __typename?: 'RootQuery' }
+  & { page?: Maybe<(
+    { __typename?: 'Page' }
+    & Pick<Page, 'id' | 'title' | 'content' | 'slug' | 'uri' | 'status'>
+  )> }
+);
+
 export type GetPostByIdQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -9043,6 +9056,46 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const GetPageByIdDocument = gql`
+    query getPageById($id: ID!) {
+  page(idType: DATABASE_ID, id: $id) {
+    id
+    title
+    content
+    slug
+    uri
+    status
+  }
+}
+    `;
+
+/**
+ * __useGetPageByIdQuery__
+ *
+ * To run a query within a React component, call `useGetPageByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPageByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPageByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetPageByIdQuery(baseOptions: Apollo.QueryHookOptions<GetPageByIdQuery, GetPageByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPageByIdQuery, GetPageByIdQueryVariables>(GetPageByIdDocument, options);
+      }
+export function useGetPageByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPageByIdQuery, GetPageByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPageByIdQuery, GetPageByIdQueryVariables>(GetPageByIdDocument, options);
+        }
+export type GetPageByIdQueryHookResult = ReturnType<typeof useGetPageByIdQuery>;
+export type GetPageByIdLazyQueryHookResult = ReturnType<typeof useGetPageByIdLazyQuery>;
+export type GetPageByIdQueryResult = Apollo.QueryResult<GetPageByIdQuery, GetPageByIdQueryVariables>;
 export const GetPostByIdDocument = gql`
     query GetPostById($id: ID!) {
   post(idType: DATABASE_ID, id: $id) {
