@@ -8,7 +8,6 @@ import { getLoginPreviewRedirectUrl } from '../../../utils/redirects'
 import { handleRedirectsAndReturnData } from '../../../utils/slug'
 
 const PagePreview = ({ data }: any) => {
-  console.log(data)
   return (
     <MainLayout title="Post preview">
       <div
