@@ -99,7 +99,7 @@ const Login = () => {
                           label="Password"
                           type="password"
                         />
-                        <ButtonPrimary type="submit" className="mt-5">
+                        <ButtonPrimary type="submit" className="button__linear-gradient--primary mt-5">
                           Login
                         </ButtonPrimary>
                       </Form>
