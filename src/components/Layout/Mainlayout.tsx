@@ -27,7 +27,7 @@ export default function MainLayout({title, children}: MainLayoutProps) {
 }
 
 const MainLayoutContainerStyle = tw.div`
-  flex min-h-screen flex-col justify-between
+  flex min-h-[1000px] flex-col justify-between
 `
 const MainContainerStyle = tw.div`
   flex-1 container mx-auto my-12

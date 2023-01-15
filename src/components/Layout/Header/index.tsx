@@ -5,14 +5,18 @@ import UserInfo from './UserInfo'
 
 const Header = () => {
   return (
-    <HeaderContainer>
-      <div className="container mx-auto flex justify-between items-center">
-        <PageTitle>
-          <PageName>Germanyz</PageName>
-        </PageTitle>
-        <HeaderNav/>
-        <ButtonChangeTheme />
-        <UserInfo />
+    <HeaderContainer className='bg-[rgba(0,11,39,0.8)] backdrop-blur-md'>
+      <div className="container mx-auto flex items-center justify-between h-20">
+        <div className="header__left">
+          <PageTitle>
+            <PageName>Germanyz</PageName>
+          </PageTitle>
+        </div>
+        <div className="header__right flex justify-end items-center">
+          <HeaderNav />
+          <ButtonChangeTheme />
+          <UserInfo />
+        </div>
       </div>
     </HeaderContainer>
   )
@@ -21,8 +25,7 @@ const Header = () => {
 export default Header
 
 const HeaderContainer = tw.div`
-    h-16 bg-white flex items-center shadow-inner border-b 
-    dark:border-0 dark:bg-color-bg-dark-primary
+  sticky z-[1000] top-0 left-0 right-0 flex items-center border-b border-color-bg-dark-secondary
 `
 
 const PageTitle = tw.div`
@@ -30,5 +33,5 @@ const PageTitle = tw.div`
 `
 
 const PageName = tw.span`
-  text-2xl text-color-text-primary 
+  text-2xl text-color-primary
 `
