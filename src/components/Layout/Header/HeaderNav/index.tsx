@@ -26,12 +26,12 @@ const HeaderNav = () => {
       <HeaderNavList>
         {menu.map((item, index) => {
           return (
-            <li>
-              <NavLink className='hover:bg-[linear-gradient(180deg,#001f5c,#000b27)]' key={index} href={item.path}>
+            <li key={index}>
+              <NavLink className='hover:bg-[linear-gradient(180deg,#0DABFF,#ffffff)] dark:hover:bg-[linear-gradient(180deg,#001f5c,#000b27)]' key={index} href={item.path}>
                 <div className="flex flex-col items-center">
                   <img
                     src="https://img.fabet.cc/static/assets/images/components/header/sport.svg"
-                    alt="{item.name}"
+                    alt={item.name}
                   />
                   <span>{item.name}</span>
                 </div>
@@ -55,5 +55,5 @@ const HeaderNavList = tw.ul`
 `
 
 const NavLink = tw(Link)`
-  block h-20 px-2 py-4 min-w-[60px]
+  block h-20 px-2 py-4 min-w-[64px] text-center
 `

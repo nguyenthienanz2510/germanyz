@@ -26,25 +26,3 @@ html.dark {
   color: $color-text-light;
   background-color: $color-bg-dark-primary;
 }
-
-.popup-button {
-  display: block;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 60px;
-  padding: 8px 24px;
-  background-size: 200% auto;
-  color: black;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-  background-image: linear-gradient(
-    to right,
-    #fcd535 0%,
-    $color-primary 50%,
-    #fcd535 100%
-  );
-  transition: 0.5s;
-  &:hover {
-    background-position: right center;
-    scale: 1.14;
-  }
-}

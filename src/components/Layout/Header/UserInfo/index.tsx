@@ -31,10 +31,10 @@ const UserInfo = () => {
       ) : (
         <FlexWrapper>
           <Link href="/register">
-            <ButtonSecondary className="mx-2">Register</ButtonSecondary>
+            <ButtonSecondary className="button__linear-gradient--secondary mx-2">Register</ButtonSecondary>
           </Link>
           <Link href="/login">
-            <ButtonPrimary>Login</ButtonPrimary>
+            <ButtonPrimary className='button__linear-gradient--primary'>Login</ButtonPrimary>
           </Link>
         </FlexWrapper>
       )}
