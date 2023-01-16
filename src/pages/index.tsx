@@ -3,12 +3,18 @@ import { GetStaticProps, NextPage } from 'next'
 import { useState } from 'react'
 import MainLayout from '../components/Layout/Mainlayout'
 import { useAppContext } from '../context/appContext'
-import { MenuItemsDocument } from '../generated/graphql'
+import { useLoadingContext } from '../context/loading'
+import { MenuItemsDocument, useGetAllPostsQuery } from '../generated/graphql'
 import client from '../lib/apolloClient'
 
 const IndexPage: NextPage = () => {
   const [openSnackbar, setOpenSnackbar] = useState(true)
   const { state } = useAppContext()
+  const { setLoading } = useLoadingContext()
+
+  const {data, loading } = useGetAllPostsQuery()
+  setLoading(loading)
+  console.log(data)
 
   return (
     <MainLayout title="Homepage">
