@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { Form, Formik, FormikHelpers } from 'formik'
 import Lottie from 'lottie-react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import tw from 'twin.macro'
 import * as Yup from 'yup'
@@ -10,7 +11,7 @@ import { Container } from '../components/Common/Container'
 import { Heading1 } from '../components/Common/Text/Heading'
 import InputField from '../components/Form/InputField'
 import { useLoadingContext } from '../context/loading'
-import { LoginInput, useLoginMutation } from '../generated/graphql'
+import { LoginInput } from '../generated/graphql'
 import { getPreviewRedirectUrl } from '../utils/redirects'
 
 const Login = () => {
@@ -26,15 +27,15 @@ const Login = () => {
     password: Yup.string().required('Required'),
   })
 
-  const [loginUser, { loading, data, error }] = useLoginMutation()
-  setLoading(loading)
+  // const [loginUser, { loading, data, error }] = useLoginMutation()
+  // setLoading(loading)
 
   const loginHandler = async (
     dataLogin: LoginInput,
     { setErrors }: FormikHelpers<LoginInput>,
   ) => {
     const { postType, previewPostId } = router?.query ?? {}
-
+    setLoading(true)
     try {
       const response = await axios({
         data: dataLogin,
@@ -59,9 +60,12 @@ const Login = () => {
         const previewUrl = getPreviewRedirectUrl(postType, previewPostId)
         router.push(previewUrl)
       }
-      
+
+      success && router.push('/')
+      setLoading(false)
     } catch (err) {
       console.log(err)
+      setLoading(false)
     }
   }
 
@@ -74,7 +78,7 @@ const Login = () => {
           </div>
           <div className="md:w-1/2 px-5 mt-28 md:mt-0 md:px-0 md:items-center">
             <FormWrapper>
-              <Heading1 className="m-0 text-color-text-primary">Login</Heading1>
+              <Heading1 className="m-0 text-color-primary">Login</Heading1>
               <Formik
                 initialValues={initialValues}
                 validationSchema={DisplayingErrorMessagesSchema}
@@ -99,7 +103,11 @@ const Login = () => {
                           label="Password"
                           type="password"
                         />
-                        <ButtonPrimary type="submit" className="button__linear-gradient--primary mt-5">
+                        <Link href="/register" className='text-color-primary underline mr-4'>Register</Link>
+                        <ButtonPrimary
+                          type="submit"
+                          className="button__linear-gradient--primary mt-5"
+                        >
                           Login
                         </ButtonPrimary>
                       </Form>
