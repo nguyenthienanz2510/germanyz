@@ -8945,6 +8945,40 @@ export type LoginMutation = (
   )> }
 );
 
+export type GetAllPostsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllPostsQuery = (
+  { __typename?: 'RootQuery' }
+  & { posts?: Maybe<(
+    { __typename?: 'RootQueryToPostConnection' }
+    & { edges: Array<(
+      { __typename?: 'RootQueryToPostConnectionEdge' }
+      & { node: (
+        { __typename?: 'Post' }
+        & Pick<Post, 'postId' | 'title' | 'slug' | 'status' | 'dateGmt' | 'content'>
+        & { author?: Maybe<(
+          { __typename?: 'NodeWithAuthorToUserConnectionEdge' }
+          & { node: (
+            { __typename?: 'User' }
+            & Pick<User, 'userId' | 'name' | 'slug' | 'uri' | 'username'>
+            & { avatar?: Maybe<(
+              { __typename?: 'Avatar' }
+              & Pick<Avatar, 'url'>
+            )> }
+          ) }
+        )>, categories?: Maybe<(
+          { __typename?: 'PostToCategoryConnection' }
+          & { nodes: Array<(
+            { __typename?: 'Category' }
+            & Pick<Category, 'categoryId' | 'slug' | 'name' | 'uri'>
+          )> }
+        )> }
+      ) }
+    )> }
+  )> }
+);
+
 export type GetPageByIdQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -8968,6 +9002,23 @@ export type GetPostByIdQuery = (
   & { post?: Maybe<(
     { __typename?: 'Post' }
     & Pick<Post, 'id' | 'title' | 'content' | 'slug' | 'uri' | 'status'>
+  )> }
+);
+
+export type GetPostTagsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPostTagsQuery = (
+  { __typename?: 'RootQuery' }
+  & { tags?: Maybe<(
+    { __typename?: 'RootQueryToTagConnection' }
+    & { edges: Array<(
+      { __typename?: 'RootQueryToTagConnectionEdge' }
+      & { node: (
+        { __typename?: 'Tag' }
+        & Pick<Tag, 'tagId' | 'name' | 'slug' | 'uri'>
+      ) }
+    )> }
   )> }
 );
 
@@ -9056,6 +9107,69 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const GetAllPostsDocument = gql`
+    query getAllPosts {
+  posts {
+    edges {
+      node {
+        postId
+        title
+        slug
+        status
+        dateGmt
+        content
+        author {
+          node {
+            userId
+            avatar {
+              url
+            }
+            name
+            slug
+            uri
+            username
+          }
+        }
+        categories {
+          nodes {
+            categoryId
+            slug
+            name
+            uri
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllPostsQuery__
+ *
+ * To run a query within a React component, call `useGetAllPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllPostsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllPostsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
+      }
+export function useGetAllPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
+        }
+export type GetAllPostsQueryHookResult = ReturnType<typeof useGetAllPostsQuery>;
+export type GetAllPostsLazyQueryHookResult = ReturnType<typeof useGetAllPostsLazyQuery>;
+export type GetAllPostsQueryResult = Apollo.QueryResult<GetAllPostsQuery, GetAllPostsQueryVariables>;
 export const GetPageByIdDocument = gql`
     query getPageById($id: ID!) {
   page(idType: DATABASE_ID, id: $id) {
@@ -9136,6 +9250,47 @@ export function useGetPostByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetPostByIdQueryHookResult = ReturnType<typeof useGetPostByIdQuery>;
 export type GetPostByIdLazyQueryHookResult = ReturnType<typeof useGetPostByIdLazyQuery>;
 export type GetPostByIdQueryResult = Apollo.QueryResult<GetPostByIdQuery, GetPostByIdQueryVariables>;
+export const GetPostTagsDocument = gql`
+    query getPostTags {
+  tags {
+    edges {
+      node {
+        tagId
+        name
+        slug
+        uri
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostTagsQuery__
+ *
+ * To run a query within a React component, call `useGetPostTagsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostTagsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostTagsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetPostTagsQuery(baseOptions?: Apollo.QueryHookOptions<GetPostTagsQuery, GetPostTagsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostTagsQuery, GetPostTagsQueryVariables>(GetPostTagsDocument, options);
+      }
+export function useGetPostTagsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostTagsQuery, GetPostTagsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostTagsQuery, GetPostTagsQueryVariables>(GetPostTagsDocument, options);
+        }
+export type GetPostTagsQueryHookResult = ReturnType<typeof useGetPostTagsQuery>;
+export type GetPostTagsLazyQueryHookResult = ReturnType<typeof useGetPostTagsLazyQuery>;
+export type GetPostTagsQueryResult = Apollo.QueryResult<GetPostTagsQuery, GetPostTagsQueryVariables>;
 export const MenuItemsDocument = gql`
     query MenuItems {
   menuItems(where: {location: HCMS_MENU_HEADER, parentId: "0"}) {

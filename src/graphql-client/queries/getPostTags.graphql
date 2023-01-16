@@ -1,0 +1,12 @@
+query getPostTags {
+  tags {
+    edges {
+      node {
+        tagId
+        name
+        slug
+        uri
+      }
+    }
+  }
+}

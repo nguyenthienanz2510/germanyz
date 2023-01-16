@@ -1,0 +1,34 @@
+query getAllPosts {
+  posts {
+    edges {
+      node {
+        postId
+        title
+        slug
+        status
+        dateGmt
+        content
+        author {
+          node {
+            userId
+            avatar {
+              url
+            }
+            name
+            slug
+            uri
+            username
+          }
+        }
+        categories {
+          nodes {
+            categoryId
+            slug
+            name
+            uri
+          }
+        }
+      }
+    }
+  }
+}
