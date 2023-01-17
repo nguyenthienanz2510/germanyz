@@ -32,7 +32,7 @@ export async function loginUser({ username, password }: any) {
     })
     return data || {}
   } catch (err) {
-    console.log(err)
+    // console.log(err)
     return(err)
   }
 }

@@ -4,16 +4,21 @@ import { useState } from 'react'
 import MainLayout from '../components/Layout/Mainlayout'
 import { useAppContext } from '../context/appContext'
 import { useLoadingContext } from '../context/loading'
-import { MenuItemsDocument, useGetAllPostsQuery } from '../generated/graphql'
+import {
+  GetPostsDocument,
+  MenuItemsDocument,
+  useGetPostsQuery
+} from '../generated/graphql'
 import client from '../lib/apolloClient'
 
-const IndexPage: NextPage = () => {
+const IndexPage: NextPage = ({ data }: any) => {
   const [openSnackbar, setOpenSnackbar] = useState(true)
   const { state } = useAppContext()
   const { setLoading } = useLoadingContext()
 
-  const {data, loading } = useGetAllPostsQuery()
+  const { loading } = useGetPostsQuery()
   setLoading(loading)
+
   console.log(data)
 
   return (
@@ -58,17 +63,25 @@ const IndexPage: NextPage = () => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  // const { data, error } = await useMenuItemsQuery()
-  const { data } = await client.query({
-    query: MenuItemsDocument
+  const { data: menu } = await client.query({
+    query: MenuItemsDocument,
   })
-  const menuItems = data
+
+  const { data: newPosts } = await client.query({
+    query: GetPostsDocument,
+    variables: {
+      quantity: 3
+    }
+  })
+
   return {
     props: {
       data: {
-        menu: menuItems,
-      }
+        menu,
+        newPosts,
+      },
     },
+    revalidate: 1
   }
 }
 

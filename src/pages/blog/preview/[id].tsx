@@ -25,7 +25,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const authToken = getAuthToken(context.req)
   
   const { params } = context || {}
-  console.log(params)
   const { data, errors } = await client.query({
     query: GetPostByIdDocument,
     variables: {
