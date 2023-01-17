@@ -15,6 +15,15 @@ html.dark {
   background-color: $color-bg-dark-primary;
 }
 
+::selection {
+  background: $color-secondary;
+}
+
+::-moz-selection {
+  /* Code for Firefox */
+  background: $color-secondary;
+}
+
 h1,
 h2,
 h3,

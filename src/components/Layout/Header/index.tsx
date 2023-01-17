@@ -11,7 +11,7 @@ const Header = () => {
         <div className="header__left">
           <Link href="/">
             <div className="flex items-center h-[40px] w-[200px] mr-2 relative">
-              <Image src="/logo.svg" alt="logo" fill />
+              <Image src="/logo.svg" alt="logo" fill sizes='200px' priority/>
             </div>
           </Link>
         </div>

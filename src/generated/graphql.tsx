@@ -9002,7 +9002,13 @@ export type GetPostsQuery = (
       & { node: (
         { __typename?: 'Post' }
         & Pick<Post, 'postId' | 'title' | 'slug' | 'status' | 'dateGmt' | 'content'>
-        & { author?: Maybe<(
+        & { featuredImage?: Maybe<(
+          { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge' }
+          & { node: (
+            { __typename?: 'MediaItem' }
+            & Pick<MediaItem, 'mediaItemUrl'>
+          ) }
+        )>, author?: Maybe<(
           { __typename?: 'NodeWithAuthorToUserConnectionEdge' }
           & { node: (
             { __typename?: 'User' }
@@ -9241,6 +9247,11 @@ export const GetPostsDocument = gql`
         status
         dateGmt
         content
+        featuredImage {
+          node {
+            mediaItemUrl
+          }
+        }
         author {
           node {
             userId

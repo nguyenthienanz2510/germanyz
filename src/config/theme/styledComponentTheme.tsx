@@ -16,5 +16,6 @@ export const styledComponentTheme = {
     'bg_dark_secondary': '#161b26',
     'bg_dark_secondary_active': '#222733',
     'bg_dark_header': '#000b27',
+    'border_gray': '0 1px 4px 0 rgb(0 0 0 / 15%)'
   },
 }

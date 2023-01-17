@@ -8,6 +8,11 @@ query getPosts($quantity: Int) {
         status
         dateGmt
         content
+        featuredImage {
+          node {
+            mediaItemUrl
+          }
+        }
         author {
           node {
             userId
