@@ -1,5 +1,5 @@
 import { ApolloProvider } from '@apollo/client'
-import { ThemeProvider } from 'next-themes'
+import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import type { AppProps } from 'next/app'
 import SpinnerComponent from '../components/Loading'
 import PageProvider from '../config/theme/PageProvider'
@@ -12,7 +12,7 @@ import '../styles/index.scss'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider attribute="class">
+      <NextThemeProvider attribute="class">
         <PageProvider>
           <AppProvider>
             <LoadingProvider>
@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             </LoadingProvider>
           </AppProvider>
         </PageProvider>
-      </ThemeProvider>
+      </NextThemeProvider>
     </ApolloProvider>
   )
 }

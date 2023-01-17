@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import tw from 'twin.macro'
+import Link from "next/link"
+
 
 const HeaderNav = () => {
   const menu = [
@@ -26,12 +26,12 @@ const HeaderNav = () => {
   ]
 
   return (
-    <HeaderNavContainer>
-      <HeaderNavList>
+    <div>
+      <ul className="mr-6 flex items-center h-20 gap-4">
         {menu.map((item, index) => {
           return (
             <li key={index}>
-              <NavLink className='hover:bg-[linear-gradient(180deg,#0DABFF,#ffffff)] dark:hover:bg-[linear-gradient(180deg,#001f5c,#000b27)]' key={index} href={item.path}>
+              <Link className='block h-20 px-2 py-4 min-w-[64px] text-center hover:bg-[linear-gradient(180deg,#0DABFF,#ffffff)] dark:hover:bg-[linear-gradient(180deg,#001f5c,#000b27)]' key={index} href={item.path}>
                 <div className="flex flex-col items-center">
                   <img
                     src={item.icon}
@@ -39,25 +39,13 @@ const HeaderNav = () => {
                   />
                   <span>{item.name}</span>
                 </div>
-              </NavLink>
+              </Link>
             </li>
           )
         })}
-      </HeaderNavList>
-    </HeaderNavContainer>
+      </ul>
+    </div>
   )
 }
 
 export default HeaderNav
-
-const HeaderNavContainer = tw.div`
-
-`
-
-const HeaderNavList = tw.ul`
-  mr-6 flex items-center h-20 gap-4
-`
-
-const NavLink = tw(Link)`
-  block h-20 px-2 py-4 min-w-[64px] text-center
-`

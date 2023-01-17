@@ -1,7 +1,6 @@
 import { useTheme } from 'next-themes'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
-import tw from 'twin.macro'
 import { IconButton } from '@mui/material'
 
 const ButtonChangeTheme = () => {
@@ -9,38 +8,26 @@ const ButtonChangeTheme = () => {
   return (
     <>
       {theme == 'light' ? (
-        <IconButtonStyle
+        <IconButton
+          className="cursor-pointer"
           onClick={() => {
             setTheme('dark')
-            // window.location.reload()
           }}
         >
-          <DarkModeIconStyle />
-        </IconButtonStyle>
+          <DarkModeIcon className="text-color-text-dark hover:text-color-primary" />
+        </IconButton>
       ) : (
-        <IconButtonStyle
+        <IconButton
+          className="cursor-pointer"
           onClick={() => {
             setTheme('light')
-            // window.location.reload()
           }}
         >
-          <LightModeIconStyle />
-        </IconButtonStyle>
+          <LightModeIcon className="text-color-text-light hover:text-color-primary" />
+        </IconButton>
       )}
     </>
   )
 }
 
 export default ButtonChangeTheme
-
-const IconButtonStyle = tw(IconButton)`
-  cursor-pointer
-`
-
-const LightModeIconStyle = tw(LightModeIcon)`
-  text-color-text-light hover:text-color-primary
-`
-
-const DarkModeIconStyle = tw(DarkModeIcon)`
-  text-color-text-dark hover:text-color-primary
-`

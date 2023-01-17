@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import { ReactNode } from 'react'
-import tw from 'twin.macro'
 import Footer from './Footer'
 import Header from './Header'
 
@@ -17,18 +16,11 @@ export default function MainLayout({title, children}: MainLayoutProps) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content="Germanyz shop" />
       </Head>
-      <MainLayoutContainerStyle>
+      <div className='flex min-h-[1600px] flex-col justify-between'>
         <Header/>
-        <MainContainerStyle>{children}</MainContainerStyle>
+        <div className='flex-1 container my-12'>{children}</div>
         <Footer />
-      </MainLayoutContainerStyle>
+      </div>
     </>
   )
 }
-
-const MainLayoutContainerStyle = tw.div`
-  flex min-h-[1000px] flex-col justify-between
-`
-const MainContainerStyle = tw.div`
-  flex-1 container mx-auto my-12
-`

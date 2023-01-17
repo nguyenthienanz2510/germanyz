@@ -3,12 +3,9 @@ import { Form, Formik, FormikHelpers } from 'formik'
 import Lottie from 'lottie-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import tw from 'twin.macro'
 import * as Yup from 'yup'
 import rocket_json from '../assets/lottie/rocket.json'
 import { ButtonPrimary } from '../components/Buttons'
-import { Container } from '../components/Common/Container'
-import { Heading1 } from '../components/Common/Text/Heading'
 import InputField from '../components/Form/InputField'
 import { useLoadingContext } from '../context/loading'
 import { LoginInput } from '../generated/graphql'
@@ -71,14 +68,14 @@ const Login = () => {
 
   return (
     <>
-      <Container className="md:h-screen flex items-center">
+      <div className="container md:h-screen flex items-center">
         <div className="w-full h-full flex flex-col-reverse md:flex-row justify-center items-center">
           <div className="md:w-1/2">
             <Lottie animationData={rocket_json} loop={true} />
           </div>
           <div className="md:w-1/2 px-5 mt-28 md:mt-0 md:px-0 md:items-center">
-            <FormWrapper>
-              <Heading1 className="m-0 text-color-primary">Login</Heading1>
+            <div className="w-full md:max-w-[360px]">
+              <h1 className="m-0 text-color-primary">Login</h1>
               <Formik
                 initialValues={initialValues}
                 validationSchema={DisplayingErrorMessagesSchema}
@@ -103,10 +100,15 @@ const Login = () => {
                           label="Password"
                           type="password"
                         />
-                        <Link href="/register" className='text-color-primary underline mr-4'>Register</Link>
+                        <Link
+                          href="/register"
+                          className="text-color-primary underline mr-4"
+                        >
+                          Register
+                        </Link>
                         <ButtonPrimary
                           type="submit"
-                          className="button__linear-gradient--primary mt-5"
+                          className="mt-5"
                         >
                           Login
                         </ButtonPrimary>
@@ -115,14 +117,12 @@ const Login = () => {
                   )
                 }}
               </Formik>
-            </FormWrapper>
+            </div>
           </div>
         </div>
-      </Container>
+      </div>
     </>
   )
 }
 
 export default Login
-
-const FormWrapper = tw.div`w-full md:max-w-[360px]`

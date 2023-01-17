@@ -1,8 +1,6 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import tw from 'twin.macro'
 import { ButtonPrimary, ButtonSecondary } from '../../../Buttons'
-import { FlexWrapper } from '../../../Common/Layout'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useRouter } from 'next/router'
 import { IconButton } from '@mui/material'
@@ -16,36 +14,34 @@ const UserInfo = () => {
     setUserDisplayName(state.user?.user_display_name)
   }, [state])
   const logoutHandler = () => {
-    dispatch({type: "REMOVE_USER_INFO"})
+    dispatch({ type: 'REMOVE_USER_INFO' })
     router.push('/login')
   }
   return (
     <>
       {userDisplayName ? (
-        <FlexWrapper>
-          <UserName>{userDisplayName}</UserName>
-          <IconButton onClick={logoutHandler} >
-            <UserLogoutIcon/>
+        <div className="flex justify-center items-center">
+          <span className="capitalize ml-2">{userDisplayName}</span>
+          <IconButton onClick={logoutHandler}>
+            <LogoutIcon className="cursor-pointer dark:text-color-text-light light:text-color-text-dark hover:text-color-primary" />
           </IconButton>
-        </FlexWrapper>
+        </div>
       ) : (
-        <FlexWrapper>
+        <div className="flex justify-center items-center">
           <Link href="/register">
-            <ButtonSecondary className="button__linear-gradient--secondary mx-2">Register</ButtonSecondary>
+            <ButtonSecondary className="mx-2">
+              Register
+            </ButtonSecondary>
           </Link>
           <Link href="/login">
-            <ButtonPrimary className='button__linear-gradient--primary'>Login</ButtonPrimary>
+            <ButtonPrimary>
+              Login
+            </ButtonPrimary>
           </Link>
-        </FlexWrapper>
+        </div>
       )}
     </>
   )
 }
 
 export default UserInfo
-
-const UserName = tw.span`capitalize ml-2`
-
-const UserLogoutIcon = tw(LogoutIcon)`
-    cursor-pointer dark:text-color-text-light light:text-color-text-dark hover:text-color-primary
-`
