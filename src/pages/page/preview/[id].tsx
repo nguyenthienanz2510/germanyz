@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next'
-import MainLayout from '../../../components/Layout/Mainlayout'
+import MainLayout from '../../../components/Layout/MainLayout'
 import { GetPageByIdDocument } from '../../../generated/graphql'
 import client from '../../../lib/apolloClient'
 import { getAuthToken } from '../../../utils/cookies'

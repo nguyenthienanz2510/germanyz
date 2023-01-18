@@ -9,8 +9,7 @@ module.exports = {
         pathname: '/',
       },
     ],
-    domains: ['dev-germanyz.pantheonsite.io'],
-    unoptimized: true,
+    domains: ['dev-germanyz.pantheonsite.io']
   },
   webpack: config => {
     // Unset client-side javascript that only works server-side

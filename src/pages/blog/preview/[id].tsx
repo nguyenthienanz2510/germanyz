@@ -1,4 +1,3 @@
-import MainLayout from '../../../components/Layout/Mainlayout'
 import { GetServerSideProps } from 'next'
 import { getAuthToken } from '../../../utils/cookies'
 import client from '../../../lib/apolloClient'
@@ -6,6 +5,7 @@ import { GetPostByIdDocument } from '../../../generated/graphql'
 import { getLoginPreviewRedirectUrl } from '../../../utils/redirects'
 import { handleRedirectsAndReturnData } from '../../../utils/slug'
 import { sanitize } from '../../../utils/miscellaneous'
+import MainLayout from '../../../components/Layout/Mainlayout'
 
 const PostPreview = ({ data }: any) => {
   return (
