@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from 'next'
 import styled from 'styled-components'
-import { isNull } from 'util'
+import BlogCategories from '../../components/Blog/BlogCategoryBlock'
 import BlogLayout from '../../components/Layout/BlogLayout'
 import NewPostsContainer from '../../components/MainContent/NewPostsContainer'
 import SideBarItem from '../../components/SideBar/SideBarItem'
@@ -22,20 +22,10 @@ const Blog: NextPage = ({ data }: any) => {
       </SideBar>
 
       <MainContent className="border-r-4">
+        
         <NewPostsContainer newPosts={data?.newPosts} />
 
-        <div>
-          {data.blogCategories?.categories.edges.map((category: any) => {
-            if (!Boolean(category.node.parentDatabaseId)) {
-              return (
-                <div key={category.node.categoryId}>
-                  <h3>{category.node.name}</h3>
-                </div>
-              )
-            }
-            return
-          })}
-        </div>
+        <BlogCategories blogCategories={data?.blogCategories}/>
         
       </MainContent>
     </BlogLayout>

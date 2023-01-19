@@ -1,4 +1,4 @@
-import Image from 'next/legacy/image'
+import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
@@ -21,18 +21,18 @@ const NewPostsContainer: React.FC<Props> = props => {
 
   return (
     <div>
-      <h2 className="mb-5">New posts</h2>
+      <h2 className="mb-5">Latest posts</h2>
       <div className="grid grid-cols-12 gap-x-7 gap-y-3">
-        <div className="col-span-7 row-span-2 transition-all duration-500 bg-[#fafcfa] hover:shadow-md cursor-pointer dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active">
+        <div className="col-span-7 row-span-2 transition-all duration-500 bg-[#fafcfa] hover:shadow-md dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active">
           <PostLink
             href={`/blog/${props.newPosts.posts.edges[0].node.slug}?id=${props.newPosts.posts.edges[0].node.postId}`}
           >
             <div>
-              <div>
+              <div className='overflow-hidden'>
                 <Image
                   layout="responsive"
-                  width={1920}
-                  height={1080}
+                  width={574}
+                  height={323}
                   priority
                   src={
                     props.newPosts.posts.edges[0].node.featuredImage.node
@@ -77,11 +77,11 @@ const NewPostsContainer: React.FC<Props> = props => {
             href={`/blog/${props.newPosts.posts.edges[1].node.slug}?id=${props.newPosts.posts.edges[0].node.postId}`}
           >
             <div>
-              <div>
+              <div className='overflow-hidden'>
                 <Image
                   layout="responsive"
-                  width={1920}
-                  height={1080}
+                  width={402}
+                  height={226}
                   priority
                   src={
                     props.newPosts.posts.edges[1].node.featuredImage.node
@@ -103,11 +103,11 @@ const NewPostsContainer: React.FC<Props> = props => {
             href={`/blog/${props.newPosts.posts.edges[2].node.slug}?id=${props.newPosts.posts.edges[0].node.postId}`}
           >
             <div>
-              <div>
+              <div className='overflow-hidden'>
                 <Image
                   layout="responsive"
-                  width={1920}
-                  height={1080}
+                  width={402}
+                  height={226}
                   priority
                   src={
                     props.newPosts.posts.edges[2].node.featuredImage.node
