@@ -5,7 +5,7 @@ import { GetPostByIdDocument } from '../../../generated/graphql'
 import { getLoginPreviewRedirectUrl } from '../../../utils/redirects'
 import { handleRedirectsAndReturnData } from '../../../utils/slug'
 import { sanitize } from '../../../utils/miscellaneous'
-import MainLayout from '../../../components/Layout/Mainlayout'
+import MainLayout from '../../../components/Layout/MainLayout'
 
 const PostPreview = ({ data }: any) => {
   return (

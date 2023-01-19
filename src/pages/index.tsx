@@ -1,7 +1,7 @@
 import { GetStaticProps, NextPage } from 'next'
 import { useEffect } from 'react'
 import styled from 'styled-components'
-import MainLayout from '../components/Layout/Mainlayout'
+import MainLayout from '../components/Layout/MainLayout'
 import NewPostsContainer from '../components/MainContent/NewPostsContainer'
 import WelcomeNotification from '../components/Notification/WelcomeNotification'
 import SideBarItem from '../components/SideBar/SideBarItem'
@@ -33,7 +33,7 @@ const IndexPage: NextPage = ({ data }: any) => {
         </div>
       </SideBar>
 
-      <MainContent>
+      <MainContent className='border-l-4'>
         <NewPostsContainer newPosts={data?.newPosts}/>
       </MainContent>
       <WelcomeNotification />
@@ -74,5 +74,4 @@ const SideBar = styled.nav`
 const MainContent = styled.div`
   margin-left: 320px;
   padding-left: 28px;
-  border-left: 4px;
 `

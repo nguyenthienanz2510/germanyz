@@ -8945,6 +8945,65 @@ export type LoginMutation = (
   )> }
 );
 
+export type GetBlogCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetBlogCategoriesQuery = (
+  { __typename?: 'RootQuery' }
+  & { categories?: Maybe<(
+    { __typename?: 'RootQueryToCategoryConnection' }
+    & { edges: Array<(
+      { __typename?: 'RootQueryToCategoryConnectionEdge' }
+      & { node: (
+        { __typename?: 'Category' }
+        & Pick<Category, 'categoryId' | 'slug' | 'name' | 'parentDatabaseId'>
+        & { children?: Maybe<(
+          { __typename?: 'CategoryToCategoryConnection' }
+          & { edges: Array<(
+            { __typename?: 'CategoryToCategoryConnectionEdge' }
+            & { node: (
+              { __typename?: 'Category' }
+              & Pick<Category, 'slug' | 'uri' | 'categoryId'>
+            ) }
+          )> }
+        )>, posts?: Maybe<(
+          { __typename?: 'CategoryToPostConnection' }
+          & { edges: Array<(
+            { __typename?: 'CategoryToPostConnectionEdge' }
+            & { node: (
+              { __typename?: 'Post' }
+              & Pick<Post, 'postId' | 'title' | 'slug' | 'status' | 'dateGmt' | 'content'>
+              & { featuredImage?: Maybe<(
+                { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge' }
+                & { node: (
+                  { __typename?: 'MediaItem' }
+                  & Pick<MediaItem, 'mediaItemUrl'>
+                ) }
+              )>, author?: Maybe<(
+                { __typename?: 'NodeWithAuthorToUserConnectionEdge' }
+                & { node: (
+                  { __typename?: 'User' }
+                  & Pick<User, 'userId' | 'name' | 'slug' | 'uri' | 'username'>
+                  & { avatar?: Maybe<(
+                    { __typename?: 'Avatar' }
+                    & Pick<Avatar, 'url'>
+                  )> }
+                ) }
+              )>, categories?: Maybe<(
+                { __typename?: 'PostToCategoryConnection' }
+                & { nodes: Array<(
+                  { __typename?: 'Category' }
+                  & Pick<Category, 'categoryId' | 'slug' | 'name' | 'uri'>
+                )> }
+              )> }
+            ) }
+          )> }
+        )> }
+      ) }
+    )> }
+  )> }
+);
+
 export type GetPageByIdQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -9115,6 +9174,93 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const GetBlogCategoriesDocument = gql`
+    query getBlogCategories {
+  categories {
+    edges {
+      node {
+        categoryId
+        slug
+        name
+        parentDatabaseId
+        children {
+          edges {
+            node {
+              slug
+              uri
+              categoryId
+            }
+          }
+        }
+        posts {
+          edges {
+            node {
+              postId
+              title
+              slug
+              status
+              dateGmt
+              content
+              featuredImage {
+                node {
+                  mediaItemUrl
+                }
+              }
+              author {
+                node {
+                  userId
+                  avatar {
+                    url
+                  }
+                  name
+                  slug
+                  uri
+                  username
+                }
+              }
+              categories {
+                nodes {
+                  categoryId
+                  slug
+                  name
+                  uri
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetBlogCategoriesQuery__
+ *
+ * To run a query within a React component, call `useGetBlogCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBlogCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBlogCategoriesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetBlogCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<GetBlogCategoriesQuery, GetBlogCategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetBlogCategoriesQuery, GetBlogCategoriesQueryVariables>(GetBlogCategoriesDocument, options);
+      }
+export function useGetBlogCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBlogCategoriesQuery, GetBlogCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetBlogCategoriesQuery, GetBlogCategoriesQueryVariables>(GetBlogCategoriesDocument, options);
+        }
+export type GetBlogCategoriesQueryHookResult = ReturnType<typeof useGetBlogCategoriesQuery>;
+export type GetBlogCategoriesLazyQueryHookResult = ReturnType<typeof useGetBlogCategoriesLazyQuery>;
+export type GetBlogCategoriesQueryResult = Apollo.QueryResult<GetBlogCategoriesQuery, GetBlogCategoriesQueryVariables>;
 export const GetPageByIdDocument = gql`
     query getPageById($id: ID!) {
   page(idType: DATABASE_ID, id: $id) {

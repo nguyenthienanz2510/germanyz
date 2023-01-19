@@ -1,14 +1,14 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'dev-germanyz.pantheonsite.io',
-        port: '',
-        pathname: '/',
-      },
-    ],
+    // remotePatterns: [
+    //   {
+    //     protocol: 'https',
+    //     hostname: 'dev-germanyz.pantheonsite.io',
+    //     port: '',
+    //     pathname: '/',
+    //   },
+    // ],
     domains: ['dev-germanyz.pantheonsite.io']
   },
   webpack: config => {
