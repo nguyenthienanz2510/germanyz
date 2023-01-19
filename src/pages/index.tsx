@@ -1,6 +1,5 @@
 import { GetStaticProps, NextPage } from 'next'
 import { useEffect } from 'react'
-import styled from 'styled-components'
 import MainLayout from '../components/Layout/MainLayout'
 import NewPostsContainer from '../components/MainContent/NewPostsContainer'
 import WelcomeNotification from '../components/Notification/WelcomeNotification'
@@ -9,7 +8,7 @@ import { useLoadingContext } from '../context/loading'
 import {
   GetPostsDocument,
   MenuItemsDocument,
-  useGetPostsQuery,
+  useGetPostsQuery
 } from '../generated/graphql'
 import client from '../lib/apolloClient'
 
@@ -24,18 +23,18 @@ const IndexPage: NextPage = ({ data }: any) => {
 
   return (
     <MainLayout title="Homepage">
-      <SideBar>
+      <div className='w-[320px] float-left'>
         <div className="pr-6">
           <SideBarItem />
           <SideBarItem />
           <SideBarItem />
           <SideBarItem />
         </div>
-      </SideBar>
+      </div>
 
-      <MainContent className='border-l-4'>
+      <div className='border-l-4 ml-[320px] pl-7'>
         <NewPostsContainer newPosts={data?.newPosts}/>
-      </MainContent>
+      </div>
       <WelcomeNotification />
     </MainLayout>
   )
@@ -65,13 +64,3 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 export default IndexPage
-
-const SideBar = styled.nav`
-  width: 320px;
-  float: left;
-`
-
-const MainContent = styled.div`
-  margin-left: 320px;
-  padding-left: 28px;
-`
