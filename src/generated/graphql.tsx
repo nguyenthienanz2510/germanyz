@@ -9089,6 +9089,52 @@ export type GetPostsQuery = (
   )> }
 );
 
+export type GetPostByCategoryQueryVariables = Exact<{
+  slug: Scalars['ID'];
+}>;
+
+
+export type GetPostByCategoryQuery = (
+  { __typename?: 'RootQuery' }
+  & { category?: Maybe<(
+    { __typename?: 'Category' }
+    & Pick<Category, 'categoryId' | 'count' | 'name' | 'slug'>
+    & { posts?: Maybe<(
+      { __typename?: 'CategoryToPostConnection' }
+      & { edges: Array<(
+        { __typename?: 'CategoryToPostConnectionEdge' }
+        & { node: (
+          { __typename?: 'Post' }
+          & Pick<Post, 'postId' | 'title' | 'slug' | 'status' | 'dateGmt' | 'content'>
+          & { featuredImage?: Maybe<(
+            { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge' }
+            & { node: (
+              { __typename?: 'MediaItem' }
+              & Pick<MediaItem, 'mediaItemUrl'>
+            ) }
+          )>, author?: Maybe<(
+            { __typename?: 'NodeWithAuthorToUserConnectionEdge' }
+            & { node: (
+              { __typename?: 'User' }
+              & Pick<User, 'userId' | 'name' | 'slug' | 'uri' | 'username'>
+              & { avatar?: Maybe<(
+                { __typename?: 'Avatar' }
+                & Pick<Avatar, 'url'>
+              )> }
+            ) }
+          )>, categories?: Maybe<(
+            { __typename?: 'PostToCategoryConnection' }
+            & { nodes: Array<(
+              { __typename?: 'Category' }
+              & Pick<Category, 'categoryId' | 'slug' | 'name' | 'uri'>
+            )> }
+          )> }
+        ) }
+      )> }
+    )> }
+  )> }
+);
+
 export type MenuItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -9451,6 +9497,81 @@ export function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
+export const GetPostByCategoryDocument = gql`
+    query getPostByCategory($slug: ID!) {
+  category(id: $slug, idType: SLUG) {
+    categoryId
+    count
+    name
+    slug
+    posts {
+      edges {
+        node {
+          postId
+          title
+          slug
+          status
+          dateGmt
+          content
+          featuredImage {
+            node {
+              mediaItemUrl
+            }
+          }
+          author {
+            node {
+              userId
+              avatar {
+                url
+              }
+              name
+              slug
+              uri
+              username
+            }
+          }
+          categories {
+            nodes {
+              categoryId
+              slug
+              name
+              uri
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostByCategoryQuery__
+ *
+ * To run a query within a React component, call `useGetPostByCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostByCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostByCategoryQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetPostByCategoryQuery(baseOptions: Apollo.QueryHookOptions<GetPostByCategoryQuery, GetPostByCategoryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostByCategoryQuery, GetPostByCategoryQueryVariables>(GetPostByCategoryDocument, options);
+      }
+export function useGetPostByCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostByCategoryQuery, GetPostByCategoryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostByCategoryQuery, GetPostByCategoryQueryVariables>(GetPostByCategoryDocument, options);
+        }
+export type GetPostByCategoryQueryHookResult = ReturnType<typeof useGetPostByCategoryQuery>;
+export type GetPostByCategoryLazyQueryHookResult = ReturnType<typeof useGetPostByCategoryLazyQuery>;
+export type GetPostByCategoryQueryResult = Apollo.QueryResult<GetPostByCategoryQuery, GetPostByCategoryQueryVariables>;
 export const MenuItemsDocument = gql`
     query MenuItems {
   menuItems(where: {location: HCMS_MENU_HEADER, parentId: "0"}) {

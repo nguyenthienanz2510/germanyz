@@ -16,9 +16,9 @@ export default function BlogLayout({title, children}: BlogLayoutProps) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content="Germanyz shop" />
       </Head>
-      <div className='flex min-h-[1600px] flex-col justify-between'>
+      <div className='flex min-h-screen flex-col justify-between'>
         <Header/>
-        <div className='flex-1 container my-12'>{children}</div>
+        <div className='flex-1 container mt-12 mb-20'>{children}</div>
         <Footer />
       </div>
     </>

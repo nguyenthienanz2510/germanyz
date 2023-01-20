@@ -31,8 +31,8 @@ const NewPostsContainer: React.FC<Props> = props => {
               <div className='overflow-hidden'>
                 <Image
                   layout="responsive"
-                  width={574}
-                  height={323}
+                  width={1920}
+                  height={1080}
                   priority
                   src={
                     props.newPosts.posts.edges[0].node.featuredImage.node
@@ -80,8 +80,8 @@ const NewPostsContainer: React.FC<Props> = props => {
               <div className='overflow-hidden'>
                 <Image
                   layout="responsive"
-                  width={402}
-                  height={226}
+                  width={1920}
+                  height={1080}
                   priority
                   src={
                     props.newPosts.posts.edges[1].node.featuredImage.node
@@ -106,8 +106,8 @@ const NewPostsContainer: React.FC<Props> = props => {
               <div className='overflow-hidden'>
                 <Image
                   layout="responsive"
-                  width={402}
-                  height={226}
+                  width={1920}
+                  height={1080}
                   priority
                   src={
                     props.newPosts.posts.edges[2].node.featuredImage.node

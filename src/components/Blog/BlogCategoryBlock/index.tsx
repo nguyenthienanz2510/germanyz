@@ -14,10 +14,6 @@ interface PostDataProps {
 }
 
 const BlogCategories: React.FC<Props> = props => {
-  const [isMount, setMount] = useState(false)
-  useEffect(() => {
-    setMount(true)
-  }, [])
 
   return (
     <>
@@ -35,7 +31,7 @@ const BlogCategories: React.FC<Props> = props => {
                 <span>
                   <Link
                     className="underline hover:text-color-primary transition-all"
-                    href={'#'}
+                    href={`/blog/category/${category.node.slug}?id=${category.node.categoryId}`}
                   >
                     View more
                   </Link>
@@ -56,8 +52,8 @@ const BlogCategories: React.FC<Props> = props => {
                                 <Image
                                   src={`${post.node.featuredImage?.node.mediaItemUrl}`}
                                   alt={`${post.node.title}`}
-                                  width={245}
-                                  height={138}
+                                  width={1920}
+                                  height={1080}
                                 />
                               </div>
                               <div className='py-2 px-3'>
