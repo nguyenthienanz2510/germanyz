@@ -18,14 +18,11 @@ const Login = () => {
 
   const DisplayingErrorMessagesSchema = Yup.object().shape({
     username: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
+      .required('Required')
+      .min(4, 'Too short')
+      .max(50, 'Too long'),
     password: Yup.string().required('Required'),
   })
-
-  // const [loginUser, { loading, data, error }] = useLoginMutation()
-  // setLoading(loading)
 
   const loginHandler = async (
     dataLogin: LoginInput,
@@ -106,10 +103,7 @@ const Login = () => {
                         >
                           Register
                         </Link>
-                        <ButtonPrimary
-                          type="submit"
-                          className="mt-5"
-                        >
+                        <ButtonPrimary type="submit" className="mt-5">
                           Login
                         </ButtonPrimary>
                       </Form>

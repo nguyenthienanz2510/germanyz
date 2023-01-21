@@ -8,12 +8,13 @@ interface InputFieldProps {
 }
 
 const InputField = (props: InputFieldProps) => {
-  const [field, { error }] = useField(props);
+  const [field, { error, touched}] = useField(props);
+  console.log(touched)
   return (
     <FormControl fullWidth sx={{ marginTop: '1rem' }}>
       <TextField
-        error={!!error}
-        helperText={!!error && error}
+        error={Boolean(error) && Boolean(touched)}
+        helperText={Boolean(error) && Boolean(touched) && error}
         variant="standard"
         id={field.name}
         size="small"
