@@ -1,9 +1,8 @@
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { GetBlogCategoriesQuery, Post } from '../../../generated/graphql'
-var moment = require('moment')
 
 interface Props {
   blogCategories: GetBlogCategoriesQuery

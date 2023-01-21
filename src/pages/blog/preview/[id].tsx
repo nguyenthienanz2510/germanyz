@@ -21,9 +21,9 @@ const PostPreview = ({ data }: any) => {
 
 export default PostPreview
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async context => {
   const authToken = getAuthToken(context.req)
-  
+
   const { params } = context || {}
   const { data, errors } = await client.query({
     query: GetPostByIdDocument,

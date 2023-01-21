@@ -7,7 +7,7 @@ export default async function login(req: any, res: any) {
   const { username, password } = req?.body ?? {}
 
   try {
-    var { data, errors } = await client.mutate({
+    var { data, errors: _errors } = await client.mutate({
       mutation: LoginDocument,
       variables: {
         loginInput: {

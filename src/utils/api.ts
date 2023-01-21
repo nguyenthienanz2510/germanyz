@@ -1,11 +1,7 @@
 // import { GET_PAGE_BY_ID } from '../queries/pages/get-page'
 // import { v4 } from 'uuid'
 import client from '../lib/apolloClient'
-import {
-  LoginDocument,
-  LoginInput,
-  useLoginMutation,
-} from '../generated/graphql'
+import { LoginDocument } from '../generated/graphql'
 
 // export async function getPreviewPage(id) {
 //   const { data, errors } = await client.query({
@@ -20,7 +16,7 @@ import {
 
 export async function loginUser({ username, password }: any) {
   try {
-    const { data, errors } = await client.mutate({
+    const { data, errors: _errors } = await client.mutate({
       mutation: LoginDocument,
       variables: {
         loginInput: {
@@ -33,6 +29,6 @@ export async function loginUser({ username, password }: any) {
     return data || {}
   } catch (err) {
     // console.log(err)
-    return(err)
+    return err
   }
 }

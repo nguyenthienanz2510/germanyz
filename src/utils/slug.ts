@@ -41,5 +41,9 @@ export const handleRedirectsAndReturnData = (
     }
   }
 
+  if (errors) {
+    console.log(errors)
+  }
+
   return defaultProps
 }
