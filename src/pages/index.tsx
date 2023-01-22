@@ -52,6 +52,8 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   })
 
+  console.log('[REVALIDATE]')
+
   return {
     props: {
       data: {
