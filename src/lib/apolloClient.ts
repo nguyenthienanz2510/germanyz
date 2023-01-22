@@ -5,6 +5,11 @@ const client = new ApolloClient({
     cache: new InMemoryCache(),
     connectToDevTools: true,
     // credentials: 'include',
+    defaultOptions: {
+        query: {
+            fetchPolicy: 'no-cache',
+        },
+    }
 });
 
 export default client;
