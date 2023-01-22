@@ -3,12 +3,11 @@ import { useEffect } from 'react'
 import MainLayout from '../components/Layout/MainLayout'
 import NewPostsContainer from '../components/MainContent/NewPostsContainer'
 import WelcomeNotification from '../components/Notification/WelcomeNotification'
-import SideBarItem from '../components/SideBar/SideBarItem'
 import { useLoadingContext } from '../context/loading'
 import {
   GetPostsDocument,
   MenuItemsDocument,
-  useGetPostsQuery
+  useGetPostsQuery,
 } from '../generated/graphql'
 import client from '../lib/apolloClient'
 
@@ -19,23 +18,13 @@ const IndexPage: NextPage = ({ data }: any) => {
     setLoading(loading)
   }, [loading])
 
-  // console.log(data)
-
   return (
     <MainLayout title="Homepage">
-      <div className='w-[320px] float-left'>
-        <div className="pr-6">
-          <SideBarItem />
-          <SideBarItem />
-          <SideBarItem />
-          <SideBarItem />
-        </div>
-      </div>
 
-      <div className='border-l-4 ml-[320px] pl-7'>
-        <NewPostsContainer newPosts={data?.newPosts}/>
-      </div>
+      <NewPostsContainer newPosts={data?.newPosts} />
+
       <WelcomeNotification />
+
     </MainLayout>
   )
 }

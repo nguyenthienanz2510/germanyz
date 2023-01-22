@@ -1,10 +1,9 @@
 import { GetServerSideProps, NextPage } from 'next'
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import BlogLayout from '../../../components/Layout/BlogLayout'
-import SideBarItem from '../../../components/SideBar/SideBarItem'
 import { GetPostByCategoryDocument } from '../../../generated/graphql'
 import client from '../../../lib/apolloClient'
 import { sanitize } from '../../../utils/miscellaneous'
@@ -17,51 +16,40 @@ const PostPreview: NextPage = ({ data }: any) => {
   console.log(data)
   return (
     <BlogLayout title="Blog preview">
-      <div className="w-[320px] float-right">
-        <div className="pl-6">
-          <SideBarItem />
-          <SideBarItem />
-        </div>
-      </div>
-
-      <div className="border-r-4 mr-[320px] pr-7">
-        <h2 className="mb-5">{data.category.name}</h2>
-        <div className="grid grid-cols-12 gap-x-3 gap-y-5">
-          {data.category.posts.edges.map((post: any) => {
-            return (
-              <div key={post.node.postId} className="col-span-4">
-                <PostLink
-                  className="transition-all duration-500 bg-[#fafcfa] hover:shadow-md dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active"
-                  href={`/blog/${post.node.slug}?id=${post.node.postId}`}
-                >
-                  <div>
-                    <div className="overflow-hidden">
-                      <Image
-                        src={`${post.node.featuredImage?.node.mediaItemUrl}`}
-                        alt={`${post.node.title}`}
-                        width={1920}
-                        height={1080}
-                      />
-                    </div>
-                    <div className="pt-2 px-3 pb-4">
-                      <h6 className="text-truncate-2">{post.node.title}</h6>
-                      {isMount ? (
-                        <PostDescription
-                          className="mt-1 text-truncate-4"
-                          dangerouslySetInnerHTML={{
-                            __html: sanitize(
-                              post.node.content ?? {},
-                            ),
-                          }}
-                        />
-                      ) : null}
-                    </div>
+      <h2 className="mb-5">{data.category.name}</h2>
+      <div className="grid grid-cols-12 gap-x-3 gap-y-5">
+        {data.category.posts.edges.map((post: any) => {
+          return (
+            <div key={post.node.postId} className="col-span-4">
+              <PostLink
+                className="transition-all duration-500 bg-[#fafcfa] hover:shadow-md dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active"
+                href={`/blog/${post.node.slug}?id=${post.node.postId}`}
+              >
+                <div>
+                  <div className="overflow-hidden">
+                    <Image
+                      src={`${post.node.featuredImage?.node.mediaItemUrl}`}
+                      alt={`${post.node.title}`}
+                      width={1920}
+                      height={1080}
+                    />
                   </div>
-                </PostLink>
-              </div>
-            )
-          })}
-        </div>
+                  <div className="pt-2 px-3 pb-4">
+                    <h6 className="text-truncate-2">{post.node.title}</h6>
+                    {isMount ? (
+                      <PostDescription
+                        className="mt-1 text-truncate-4"
+                        dangerouslySetInnerHTML={{
+                          __html: sanitize(post.node.content ?? {}),
+                        }}
+                      />
+                    ) : null}
+                  </div>
+                </div>
+              </PostLink>
+            </div>
+          )
+        })}
       </div>
     </BlogLayout>
   )
@@ -98,7 +86,12 @@ const PostLink = styled(Link)`
   }
 `
 const PostDescription = styled.div`
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     display: none;
   }
 `
