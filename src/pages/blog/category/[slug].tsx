@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from 'next'
+import { GetServerSideProps } from 'next'
 import Image from 'next/legacy/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -10,7 +10,7 @@ import {
   GetPostByCategoryDocument,
   GetPostByCategoryQuery,
   GetPostsDocument,
-  GetPostsQuery,
+  GetPostsQuery
 } from '../../../generated/graphql'
 import client from '../../../lib/apolloClient'
 import { sanitize } from '../../../utils/miscellaneous'

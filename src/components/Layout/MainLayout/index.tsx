@@ -8,8 +8,8 @@ import MainLayoutSideBar from './SideBar'
 interface MainLayoutProps {
   title: string
   children: ReactNode
-  blogCategories: GetBlogCategoriesQuery
-  latestPosts: GetPostsQuery
+  blogCategories?: GetBlogCategoriesQuery
+  latestPosts?: GetPostsQuery
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ title, children, blogCategories, latestPosts }) => {
@@ -23,7 +23,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ title, children, blogCategories
       <div className="flex min-h-screen flex-col justify-between">
         <Header />
         <div className="flex-1 container my-12">
-          <MainLayoutSideBar blogCategories={blogCategories} latestPosts={latestPosts}/>
+          <MainLayoutSideBar blogCategories={blogCategories || {}} latestPosts={latestPosts || {}}/>
           <div className="border-l-4 ml-[320px] pl-7">{children}</div>
         </div>
         <Footer />

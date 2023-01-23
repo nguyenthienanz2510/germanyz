@@ -1,4 +1,4 @@
-import { GetStaticProps, NextPage } from 'next'
+import { GetStaticProps } from 'next'
 import React from 'react'
 import MainLayout from '../components/Layout/MainLayout'
 import LatestPostsContainer from '../components/MainContent/LatestPostsContainer'
@@ -7,8 +7,7 @@ import {
   GetBlogCategoriesDocument,
   GetBlogCategoriesQuery,
   GetPostsDocument,
-  GetPostsQuery,
-  MenuItemsDocument,
+  GetPostsQuery
 } from '../generated/graphql'
 import client from '../lib/apolloClient'
 
