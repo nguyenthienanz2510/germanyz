@@ -1,7 +1,12 @@
 import Link from "next/link"
+import { useRouter } from "next/router"
+import { styled } from "twin.macro"
 
 
 const HeaderNav = () => {
+
+  const router = useRouter()
+
   const menu = [
     {
       name: 'Home',
@@ -37,7 +42,7 @@ const HeaderNav = () => {
                     src={item.icon}
                     alt={item.name}
                   />
-                  <span>{item.name}</span>
+                  <NavLinkSpan className={router.pathname == item.path ? 'active' : ''}>{item.name}</NavLinkSpan>
                 </div>
               </Link>
             </li>
@@ -49,3 +54,9 @@ const HeaderNav = () => {
 }
 
 export default HeaderNav
+
+const NavLinkSpan = styled.span`
+  &.active {
+    color: ${props => props.theme.colors.primary}
+  }
+`

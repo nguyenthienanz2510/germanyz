@@ -59,7 +59,7 @@ const NewPostsContainer: React.FC<Props> = props => {
                   </span>
                 </p>
                 {isMount ? (
-                  <p
+                  <PostDescription
                     className="mt-1 text-truncate-5"
                     dangerouslySetInnerHTML={{
                       __html: sanitize(
@@ -141,5 +141,16 @@ const PostLink = styled(Link)`
     img {
       scale: 1.1;
     }
+  }
+`
+
+const PostDescription = styled.div`
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    display: none;
   }
 `

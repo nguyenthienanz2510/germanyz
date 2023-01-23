@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { ReactNode } from 'react'
-import SideBarItem from '../../SideBar/SideBarItem'
+import SideBarItem from '../SideBar/SideBarBlockItem'
 import Footer from '../Footer'
 import Header from '../Header'
 
@@ -22,10 +22,9 @@ export default function MainLayout({ title, children }: MainLayoutProps) {
         <div className="flex-1 container my-12">
           <div className="w-[320px] float-left">
             <div className="pr-6">
-              <SideBarItem />
-              <SideBarItem />
-              <SideBarItem />
-              <SideBarItem />
+              <SideBarItem>Premier League</SideBarItem>
+              <SideBarItem>Blog Category</SideBarItem>
+              <SideBarItem>Bet now</SideBarItem>
             </div>
           </div>
           <div className="border-l-4 ml-[320px] pl-7">{children}</div>

@@ -1,23 +1,14 @@
 import { GetStaticProps, NextPage } from 'next'
-import { useEffect } from 'react'
 import MainLayout from '../components/Layout/MainLayout'
 import NewPostsContainer from '../components/MainContent/NewPostsContainer'
 import WelcomeNotification from '../components/Notification/WelcomeNotification'
-import { useLoadingContext } from '../context/loading'
 import {
   GetPostsDocument,
-  MenuItemsDocument,
-  useGetPostsQuery,
+  MenuItemsDocument
 } from '../generated/graphql'
 import client from '../lib/apolloClient'
 
 const IndexPage: NextPage = ({ data }: any) => {
-  const { setLoading } = useLoadingContext()
-  const { loading } = useGetPostsQuery()
-  useEffect(() => {
-    setLoading(loading)
-  }, [loading])
-
   return (
     <MainLayout title="Homepage">
 
@@ -50,7 +41,7 @@ export const getStaticProps: GetStaticProps = async () => {
         newPosts,
       },
     },
-    revalidate: 10,
+    revalidate: 1,
   }
 }
 

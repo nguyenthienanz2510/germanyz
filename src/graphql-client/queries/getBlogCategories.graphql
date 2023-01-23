@@ -5,11 +5,19 @@ query getBlogCategories {
         categoryId
         slug
         name
-        parentDatabaseId
+        parent {
+          node {
+            slug
+            name
+            uri
+            categoryId
+          }
+        }
         children {
           edges {
             node {
               slug
+              name
               uri
               categoryId
             }

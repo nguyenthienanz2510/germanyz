@@ -2,7 +2,7 @@ import Image from "next/legacy/image";
 import Link from 'next/link'
 import React from 'react'
 import styled from 'styled-components'
-import { GetBlogCategoriesQuery, Post } from '../../../generated/graphql'
+import { Category, GetBlogCategoriesQuery, Post } from '../../../generated/graphql'
 
 interface Props {
   blogCategories: GetBlogCategoriesQuery
@@ -12,21 +12,25 @@ interface PostDataProps {
   node: Post
 }
 
+interface BlogCategoriesDataProps {
+  node: Category
+}
+
 const BlogCategories: React.FC<Props> = props => {
 
   return (
     <>
-      {props.blogCategories?.categories?.edges.map((category: any) => {
-        const hasParentCategory = !Boolean(category.node.parentDatabaseId)
-        const hasPosts = Boolean(category.node.posts.edges.length)
-        if (hasParentCategory && hasPosts) {
+      {props.blogCategories?.categories?.edges.map((category: BlogCategoriesDataProps | any) => {
+        const hasParentCategory = Boolean(category.node.parent?.node?.name)
+        const hasPosts = Boolean(category.node.posts?.edges.length)
+        if (hasPosts) {
           return (
             <div
               key={category.node.categoryId}
               className="mt-7 pt-7 border-t-2"
             >
               <div className="flex justify-between items-center">
-                <h3>{category.node.name}</h3>
+                <h3>{hasParentCategory ? (`${category.node.parent.node.name} - ${category.node.name}`) : category.node.name}</h3>
                 <span>
                   <Link
                     className="underline hover:text-color-primary transition-all"

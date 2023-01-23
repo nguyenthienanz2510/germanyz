@@ -3266,6 +3266,25 @@ export type NodeWithTrackbacks = {
   toPing?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
+/** Offset pagination input type */
+export type OffsetPagination = {
+  /** Number of post to show per page. Passed to posts_per_page of WP_Query. */
+  offset?: Maybe<Scalars['Int']>;
+  /** Number of post to show per page. Passed to posts_per_page of WP_Query. */
+  size?: Maybe<Scalars['Int']>;
+};
+
+/** Get information about the offset pagination state */
+export type OffsetPaginationPageInfo = {
+  __typename?: 'OffsetPaginationPageInfo';
+  /** True if there is one or more nodes available in this connection. Eg. you can increase the offset at least by one. */
+  hasMore?: Maybe<Scalars['Boolean']>;
+  /** True when offset can be decresed eg. offset is 0&lt; */
+  hasPrevious?: Maybe<Scalars['Boolean']>;
+  /** Total amount of nodes in this connection */
+  total?: Maybe<Scalars['Int']>;
+};
+
 /** A singular connection from one Node to another, with support for relational data on the &quot;edge&quot; of the connection. */
 export type OneToOneConnection = {
   /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
@@ -6017,6 +6036,8 @@ export type RootQueryToContentNodeConnectionWhereArgs = {
   nameIn?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
   notIn?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  /** Paginate content nodes with offsets */
+  offsetPagination?: Maybe<OffsetPagination>;
   /** What paramater to use to order the objects by. */
   orderby?: Maybe<Array<Maybe<PostObjectsConnectionOrderbyInput>>>;
   /** Use ID to return only children. Use 0 to return only top-level items */
@@ -6143,6 +6164,8 @@ export type RootQueryToMediaItemConnectionWhereArgs = {
   nameIn?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
   notIn?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  /** Paginate MediaItems with offsets */
+  offsetPagination?: Maybe<OffsetPagination>;
   /** What paramater to use to order the objects by. */
   orderby?: Maybe<Array<Maybe<PostObjectsConnectionOrderbyInput>>>;
   /** Use ID to return only children. Use 0 to return only top-level items */
@@ -6271,6 +6294,8 @@ export type RootQueryToPageConnectionWhereArgs = {
   nameIn?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
   notIn?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  /** Paginate Pages with offsets */
+  offsetPagination?: Maybe<OffsetPagination>;
   /** What paramater to use to order the objects by. */
   orderby?: Maybe<Array<Maybe<PostObjectsConnectionOrderbyInput>>>;
   /** Use ID to return only children. Use 0 to return only top-level items */
@@ -6375,6 +6400,8 @@ export type RootQueryToPostConnectionWhereArgs = {
   nameIn?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
   notIn?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  /** Paginate Posts with offsets */
+  offsetPagination?: Maybe<OffsetPagination>;
   /** The ID of the post object to filter by */
   onlySticky?: Maybe<Scalars['Boolean']>;
   /** What paramater to use to order the objects by. */
@@ -6749,6 +6776,8 @@ export type RootQueryToUserConnectionWhereArgs = {
   nicenameIn?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** An array of nicenames to exclude. Users matching one of these nicenames will not be included in results. */
   nicenameNotIn?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /** Paginate users with offsets */
+  offsetPagination?: Maybe<OffsetPagination>;
   /** What paramater to use to order the objects by. */
   orderby?: Maybe<Array<Maybe<UsersConnectionOrderbyInput>>>;
   /** An array of role names that users must match to be included in results. Note that this is an inclusive list: users must match *each* role. */
@@ -8843,6 +8872,8 @@ export type WpPageInfo = {
   hasNextPage: Scalars['Boolean'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean'];
+  /** Get information about the offset pagination state in the current connection */
+  offsetPagination?: Maybe<OffsetPaginationPageInfo>;
   /** Raw schema for page */
   seo?: Maybe<SeoPostTypePageInfo>;
   /** When paginating backwards, the cursor to continue. */
@@ -8956,14 +8987,20 @@ export type GetBlogCategoriesQuery = (
       { __typename?: 'RootQueryToCategoryConnectionEdge' }
       & { node: (
         { __typename?: 'Category' }
-        & Pick<Category, 'categoryId' | 'slug' | 'name' | 'parentDatabaseId'>
-        & { children?: Maybe<(
+        & Pick<Category, 'categoryId' | 'slug' | 'name'>
+        & { parent?: Maybe<(
+          { __typename?: 'CategoryToParentCategoryConnectionEdge' }
+          & { node: (
+            { __typename?: 'Category' }
+            & Pick<Category, 'slug' | 'name' | 'uri' | 'categoryId'>
+          ) }
+        )>, children?: Maybe<(
           { __typename?: 'CategoryToCategoryConnection' }
           & { edges: Array<(
             { __typename?: 'CategoryToCategoryConnectionEdge' }
             & { node: (
               { __typename?: 'Category' }
-              & Pick<Category, 'slug' | 'uri' | 'categoryId'>
+              & Pick<Category, 'slug' | 'name' | 'uri' | 'categoryId'>
             ) }
           )> }
         )>, posts?: Maybe<(
@@ -9228,11 +9265,19 @@ export const GetBlogCategoriesDocument = gql`
         categoryId
         slug
         name
-        parentDatabaseId
+        parent {
+          node {
+            slug
+            name
+            uri
+            categoryId
+          }
+        }
         children {
           edges {
             node {
               slug
+              name
               uri
               categoryId
             }

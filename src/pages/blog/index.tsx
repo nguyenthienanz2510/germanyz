@@ -9,9 +9,8 @@ import {
 import client from '../../lib/apolloClient'
 
 const Blog: NextPage = ({ data }: any) => {
-  console.log(data?.blogCategories.categories.edges)
   return (
-    <BlogLayout title="Blog">
+    <BlogLayout title="Blog" blogCategories={data?.blogCategories}>
         <NewPostsContainer newPosts={data?.newPosts} />
         <BlogCategories blogCategories={data?.blogCategories} />
     </BlogLayout>
@@ -19,6 +18,7 @@ const Blog: NextPage = ({ data }: any) => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  
   const { data: newPosts } = await client.query({
     query: GetPostsDocument,
     variables: {
