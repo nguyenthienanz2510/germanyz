@@ -1,7 +1,7 @@
 import { GetStaticProps, NextPage } from 'next'
 import BlogCategories from '../../components/Blog/BlogCategoryBlock'
 import BlogLayout from '../../components/Layout/BlogLayout'
-import NewPostsContainer from '../../components/MainContent/NewPostsContainer'
+import LatestPostsContainer from '../../components/MainContent/LatestPostsContainer'
 import {
   GetBlogCategoriesDocument,
   GetPostsDocument
@@ -10,8 +10,8 @@ import client from '../../lib/apolloClient'
 
 const Blog: NextPage = ({ data }: any) => {
   return (
-    <BlogLayout title="Blog" blogCategories={data?.blogCategories}>
-        <NewPostsContainer newPosts={data?.newPosts} />
+    <BlogLayout title="Blog" blogCategories={data?.blogCategories} latestPosts={data?.latestPosts}>
+        <LatestPostsContainer latestPosts={data?.latestPosts} />
         <BlogCategories blogCategories={data?.blogCategories} />
     </BlogLayout>
   )
@@ -19,10 +19,10 @@ const Blog: NextPage = ({ data }: any) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   
-  const { data: newPosts } = await client.query({
+  const { data: latestPosts} = await client.query({
     query: GetPostsDocument,
     variables: {
-      quantity: 3,
+      quantity: 5,
     },
   })
 
@@ -33,7 +33,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       data: {
-        newPosts,
+        latestPosts,
         blogCategories,
       },
     },

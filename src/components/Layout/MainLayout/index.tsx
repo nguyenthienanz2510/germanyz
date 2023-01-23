@@ -1,15 +1,18 @@
 import Head from 'next/head'
 import { ReactNode } from 'react'
-import SideBarItem from '../SideBar/SideBarBlockItem'
+import { GetBlogCategoriesQuery, GetPostsQuery } from '../../../generated/graphql'
 import Footer from '../Footer'
 import Header from '../Header'
+import MainLayoutSideBar from './SideBar'
 
 interface MainLayoutProps {
   title: string
   children: ReactNode
+  blogCategories: GetBlogCategoriesQuery
+  latestPosts: GetPostsQuery
 }
 
-export default function MainLayout({ title, children }: MainLayoutProps) {
+const MainLayout: React.FC<MainLayoutProps> = ({ title, children, blogCategories, latestPosts }) => {
   return (
     <>
       <Head>
@@ -20,13 +23,7 @@ export default function MainLayout({ title, children }: MainLayoutProps) {
       <div className="flex min-h-screen flex-col justify-between">
         <Header />
         <div className="flex-1 container my-12">
-          <div className="w-[320px] float-left">
-            <div className="pr-6">
-              <SideBarItem>Premier League</SideBarItem>
-              <SideBarItem>Blog Category</SideBarItem>
-              <SideBarItem>Bet now</SideBarItem>
-            </div>
-          </div>
+          <MainLayoutSideBar blogCategories={blogCategories} latestPosts={latestPosts}/>
           <div className="border-l-4 ml-[320px] pl-7">{children}</div>
         </div>
         <Footer />
@@ -34,3 +31,5 @@ export default function MainLayout({ title, children }: MainLayoutProps) {
     </>
   )
 }
+
+export default MainLayout

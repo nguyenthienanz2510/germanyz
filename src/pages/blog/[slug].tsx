@@ -1,19 +1,20 @@
 import { GetServerSideProps } from "next"
 import { styled } from "twin.macro"
 import BlogLayout from "../../components/Layout/BlogLayout"
-import { GetBlogCategoriesDocument, GetBlogCategoriesQuery, GetPostByIdDocument, GetPostByIdQuery } from "../../generated/graphql"
+import { GetBlogCategoriesDocument, GetBlogCategoriesQuery, GetPostByIdDocument, GetPostByIdQuery, GetPostsDocument, GetPostsQuery } from "../../generated/graphql"
 import client from "../../lib/apolloClient"
 import { sanitize } from "../../utils/miscellaneous"
 
-interface PostDetail {
+interface PostDetailProps {
   data: GetPostByIdQuery
   blogCategories: GetBlogCategoriesQuery
+  latestPosts: GetPostsQuery
 }
 
-const PostDetail = ({ data, blogCategories }: any) => {
+const PostDetail = ({ data, blogCategories, latestPosts }: PostDetailProps) => {
   console.log(data)
   return (
-    <BlogLayout blogCategories={blogCategories} title={data?.post?.title}>
+    <BlogLayout title={data?.post?.title || '[post title]'} blogCategories={blogCategories} latestPosts={latestPosts}>
       <BlogDetailBody
         dangerouslySetInnerHTML={{
           __html: sanitize(data?.post?.content ?? {}),
@@ -38,10 +39,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     query: GetBlogCategoriesDocument,
   })
 
+  const { data: latestPosts} = await client.query({
+    query: GetPostsDocument,
+    variables: {
+      quantity: 5,
+    },
+  })
+
   return {
     props: {
       data: data || {},
-      blogCategories: blogCategories
+      blogCategories: blogCategories,
+      latestPosts: latestPosts
     },
   }
 }

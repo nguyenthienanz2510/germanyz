@@ -9,18 +9,22 @@ import {
   GetBlogCategoriesQuery,
   GetPostByCategoryDocument,
   GetPostByCategoryQuery,
+  GetPostsDocument,
+  GetPostsQuery,
 } from '../../../generated/graphql'
 import client from '../../../lib/apolloClient'
 import { sanitize } from '../../../utils/miscellaneous'
 
-interface GetPostsByCategoryDataProps {
+interface GetPostsByCategoryProps {
   data: GetPostByCategoryQuery
   blogCategories: GetBlogCategoriesQuery
+  latestPosts: GetPostsQuery
 }
 
-const GetPostsByCategory: React.FC<GetPostsByCategoryDataProps> = ({
+const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
   data,
   blogCategories,
+  latestPosts,
 }) => {
   const [isMount, setMount] = useState(false)
   useEffect(() => {
@@ -29,8 +33,9 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryDataProps> = ({
   console.log(data)
   return (
     <BlogLayout
-      blogCategories={blogCategories}
       title={data?.category?.name || '[category name]'}
+      blogCategories={blogCategories}
+      latestPosts={latestPosts}
     >
       <h2 className="mb-5">{data?.category?.name}</h2>
       <div className="grid grid-cols-12 gap-x-3 gap-y-5">
@@ -68,7 +73,7 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryDataProps> = ({
             )
           })
         ) : (
-          <span className='col-span-12'>Nothing to display</span>
+          <span className="col-span-12">Nothing to display</span>
         )}
       </div>
     </BlogLayout>
@@ -90,10 +95,18 @@ export const getServerSideProps: GetServerSideProps = async context => {
     query: GetBlogCategoriesDocument,
   })
 
+  const { data: latestPosts } = await client.query({
+    query: GetPostsDocument,
+    variables: {
+      quantity: 5,
+    },
+  })
+
   return {
     props: {
       data: data || {},
       blogCategories: blogCategories,
+      latestPosts: latestPosts,
     },
   }
 }

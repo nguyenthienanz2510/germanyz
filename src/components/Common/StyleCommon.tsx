@@ -9,3 +9,20 @@ export const NextLink = styled(Link)`
     color: ${props => props.theme.colors.primary};
   }
 `
+export const CardLink = styled(Link)`
+  display: block;
+  height: 100%;
+  img,
+  .title {
+    transition: all linear 0.3s;
+  }
+  &:hover {
+    img {
+      scale: 1.1;
+    }
+    .title {
+      text-decoration: underline;
+      color: ${props => props.theme.colors.primary};
+    }
+  }
+`

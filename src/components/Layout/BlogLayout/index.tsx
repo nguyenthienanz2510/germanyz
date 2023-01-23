@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { ReactNode } from 'react'
-import { GetBlogCategoriesQuery } from '../../../generated/graphql'
+import { GetBlogCategoriesQuery, GetPostsQuery } from '../../../generated/graphql'
 import Footer from '../Footer'
 import Header from '../Header'
 import BlogLayoutSideBar from './SideBar'
@@ -9,9 +9,10 @@ interface BlogLayoutProps {
   title: string
   children: ReactNode
   blogCategories: GetBlogCategoriesQuery
+  latestPosts: GetPostsQuery
 }
 
-export default function BlogLayout({ title, children, blogCategories }: BlogLayoutProps) {
+export default function BlogLayout({ title, children, blogCategories, latestPosts}: BlogLayoutProps) {
   return (
     <>
       <Head>
@@ -22,7 +23,7 @@ export default function BlogLayout({ title, children, blogCategories }: BlogLayo
       <div className="flex min-h-screen flex-col justify-between">
         <Header />
         <div className="flex-1 container mt-12 mb-20">
-          <BlogLayoutSideBar blogCategories={blogCategories}/>
+          <BlogLayoutSideBar blogCategories={blogCategories} latestPosts={latestPosts}/>
           <div className="border-r-4 mr-[320px] pr-7">{children}</div>
         </div>
         <Footer />

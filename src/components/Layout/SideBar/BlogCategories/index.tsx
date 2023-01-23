@@ -12,9 +12,9 @@ const BlogCategories: React.FC<BlogCategoriesProps> = ({ blogCategories }) => {
   const router = useRouter()
   return (
     <SidebarBlockItem>
-      <h5 className="mb-2">BlogCategories</h5>
+      <h5 className="mb-2">Blog Categories</h5>
       <ul>
-        {blogCategories?.categories?.edges.map(category => {
+        {blogCategories.categories?.edges.map(category => {
           const hasParentCategory = category.node.parent?.node.name
           if (!hasParentCategory) {
             const hasChildCategory = category.node.children?.edges.length

@@ -20,7 +20,7 @@ const BlogCategories: React.FC<Props> = props => {
 
   return (
     <>
-      {props.blogCategories?.categories?.edges.map((category: BlogCategoriesDataProps | any) => {
+      {props.blogCategories.categories?.edges.map((category: BlogCategoriesDataProps | any) => {
         const hasParentCategory = Boolean(category.node.parent?.node?.name)
         const hasPosts = Boolean(category.node.posts?.edges.length)
         if (hasPosts) {

@@ -1,45 +1,55 @@
 import { GetStaticProps, NextPage } from 'next'
+import React from 'react'
 import MainLayout from '../components/Layout/MainLayout'
-import NewPostsContainer from '../components/MainContent/NewPostsContainer'
+import LatestPostsContainer from '../components/MainContent/LatestPostsContainer'
 import WelcomeNotification from '../components/Notification/WelcomeNotification'
 import {
+  GetBlogCategoriesDocument,
+  GetBlogCategoriesQuery,
   GetPostsDocument,
-  MenuItemsDocument
+  GetPostsQuery,
+  MenuItemsDocument,
 } from '../generated/graphql'
 import client from '../lib/apolloClient'
 
-const IndexPage: NextPage = ({ data }: any) => {
-  return (
-    <MainLayout title="Homepage">
+interface IndexPageProps {
+  latestPosts: GetPostsQuery
+  blogCategories: GetBlogCategoriesQuery
+}
 
-      <NewPostsContainer newPosts={data?.newPosts} />
+const IndexPage: React.FC<IndexPageProps> = ({
+  latestPosts,
+  blogCategories,
+}) => {
+  return (
+    <MainLayout
+      latestPosts={latestPosts}
+      blogCategories={blogCategories}
+      title="Home"
+    >
+      <LatestPostsContainer latestPosts={latestPosts} />
 
       <WelcomeNotification />
-
     </MainLayout>
   )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { data: menu } = await client.query({
-    query: MenuItemsDocument,
-  })
-
-  const { data: newPosts } = await client.query({
+  const { data: latestPosts } = await client.query({
     query: GetPostsDocument,
     variables: {
-      quantity: 3,
+      quantity: 5,
     },
   })
 
-  console.log('[REVALIDATE]')
+  const { data: blogCategories } = await client.query({
+    query: GetBlogCategoriesDocument,
+  })
 
   return {
     props: {
-      data: {
-        menu,
-        newPosts,
-      },
+      latestPosts,
+      blogCategories,
     },
     revalidate: 1,
   }
