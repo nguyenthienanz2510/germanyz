@@ -31,7 +31,7 @@ const MobileNav = () => {
 
   return (
     <div>
-      <ul className="mr-6 flex flex-wrap items-center h-20 gap-4">
+      <ul className="flex flex-wrap items-center h-20 justify-between">
         {menu.map((item, index) => {
           return (
             <li key={index}>

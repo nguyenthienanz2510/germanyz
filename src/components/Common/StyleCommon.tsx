@@ -26,3 +26,18 @@ export const CardLink = styled(Link)`
     }
   }
 `
+
+export const PostDescription = styled.div`
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    display: none;
+  }
+  strong, a {
+    font-weight: 400;
+    text-decoration: none;
+  }
+`

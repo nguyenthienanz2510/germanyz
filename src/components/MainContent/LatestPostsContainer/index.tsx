@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { GetPostsQuery } from '../../../generated/graphql'
 import { sanitize } from '../../../utils/miscellaneous'
+import { PostDescription } from '../../Common/StyleCommon'
 var moment = require('moment')
 
 interface Props {
@@ -41,7 +42,7 @@ const LatestPostsContainer: React.FC<Props> = ({ latestPosts }) => {
                 />
               </div>
               <div className="py-2 px-4">
-                <h4 className="text-truncate-2">
+                <h4 className="text-truncate-2 text-lg sm:text-xl">
                   {latestPosts.posts?.edges[0].node.title}
                 </h4>
                 <p className="mt-1">
@@ -146,16 +147,5 @@ const PostLink = styled(Link)`
     img {
       scale: 1.1;
     }
-  }
-`
-
-const PostDescription = styled.div`
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    display: none;
   }
 `

@@ -3,6 +3,7 @@ import Image from 'next/legacy/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { PostDescription } from '../../../components/Common/StyleCommon'
 import BlogLayout from '../../../components/Layout/BlogLayout'
 import {
   GetBlogCategoriesDocument,
@@ -123,13 +124,4 @@ const PostLink = styled(Link)`
     }
   }
 `
-const PostDescription = styled.div`
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    display: none;
-  }
-`
+

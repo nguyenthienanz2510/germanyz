@@ -46,7 +46,7 @@ const Header = () => {
         <MobileMenu
           className={
             (showMobileMenu ? 'showMobileMenu' : 'hideMobileMenu') +
-            ' bg-white dark:bg-black z-[1000]'
+            ' bg-white dark:bg-black z-[1000] lg:hidden'
           }
           onClick={() => {
             showMobileMenu && setMobileMenu(false)

@@ -20,6 +20,27 @@ const IndexPage: React.FC<IndexPageProps> = ({
   latestPosts,
   blogCategories,
 }) => {
+
+  if (typeof window !== "undefined") {
+    window.fbAsyncInit = function() {
+      FB.init({
+        xfbml            : true,
+        version          : 'v15.0'
+      })
+    };
+  
+    (function(d, s, id) {
+      var js:any = d.getElementsByTagName(s)[0]
+      var fjs:any = d.getElementsByTagName(s)[0]
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+      fjs?.parentNode?.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  }
+
+  
+  
   return (
     <MainLayout
       latestPosts={latestPosts}
@@ -29,6 +50,35 @@ const IndexPage: React.FC<IndexPageProps> = ({
       <LatestPostsContainer latestPosts={latestPosts} />
 
       <WelcomeNotification />
+
+    <div id="fb-root"></div>
+    <div id="fb-customer-chat" className="fb-customerchat">
+    </div>
+
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "611526916238214");
+      chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    {/* <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v15.0'
+        })
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0]
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
+    </script> */}
+
     </MainLayout>
   )
 }
