@@ -19,7 +19,7 @@ const LatestPostsContainer: React.FC<Props> = ({ latestPosts }) => {
   return (
     <div>
       <h2 className="mb-5">Latest posts</h2>
-      <div className="grid grid-cols-12 gap-x-7 gap-y-3">
+      <div className="grid grid-cols-12 gap-x-3 lg:gap-x-7 gap-y-3">
         <div className="col-span-7 row-span-2 transition-all duration-500 bg-[#fafcfa] hover:shadow-md dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active">
           <PostLink
             href={`/blog/${latestPosts.posts?.edges[0].node.slug}?id=${latestPosts.posts?.edges[0].node.postId}`}
@@ -57,16 +57,18 @@ const LatestPostsContainer: React.FC<Props> = ({ latestPosts }) => {
                     )}
                   </span>
                 </p>
-                {isMount ? (
-                  <PostDescription
-                    className="mt-1 text-truncate-5"
-                    dangerouslySetInnerHTML={{
-                      __html: sanitize(
-                        latestPosts.posts?.edges[0].node.content ?? {},
-                      ),
-                    }}
-                  />
-                ) : null}
+                <div className="hidden sm:block">
+                  {isMount ? (
+                    <PostDescription
+                      className="mt-1 text-truncate-5"
+                      dangerouslySetInnerHTML={{
+                        __html: sanitize(
+                          latestPosts.posts?.edges[0].node.content ?? {},
+                        ),
+                      }}
+                    />
+                  ) : null}
+                </div>
               </div>
             </div>
           </PostLink>
@@ -86,7 +88,9 @@ const LatestPostsContainer: React.FC<Props> = ({ latestPosts }) => {
                     latestPosts.posts?.edges[1].node.featuredImage?.node
                       .mediaItemUrl || ''
                   }
-                  alt={latestPosts.posts?.edges[1].node.title || 'Thumbnail image'}
+                  alt={
+                    latestPosts.posts?.edges[1].node.title || 'Thumbnail image'
+                  }
                 />
               </div>
               <div className="py-2 px-4">
@@ -112,7 +116,9 @@ const LatestPostsContainer: React.FC<Props> = ({ latestPosts }) => {
                     latestPosts.posts?.edges[2].node.featuredImage?.node
                       .mediaItemUrl || ''
                   }
-                  alt={latestPosts.posts?.edges[2].node.title || 'Thumbnail image'}
+                  alt={
+                    latestPosts.posts?.edges[2].node.title || 'Thumbnail image'
+                  }
                 />
               </div>
               <div className="py-2 px-4">

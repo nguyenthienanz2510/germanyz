@@ -22,9 +22,9 @@ export default function BlogLayout({ title, children, blogCategories, latestPost
       </Head>
       <div className="flex min-h-screen flex-col justify-between">
         <Header />
-        <div className="flex-1 container mt-12 mb-20">
+        <div className="flex-1 container mt-12 mb-20 relative">
+          <div className="lg:border-r-4 lg:mr-[320px] lg:pr-7">{children}</div>
           <BlogLayoutSideBar blogCategories={blogCategories} latestPosts={latestPosts}/>
-          <div className="border-r-4 mr-[320px] pr-7">{children}</div>
         </div>
         <Footer />
       </div>

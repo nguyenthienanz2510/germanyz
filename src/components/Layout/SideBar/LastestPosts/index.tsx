@@ -15,12 +15,12 @@ const LatestPosts: React.FC<latestPostsProps> = ({ latestPosts}) => {
       <ul>
         {latestPosts?.posts?.edges.map(post => {
           return (
-            <li className="mt-2">
+            <li className="mt-2 sm:mt-4 lg:mt-2">
               <CardLink
                 href={`/blog/${post.node.slug}?id=${post.node.postId}`}
                 className="transition-all hover:shadow-sm dark:hover:shadow-none"
               >
-                <div className="grid grid-cols-12 gap-2">
+                <div className="grid grid-cols-12 gap-2 sm:gap-4 lg:gap-2">
                   <div className="col-span-4 overflow-hidden">
                     <Image
                       src={post.node.featuredImage?.node.mediaItemUrl || ''}

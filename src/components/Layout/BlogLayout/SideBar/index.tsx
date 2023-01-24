@@ -10,8 +10,8 @@ interface Props {
 
 const BlogLayoutSideBar: React.FC<Props> = ({blogCategories, latestPosts}) => {
   return (
-    <div className="w-[320px] float-right">
-      <div className="pl-6">
+    <div className="w-full mt-10 lg:mt-0 lg:w-[320px] lg:absolute lg:top-0 lg:right-0">
+      <div className="lg:pl-6">
         <BlogCategories blogCategories={blogCategories}/>
         <LatestPosts latestPosts={latestPosts}/>
       </div>

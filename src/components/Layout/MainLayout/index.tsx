@@ -22,9 +22,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ title, children, blogCategories
       </Head>
       <div className="flex min-h-screen flex-col justify-between">
         <Header />
-        <div className="flex-1 container my-12">
+        <div className="flex-1 container mt-12 mb-20 relative">
+          <div className="lg:border-l-4 lg:ml-[320px] lg:pl-7">{children}</div>
           <MainLayoutSideBar blogCategories={blogCategories || {}} latestPosts={latestPosts || {}}/>
-          <div className="border-l-4 ml-[320px] pl-7">{children}</div>
         </div>
         <Footer />
       </div>

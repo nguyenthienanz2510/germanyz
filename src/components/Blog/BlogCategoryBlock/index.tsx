@@ -45,7 +45,7 @@ const BlogCategories: React.FC<Props> = props => {
                   (post: PostDataProps, index: number) => {
                     if (index < 4) {
                       return (
-                        <div key={post.node.postId} className="col-span-3">
+                        <div key={post.node.postId} className="col-span-12 sm:col-span-6 lg:col-span-3">
                           <PostLink
                             className='transition-all duration-500 bg-[#fafcfa] hover:shadow-md dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active'
                             href={`/blog/${post.node.slug}?id=${post.node.postId}`}

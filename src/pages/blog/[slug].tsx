@@ -15,7 +15,7 @@ const PostDetail = ({ data, blogCategories, latestPosts }: PostDetailProps) => {
   console.log(data)
   return (
     <BlogLayout title={data?.post?.title || '[post title]'} blogCategories={blogCategories} latestPosts={latestPosts}>
-      <BlogDetailBody
+      <BlogDetailBody className="px-3 sm:px-0"
         dangerouslySetInnerHTML={{
           __html: sanitize(data?.post?.content ?? {}),
         }}

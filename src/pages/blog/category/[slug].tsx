@@ -42,7 +42,7 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
         {Boolean(data?.category?.posts?.edges.length) ? (
           data?.category?.posts?.edges.map((post: any) => {
             return (
-              <div key={post.node.postId} className="col-span-4">
+              <div key={post.node.postId} className="col-span-12 sm:col-span-6 md:col-span-4">
                 <PostLink
                   className="transition-all duration-500 bg-[#fafcfa] hover:shadow-md dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active"
                   href={`/blog/${post.node.slug}?id=${post.node.postId}`}
