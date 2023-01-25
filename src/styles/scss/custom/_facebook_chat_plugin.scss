@@ -1,0 +1,8 @@
+html.dark {
+  #fb-root {
+    iframe[data-testid='unread_iframe'],
+    iframe[data-testid='availabilityStatus_iframe'] {
+      display: none;
+    }
+  }
+}
