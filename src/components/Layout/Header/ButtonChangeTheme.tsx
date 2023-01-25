@@ -7,16 +7,7 @@ const ButtonChangeTheme = () => {
   const { theme, setTheme } = useTheme()
   return (
     <>
-      {theme == 'light' ? (
-        <IconButton
-          className="cursor-pointer"
-          onClick={() => {
-            setTheme('dark')
-          }}
-        >
-          <DarkModeIcon className="text-color-text-dark hover:text-color-primary" />
-        </IconButton>
-      ) : (
+      {theme == 'dark' ? (
         <IconButton
           className="cursor-pointer"
           onClick={() => {
@@ -24,6 +15,15 @@ const ButtonChangeTheme = () => {
           }}
         >
           <LightModeIcon className="text-color-text-light hover:text-color-primary" />
+        </IconButton>
+      ) : (
+        <IconButton
+          className="cursor-pointer"
+          onClick={() => {
+            setTheme('dark')
+          }}
+        >
+          <DarkModeIcon className="text-color-text-dark hover:text-color-primary" />
         </IconButton>
       )}
     </>
