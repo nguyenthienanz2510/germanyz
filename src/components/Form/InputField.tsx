@@ -9,7 +9,6 @@ interface InputFieldProps {
 
 const InputField = (props: InputFieldProps) => {
   const [field, { error, touched}] = useField(props);
-  console.log(touched)
   return (
     <FormControl fullWidth sx={{ marginTop: '1rem' }}>
       <TextField

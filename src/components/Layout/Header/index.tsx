@@ -45,7 +45,7 @@ const Header = () => {
         </div>
         <MobileMenu
           className={
-            (showMobileMenu ? 'showMobileMenu' : 'hideMobileMenu') +
+            (showMobileMenu ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0') +
             ' bg-white dark:bg-black z-[1000] lg:hidden'
           }
           onClick={() => {
@@ -75,12 +75,10 @@ const MobileMenu = styled.div`
   left: 0;
   right: 0;
   transition: all linear 0.3s;
+  /* transform: translateX(-100%); */
+  /* opacity: 0; */
   &.showMobileMenu {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  &.hideMobileMenu {
-    transform: translateX(-100%);
-    opacity: 0;
+    /* transform: translateX(0); */
+    /* opacity: 1; */
   }
 `

@@ -12,7 +12,6 @@ interface PostDetailProps {
 }
 
 const PostDetail = ({ data, blogCategories, latestPosts }: PostDetailProps) => {
-  console.log(data)
   return (
     <BlogLayout title={data?.post?.title || '[post title]'} blogCategories={blogCategories} latestPosts={latestPosts}>
       <BlogDetailBody className="px-3 sm:px-0"

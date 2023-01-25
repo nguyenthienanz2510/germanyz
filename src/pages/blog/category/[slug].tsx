@@ -31,7 +31,6 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
   useEffect(() => {
     setMount(true)
   }, [])
-  console.log(data)
   return (
     <BlogLayout
       title={data?.category?.name || '[category name]'}
