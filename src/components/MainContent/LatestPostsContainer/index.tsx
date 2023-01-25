@@ -42,7 +42,7 @@ const LatestPostsContainer: React.FC<Props> = ({ latestPosts }) => {
                 />
               </div>
               <div className="py-2 px-4">
-                <h4 className="text-truncate-2 text-lg sm:text-xl">
+                <h4 className="text-truncate-2 text-16 sm:text-20">
                   {latestPosts.posts?.edges[0].node.title}
                 </h4>
                 <p className="mt-1">

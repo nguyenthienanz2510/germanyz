@@ -16,7 +16,7 @@ module.exports = {
       },
       padding: {
         DEFAULT: '10px',
-        sm: '0'
+        sm: '0',
       },
     },
     extend: {
@@ -35,6 +35,23 @@ module.exports = {
         'color-bg-dark-secondary': '#161b26',
         'color-bg-dark-secondary-active': '#222733',
         'color-bg-dark-header': '#000b27',
+      },
+      fontSize: {
+        10: '10px',
+        12: '12px',
+        14: '14px',
+        16: '16px',
+        18: '18px',
+        22: '22px',
+        24: '24px',
+        26: '26px',
+        28: '28px',
+        30: '30px',
+        32: '32px',
+        34: '34px',
+        36: '36px',
+        38: '38px',
+        40: '40px',
       },
     },
   },
