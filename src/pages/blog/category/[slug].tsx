@@ -39,7 +39,7 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
       latestPosts={latestPosts}
     >
       <h2 className="mb-5">{data?.category?.name}</h2>
-      <div className="grid grid-cols-12 gap-x-3 gap-y-5">
+      <div className="grid grid-cols-12 gap-x-3 gap-y-6">
         {Boolean(data?.category?.posts?.edges.length) ? (
           data?.category?.posts?.edges.map((post: any) => {
             return (

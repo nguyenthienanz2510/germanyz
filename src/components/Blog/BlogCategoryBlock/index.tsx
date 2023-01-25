@@ -40,7 +40,7 @@ const BlogCategories: React.FC<Props> = props => {
                   </Link>
                 </span>
               </div>
-              <div className="grid grid-cols-12 gap-2 mt-5">
+              <div className="grid grid-cols-12 gap-x-2 gap-y-5 mt-5">
                 {category.node.posts.edges.map(
                   (post: PostDataProps, index: number) => {
                     if (index < 4) {
