@@ -1,7 +1,7 @@
 import React from 'react'
 import { GetBlogCategoriesQuery, GetPostsQuery } from '../../../../generated/graphql'
 import BlogCategories from '../../SideBar/BlogCategories'
-import LatestPosts from '../../SideBar/LastestPosts'
+import LatestPosts from '../../SideBar/LatestPosts'
 
 interface Props {
   blogCategories: GetBlogCategoriesQuery

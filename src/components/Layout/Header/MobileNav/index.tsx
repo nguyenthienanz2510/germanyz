@@ -1,7 +1,11 @@
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { styled } from 'twin.macro'
+import BallIcon from "../../../../assets/images/icon/ball.svg"
+import CupIcon from "../../../../assets/images/icon/cup.svg"
+import AceIcon from "../../../../assets/images/icon/ace.svg"
+import DiceIcon from "../../../../assets/images/icon/dice.svg"
 
 const MobileNav = () => {
   const router = useRouter()
@@ -10,22 +14,26 @@ const MobileNav = () => {
     {
       name: 'Home',
       path: '/',
-      icon: 'https://img.fabet.cc/static/assets/images/components/header/sport.svg',
+      icon: BallIcon
+      // icon: 'https://img.fabet.cc/static/assets/images/components/header/sport.svg',
     },
     {
       name: 'About us',
       path: '/about-us',
-      icon: 'https://img.fabet.cc/static/assets/images/components/header/event.svg',
+      icon: CupIcon
+      // icon: 'https://img.fabet.cc/static/assets/images/components/header/event.svg',
     },
     {
       name: 'Blog',
       path: '/blog',
-      icon: 'https://img.fabet.cc/static/assets/images/components/header/game-bai.svg',
+      icon: AceIcon
+      // icon: 'https://img.fabet.cc/static/assets/images/components/header/game-bai.svg',
     },
     {
       name: 'Shop',
       path: '/shop',
-      icon: 'https://img.fabet.cc/static/assets/images/components/header/quick-game.svg',
+      icon: DiceIcon
+      // icon: 'https://img.fabet.cc/static/assets/images/components/header/quick-game.svg',
     },
   ]
 

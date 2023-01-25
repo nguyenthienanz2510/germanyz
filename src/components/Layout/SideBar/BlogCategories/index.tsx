@@ -19,19 +19,28 @@ const BlogCategories: React.FC<BlogCategoriesProps> = ({ blogCategories }) => {
           if (!hasParentCategory) {
             const hasChildCategory = category.node.children?.edges.length
             return (
-              <>
+              <li className="mt-1" key={category.node.categoryId}>
                 {hasChildCategory ? (
-                  <li className="mt-1">
+                  <>
                     <NextLink
                       href={`/blog/category/${category.node.slug}?id=${category.node.categoryId}`}
-                      className={router.asPath.includes(`/blog/category/${category.node.slug}`) ? 'active' : 'noooo'}
+                      className={
+                        router.asPath.includes(
+                          `/blog/category/${category.node.slug}`,
+                        )
+                          ? 'active'
+                          : ''
+                      }
                     >
                       {category.node.name}
                     </NextLink>
                     <ul className="pl-3">
                       {category.node.children?.edges.map(categoryChildItem => {
                         return (
-                          <li className="mt-1">
+                          <li
+                            className="mt-1"
+                            key={categoryChildItem.node.categoryId}
+                          >
                             <NextLink
                               href={`/blog/category/${categoryChildItem.node.slug}?id=${categoryChildItem.node.categoryId}`}
                               className={
@@ -39,7 +48,7 @@ const BlogCategories: React.FC<BlogCategoriesProps> = ({ blogCategories }) => {
                                   `/blog/category/${categoryChildItem.node.slug}`,
                                 )
                                   ? 'active'
-                                  : 'noooo'
+                                  : ''
                               }
                             >
                               {categoryChildItem.node.name}
@@ -48,24 +57,22 @@ const BlogCategories: React.FC<BlogCategoriesProps> = ({ blogCategories }) => {
                         )
                       })}
                     </ul>
-                  </li>
+                  </>
                 ) : (
-                  <li className="mt-1">
-                    <NextLink
-                      href={`/blog/category/${category.node.slug}?id=${category.node.categoryId}`}
-                      className={
-                        router.asPath.includes(
-                          `/blog/category/${category.node.slug}`,
-                        )
-                          ? 'active'
-                          : 'noooo'
-                      }
-                    >
-                      {category.node.name}
-                    </NextLink>
-                  </li>
+                  <NextLink
+                    href={`/blog/category/${category.node.slug}?id=${category.node.categoryId}`}
+                    className={
+                      router.asPath.includes(
+                        `/blog/category/${category.node.slug}`,
+                      )
+                        ? 'active'
+                        : 'noooo'
+                    }
+                  >
+                    {category.node.name}
+                  </NextLink>
                 )}
-              </>
+              </li>
             )
           }
           return

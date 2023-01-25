@@ -20,7 +20,7 @@ const Header = () => {
             showMobileMenu ? setMobileMenu(false) : setMobileMenu(true)
           }}
         >
-          <ViewListIcon className="w-10 h-10 text-color-primary" />
+          <ViewListIcon className="text-color-primary" style={{width: 36, height: 36}} />
         </button>
         <div className="">
           <Link href="/">
@@ -36,7 +36,7 @@ const Header = () => {
           </Link>
         </div>
         <div className="flex lg:hidden">
-          <ChatIcon className="w-10 h-10 text-color-primary" />
+          <ChatIcon className="text-color-primary" style={{width: 36, height: 36}} />
         </div>
         <div className="hidden lg:flex justify-end items-center">
           <HeaderNav />
