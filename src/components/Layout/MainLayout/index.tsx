@@ -9,14 +9,18 @@ import Header from '../Header'
 import MainLayoutSideBar from './SideBar'
 
 interface MainLayoutProps {
-  title: string
+  SEO: {
+    title: string;
+    description?: string;
+    metaImage?: string;
+  }
   children: ReactNode
   blogCategories?: GetBlogCategoriesQuery
   latestPosts?: GetPostsQuery
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({
-  title,
+  SEO,
   children,
   blogCategories,
   latestPosts,
@@ -24,10 +28,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   return (
     <main>
       <Head>
-        <title>{title ? title + ' - Germanyz' : 'Germanyz'}</title>
+        <title>{SEO.title ? SEO.title + ' - Germanyz' : 'Germanyz'}</title>
         <meta
           name="description"
-          content={title ? title + ' - Germanyz' : 'Germanyz'}
+          content={SEO.title ? SEO.title + ' - Germanyz' : 'Germanyz'}
         />
         <meta property="og:image"  content="https://d1ubwt7z1ubyyw.cloudfront.net/uploads/traditional-christmas-food-meta-1673594986.jpg" />
       </Head>

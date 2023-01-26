@@ -9064,6 +9064,13 @@ export type GetPostByIdQuery = (
   & { post?: Maybe<(
     { __typename?: 'Post' }
     & Pick<Post, 'id' | 'title' | 'content' | 'slug' | 'uri' | 'status'>
+    & { featuredImage?: Maybe<(
+      { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge' }
+      & { node: (
+        { __typename?: 'MediaItem' }
+        & Pick<MediaItem, 'mediaItemUrl'>
+      ) }
+    )> }
   )> }
 );
 
@@ -9401,6 +9408,11 @@ export const GetPostByIdDocument = gql`
     slug
     uri
     status
+    featuredImage {
+      node {
+        mediaItemUrl
+      }
+    }
   }
 }
     `;

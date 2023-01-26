@@ -1,9 +1,16 @@
-import { GetServerSideProps } from "next"
-import { styled } from "twin.macro"
-import BlogLayout from "../../components/Layout/BlogLayout"
-import { GetBlogCategoriesDocument, GetBlogCategoriesQuery, GetPostByIdDocument, GetPostByIdQuery, GetPostsDocument, GetPostsQuery } from "../../generated/graphql"
-import client from "../../lib/apolloClient"
-import { sanitize } from "../../utils/miscellaneous"
+import { GetServerSideProps } from 'next'
+import { styled } from 'twin.macro'
+import BlogLayout from '../../components/Layout/BlogLayout'
+import {
+  GetBlogCategoriesDocument,
+  GetBlogCategoriesQuery,
+  GetPostByIdDocument,
+  GetPostByIdQuery,
+  GetPostsDocument,
+  GetPostsQuery,
+} from '../../generated/graphql'
+import client from '../../lib/apolloClient'
+import { sanitize } from '../../utils/miscellaneous'
 
 interface PostDetailProps {
   data: GetPostByIdQuery
@@ -13,8 +20,17 @@ interface PostDetailProps {
 
 const PostDetail = ({ data, blogCategories, latestPosts }: PostDetailProps) => {
   return (
-    <BlogLayout title={data?.post?.title || '[post title]'} blogCategories={blogCategories} latestPosts={latestPosts}>
-      <BlogDetailBody className="px-3 sm:px-0"
+    <BlogLayout
+      SEO={{
+        title: data?.post?.title || 'Post',
+        description: data?.post?.title || 'Post',
+        metaImage: data.post?.featuredImage?.node.mediaItemUrl || undefined
+      }}
+      blogCategories={blogCategories}
+      latestPosts={latestPosts}
+    >
+      <BlogDetailBody
+        className="px-3 sm:px-0"
         dangerouslySetInnerHTML={{
           __html: sanitize(data?.post?.content ?? {}),
         }}
@@ -25,20 +41,20 @@ const PostDetail = ({ data, blogCategories, latestPosts }: PostDetailProps) => {
 
 export default PostDetail
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async context => {
   const { query } = context || {}
   const { data } = await client.query({
     query: GetPostByIdDocument,
     variables: {
       id: Number(query?.id ?? ''),
-    }
+    },
   })
 
   const { data: blogCategories } = await client.query({
     query: GetBlogCategoriesDocument,
   })
 
-  const { data: latestPosts} = await client.query({
+  const { data: latestPosts } = await client.query({
     query: GetPostsDocument,
     variables: {
       quantity: 5,
@@ -49,7 +65,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       data: data || {},
       blogCategories: blogCategories,
-      latestPosts: latestPosts
+      latestPosts: latestPosts,
     },
   }
 }

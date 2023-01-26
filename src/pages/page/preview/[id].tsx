@@ -9,7 +9,7 @@
 
 const PagePreview = () => {
   return (
-    <div>Page not found</div>
+    <div>Page does not exist</div>
     // <MainLayout title="Post preview">
     //   <div
     //     dangerouslySetInnerHTML={{

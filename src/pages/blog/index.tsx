@@ -4,22 +4,28 @@ import BlogLayout from '../../components/Layout/BlogLayout'
 import LatestPostsContainer from '../../components/MainContent/LatestPostsContainer'
 import {
   GetBlogCategoriesDocument,
-  GetPostsDocument
+  GetPostsDocument,
 } from '../../generated/graphql'
 import client from '../../lib/apolloClient'
 
 const Blog: NextPage = ({ data }: any) => {
   return (
-    <BlogLayout title="Blog" blogCategories={data?.blogCategories} latestPosts={data?.latestPosts}>
-        <LatestPostsContainer latestPosts={data?.latestPosts} />
-        <BlogCategories blogCategories={data?.blogCategories} />
+    <BlogLayout
+      SEO={{
+        title: 'Blog',
+        description: 'Germanyz blog'
+      }}
+      blogCategories={data?.blogCategories}
+      latestPosts={data?.latestPosts}
+    >
+      <LatestPostsContainer latestPosts={data?.latestPosts} />
+      <BlogCategories blogCategories={data?.blogCategories} />
     </BlogLayout>
   )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  
-  const { data: latestPosts} = await client.query({
+  const { data: latestPosts } = await client.query({
     query: GetPostsDocument,
     variables: {
       quantity: 5,

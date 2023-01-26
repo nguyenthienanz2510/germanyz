@@ -33,7 +33,10 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
   }, [])
   return (
     <BlogLayout
-      title={data?.category?.name || '[category name]'}
+    SEO={{
+      title: data?.category?.name || 'Category',
+      description: data?.category?.name || 'Category'
+    }}
       blogCategories={blogCategories}
       latestPosts={latestPosts}
     >

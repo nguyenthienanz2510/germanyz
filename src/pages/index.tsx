@@ -25,7 +25,7 @@ const IndexPage: React.FC<IndexPageProps> = ({
     <MainLayout
       latestPosts={latestPosts}
       blogCategories={blogCategories}
-      title="Home"
+      SEO = {{title: 'Home', description: 'Germanyz - Bookie from Vietnamese'}}
     >
       <LatestPostsContainer latestPosts={latestPosts} />
 
