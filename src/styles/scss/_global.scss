@@ -17,6 +17,7 @@ html.dark {
 
 ::selection {
   background: $color-secondary;
+  color: $color-white;
 }
 
 ::-moz-selection {
