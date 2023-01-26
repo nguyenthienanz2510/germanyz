@@ -14,11 +14,13 @@ interface BlogLayoutProps {
 
 export default function BlogLayout({ title, children, blogCategories, latestPosts}: BlogLayoutProps) {
   return (
-    <>
+    <main>
       <Head>
         <title>{title ? title + ' - Germanyz' : 'Germanyz'}</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta name="description" content="Germanyz shop" />
+        <meta
+          name="description"
+          content={title ? title + ' - Germanyz' : 'Germanyz'}
+        />
       </Head>
       <div className="flex min-h-screen flex-col justify-between">
         <Header />
@@ -28,6 +30,6 @@ export default function BlogLayout({ title, children, blogCategories, latestPost
         </div>
         <Footer />
       </div>
-    </>
+    </main>
   )
 }

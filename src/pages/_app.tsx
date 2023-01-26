@@ -1,6 +1,7 @@
 import { ApolloProvider } from '@apollo/client'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 import SpinnerComponent from '../components/Loading'
 import PageProvider from '../config/theme/PageProvider'
 import { AppProvider } from '../context/appContext'
@@ -17,6 +18,12 @@ function MyApp({ Component, pageProps }: AppProps) {
           <AppProvider>
             <LoadingProvider>
               <SpinnerComponent />
+              <Head>
+                <meta
+                  name="viewport"
+                  content="initial-scale=1.0, width=device-width"
+                />
+              </Head>
               <Component {...pageProps} />
             </LoadingProvider>
           </AppProvider>

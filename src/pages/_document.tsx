@@ -18,8 +18,10 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
-        <Head />
+      <Html lang='en'>
+        <Head>
+          <meta httpEquiv="Content-Type" content="text/html;charset=UTF-8" />
+        </Head>
         <body>
           <Main />
           <NextScript />
