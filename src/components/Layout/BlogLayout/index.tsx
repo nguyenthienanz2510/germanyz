@@ -35,7 +35,7 @@ export default function BlogLayout({
         />
         <meta
           property="og:image"
-          content="https://d1ubwt7z1ubyyw.cloudfront.net/uploads/traditional-christmas-food-meta-1673594986.jpg"
+          content={SEO.metaImage ? SEO.metaImage : "https://d1ubwt7z1ubyyw.cloudfront.net/uploads/traditional-christmas-food-meta-1673594986.jpg"}
         />
       </Head>
       <div className="flex min-h-screen flex-col justify-between">

@@ -19,6 +19,7 @@ interface PostDetailProps {
 }
 
 const PostDetail = ({ data, blogCategories, latestPosts }: PostDetailProps) => {
+  console.log(data.post?.featuredImage?.node.mediaItemUrl || undefined)
   return (
     <BlogLayout
       SEO={{
