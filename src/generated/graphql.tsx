@@ -9055,7 +9055,7 @@ export type GetPageByIdQuery = (
 );
 
 export type GetPostByIdQueryVariables = Exact<{
-  id: Scalars['ID'];
+  slug: Scalars['ID'];
 }>;
 
 
@@ -9174,6 +9174,56 @@ export type GetPostByCategoryQuery = (
             )> }
           )> }
         ) }
+      )> }
+    )> }
+  )> }
+);
+
+export type GetPostsPaginationQueryVariables = Exact<{
+  offset?: Maybe<Scalars['Int']>;
+  size?: Maybe<Scalars['Int']>;
+  categoryId?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type GetPostsPaginationQuery = (
+  { __typename?: 'RootQuery' }
+  & { posts?: Maybe<(
+    { __typename?: 'RootQueryToPostConnection' }
+    & { edges: Array<(
+      { __typename?: 'RootQueryToPostConnectionEdge' }
+      & { node: (
+        { __typename?: 'Post' }
+        & Pick<Post, 'postId' | 'title' | 'slug' | 'status' | 'dateGmt' | 'content'>
+        & { featuredImage?: Maybe<(
+          { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge' }
+          & { node: (
+            { __typename?: 'MediaItem' }
+            & Pick<MediaItem, 'mediaItemUrl'>
+          ) }
+        )>, author?: Maybe<(
+          { __typename?: 'NodeWithAuthorToUserConnectionEdge' }
+          & { node: (
+            { __typename?: 'User' }
+            & Pick<User, 'userId' | 'name' | 'slug' | 'uri' | 'username'>
+            & { avatar?: Maybe<(
+              { __typename?: 'Avatar' }
+              & Pick<Avatar, 'url'>
+            )> }
+          ) }
+        )>, categories?: Maybe<(
+          { __typename?: 'PostToCategoryConnection' }
+          & { nodes: Array<(
+            { __typename?: 'Category' }
+            & Pick<Category, 'categoryId' | 'slug' | 'name' | 'uri'>
+          )> }
+        )> }
+      ) }
+    )>, pageInfo?: Maybe<(
+      { __typename?: 'WPPageInfo' }
+      & { offsetPagination?: Maybe<(
+        { __typename?: 'OffsetPaginationPageInfo' }
+        & Pick<OffsetPaginationPageInfo, 'total'>
       )> }
     )> }
   )> }
@@ -9400,8 +9450,8 @@ export type GetPageByIdQueryHookResult = ReturnType<typeof useGetPageByIdQuery>;
 export type GetPageByIdLazyQueryHookResult = ReturnType<typeof useGetPageByIdLazyQuery>;
 export type GetPageByIdQueryResult = Apollo.QueryResult<GetPageByIdQuery, GetPageByIdQueryVariables>;
 export const GetPostByIdDocument = gql`
-    query GetPostById($id: ID!) {
-  post(idType: DATABASE_ID, id: $id) {
+    query GetPostById($slug: ID!) {
+  post(idType: SLUG, id: $slug) {
     id
     title
     content
@@ -9429,7 +9479,7 @@ export const GetPostByIdDocument = gql`
  * @example
  * const { data, loading, error } = useGetPostByIdQuery({
  *   variables: {
- *      id: // value for 'id'
+ *      slug: // value for 'slug'
  *   },
  * });
  */
@@ -9629,6 +9679,84 @@ export function useGetPostByCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type GetPostByCategoryQueryHookResult = ReturnType<typeof useGetPostByCategoryQuery>;
 export type GetPostByCategoryLazyQueryHookResult = ReturnType<typeof useGetPostByCategoryLazyQuery>;
 export type GetPostByCategoryQueryResult = Apollo.QueryResult<GetPostByCategoryQuery, GetPostByCategoryQueryVariables>;
+export const GetPostsPaginationDocument = gql`
+    query getPostsPagination($offset: Int = 0, $size: Int = 12, $categoryId: Int) {
+  posts(
+    where: {categoryId: $categoryId, offsetPagination: {offset: $offset, size: $size}}
+  ) {
+    edges {
+      node {
+        postId
+        title
+        slug
+        status
+        dateGmt
+        content
+        featuredImage {
+          node {
+            mediaItemUrl
+          }
+        }
+        author {
+          node {
+            userId
+            avatar {
+              url
+            }
+            name
+            slug
+            uri
+            username
+          }
+        }
+        categories {
+          nodes {
+            categoryId
+            slug
+            name
+            uri
+          }
+        }
+      }
+    }
+    pageInfo {
+      offsetPagination {
+        total
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostsPaginationQuery__
+ *
+ * To run a query within a React component, call `useGetPostsPaginationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsPaginationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsPaginationQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      size: // value for 'size'
+ *      categoryId: // value for 'categoryId'
+ *   },
+ * });
+ */
+export function useGetPostsPaginationQuery(baseOptions?: Apollo.QueryHookOptions<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>(GetPostsPaginationDocument, options);
+      }
+export function useGetPostsPaginationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>(GetPostsPaginationDocument, options);
+        }
+export type GetPostsPaginationQueryHookResult = ReturnType<typeof useGetPostsPaginationQuery>;
+export type GetPostsPaginationLazyQueryHookResult = ReturnType<typeof useGetPostsPaginationLazyQuery>;
+export type GetPostsPaginationQueryResult = Apollo.QueryResult<GetPostsPaginationQuery, GetPostsPaginationQueryVariables>;
 export const MenuItemsDocument = gql`
     query MenuItems {
   menuItems(where: {location: HCMS_MENU_HEADER, parentId: "0"}) {

@@ -23,7 +23,7 @@ const BlogCategories: React.FC<BlogCategoriesProps> = ({ blogCategories }) => {
                 {hasChildCategory ? (
                   <>
                     <NextLink
-                      href={`/blog/category/${category.node.slug}?id=${category.node.categoryId}`}
+                      href={`/blog/category/${category.node.slug}`}
                       className={
                         router.asPath.includes(
                           `/blog/category/${category.node.slug}`,
@@ -42,7 +42,7 @@ const BlogCategories: React.FC<BlogCategoriesProps> = ({ blogCategories }) => {
                             key={categoryChildItem.node.categoryId}
                           >
                             <NextLink
-                              href={`/blog/category/${categoryChildItem.node.slug}?id=${categoryChildItem.node.categoryId}`}
+                              href={`/blog/category/${categoryChildItem.node.slug}`}
                               className={
                                 router.asPath.includes(
                                   `/blog/category/${categoryChildItem.node.slug}`,
@@ -60,7 +60,7 @@ const BlogCategories: React.FC<BlogCategoriesProps> = ({ blogCategories }) => {
                   </>
                 ) : (
                   <NextLink
-                    href={`/blog/category/${category.node.slug}?id=${category.node.categoryId}`}
+                    href={`/blog/category/${category.node.slug}`}
                     className={
                       router.asPath.includes(
                         `/blog/category/${category.node.slug}`,

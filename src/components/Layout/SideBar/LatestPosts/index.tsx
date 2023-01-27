@@ -17,7 +17,7 @@ const LatestPosts: React.FC<latestPostsProps> = ({ latestPosts}) => {
           return (
             <li className="mt-2 sm:mt-4 lg:mt-2" key={post.node.postId}>
               <CardLink
-                href={`/blog/${post.node.slug}?id=${post.node.postId}`}
+                href={`/blog/${post.node.slug}`}
                 className="transition-all hover:shadow-sm dark:hover:shadow-none"
               >
                 <div className="grid grid-cols-12 gap-2 sm:gap-4 lg:gap-2">

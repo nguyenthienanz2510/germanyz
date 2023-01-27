@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/legacy/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -48,7 +48,7 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
               <div key={post.node.postId} className="col-span-12 sm:col-span-6 md:col-span-4">
                 <PostLink
                   className="transition-all duration-500 bg-[#fafcfa] hover:shadow-md dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active"
-                  href={`/blog/${post.node.slug}?id=${post.node.postId}`}
+                  href={`/blog/${post.node.slug}`}
                 >
                   <div>
                     <div className="overflow-hidden">
@@ -85,8 +85,20 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
 
 export default GetPostsByCategory
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  const { params } = context || {}
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { data: blogCategories } = await client.query({
+    query: GetBlogCategoriesDocument,
+  })
+  const paths = blogCategories.categories?.edges.map((category: any) => {
+    return {
+      params: { slug: String(category.node.slug) },
+    }
+  })
+  return { paths, fallback: 'blocking' }
+}
+
+export const getStaticProps: GetStaticProps = async context => {
+  const { params } = context
   const { data } = await client.query({
     query: GetPostByCategoryDocument,
     variables: {
@@ -111,6 +123,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
       blogCategories: blogCategories,
       latestPosts: latestPosts,
     },
+    revalidate: 1
   }
 }
 

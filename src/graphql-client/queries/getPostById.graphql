@@ -1,5 +1,5 @@
-query GetPostById($id: ID!) {
-  post(idType: DATABASE_ID, id: $id) {
+query GetPostById($slug: ID!) {
+  post(idType: SLUG, id: $slug) {
     id
     title
     content

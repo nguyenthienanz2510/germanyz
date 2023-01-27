@@ -34,7 +34,7 @@ const BlogCategories: React.FC<Props> = props => {
                 <span>
                   <Link
                     className="underline hover:text-color-primary transition-all"
-                    href={`/blog/category/${category.node.slug}?id=${category.node.categoryId}`}
+                    href={`/blog/category/${category.node.slug}`}
                   >
                     View more
                   </Link>
@@ -48,7 +48,7 @@ const BlogCategories: React.FC<Props> = props => {
                         <div key={post.node.postId} className="col-span-12 sm:col-span-6 lg:col-span-3">
                           <PostLink
                             className='transition-all duration-500 bg-[#fafcfa] hover:shadow-md dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active'
-                            href={`/blog/${post.node.slug}?id=${post.node.postId}`}
+                            href={`/blog/${post.node.slug}`}
                           >
                             <div>
                               <div className='overflow-hidden'>

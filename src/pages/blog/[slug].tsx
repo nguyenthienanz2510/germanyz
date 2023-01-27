@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { styled } from 'twin.macro'
 import BlogLayout from '../../components/Layout/BlogLayout'
 import {
@@ -24,12 +24,12 @@ const PostDetail = ({ data, blogCategories, latestPosts }: PostDetailProps) => {
       SEO={{
         title: data?.post?.title || 'Post',
         description: data?.post?.title || 'Post',
-        metaImage: data.post?.featuredImage?.node.mediaItemUrl || undefined
+        metaImage: data.post?.featuredImage?.node.mediaItemUrl || undefined,
       }}
       blogCategories={blogCategories}
       latestPosts={latestPosts}
     >
-      <h1 className='mb-5'>{data?.post?.title}</h1>
+      <h1 className="mb-5">{data?.post?.title}</h1>
       <BlogDetailBody
         className="px-3 sm:px-0"
         dangerouslySetInnerHTML={{
@@ -42,12 +42,24 @@ const PostDetail = ({ data, blogCategories, latestPosts }: PostDetailProps) => {
 
 export default PostDetail
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  const { query } = context || {}
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { data } = await client.query({
+    query: GetPostsDocument,
+  })
+  const paths = data.posts?.edges.map((item: any) => {
+    return {
+      params: { slug: String(item.node?.slug) },
+    }
+  })
+  return { paths, fallback: 'blocking' }
+}
+
+export const getStaticProps: GetStaticProps = async context => {
+  const { params } = context || {}
   const { data } = await client.query({
     query: GetPostByIdDocument,
     variables: {
-      id: Number(query?.id ?? ''),
+      slug: String(params?.slug ?? ''),
     },
   })
 
@@ -68,6 +80,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
       blogCategories: blogCategories,
       latestPosts: latestPosts,
     },
+    revalidate: 1
   }
 }
 

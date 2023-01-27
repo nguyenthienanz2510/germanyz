@@ -48,6 +48,7 @@
     "autoprefixer": "^10.4.13",
     "babel-plugin-macros": "^3.1.0",
     "babel-plugin-styled-components": "^1.13.2",
+    "classnames": "^2.3.2",
     "eslint": "8.29.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-config-next": "13.0.6",

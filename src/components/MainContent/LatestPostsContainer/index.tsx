@@ -23,7 +23,7 @@ const LatestPostsContainer: React.FC<Props> = ({ latestPosts }) => {
       <div className="grid grid-cols-12 gap-x-3 lg:gap-x-7 gap-y-3">
         <div className="col-span-7 row-span-2 transition-all duration-500 bg-[#fafcfa] hover:shadow-md dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active">
           <PostLink
-            href={`/blog/${latestPosts.posts?.edges[0].node.slug}?id=${latestPosts.posts?.edges[0].node.postId}`}
+            href={`/blog/${latestPosts.posts?.edges[0].node.slug}`}
           >
             <div>
               <div className="overflow-hidden">
@@ -76,7 +76,7 @@ const LatestPostsContainer: React.FC<Props> = ({ latestPosts }) => {
         </div>
         <div className="col-span-5 transition-all duration-500 bg-[#fafcfa] hover:shadow-md cursor-pointer dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active">
           <PostLink
-            href={`/blog/${latestPosts.posts?.edges[1].node.slug}?id=${latestPosts.posts?.edges[0].node.postId}`}
+            href={`/blog/${latestPosts.posts?.edges[1].node.slug}`}
           >
             <div>
               <div className="overflow-hidden">
@@ -104,7 +104,7 @@ const LatestPostsContainer: React.FC<Props> = ({ latestPosts }) => {
         </div>
         <div className="col-span-5 transition-all duration-500 bg-[#fafcfa] hover:shadow-md cursor-pointer dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active">
           <PostLink
-            href={`/blog/${latestPosts.posts?.edges[2].node.slug}?id=${latestPosts.posts?.edges[0].node.postId}`}
+            href={`/blog/${latestPosts.posts?.edges[2].node.slug}`}
           >
             <div>
               <div className="overflow-hidden">
