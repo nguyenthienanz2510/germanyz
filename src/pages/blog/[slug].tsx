@@ -31,7 +31,6 @@ const PostDetail = ({ data, blogCategories, latestPosts }: PostDetailProps) => {
     >
       <h1 className="mb-5">{data?.post?.title}</h1>
       <BlogDetailBody
-        className="px-3 sm:px-0"
         dangerouslySetInnerHTML={{
           __html: sanitize(data?.post?.content ?? {}),
         }}

@@ -15,7 +15,7 @@ const LatestPosts: React.FC<latestPostsProps> = ({ latestPosts}) => {
       <ul>
         {latestPosts?.posts?.edges.map(post => {
           return (
-            <li className="mt-2 sm:mt-4 lg:mt-2" key={post.node.postId}>
+            <li className="mt-3" key={post.node.postId}>
               <CardLink
                 href={`/blog/${post.node.slug}`}
                 className="transition-all hover:shadow-sm dark:hover:shadow-none"
