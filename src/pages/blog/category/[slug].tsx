@@ -32,7 +32,6 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
   latestPosts,
 }) => {
   const router = useRouter()
-  console.log(router.query.slug)
   const [isMount, setMount] = useState(false)
   useEffect(() => {
     setMount(true)
@@ -54,8 +53,6 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
 
   useEffect(() => {
     refetch()
-    console.log(String(blogCategory?.category?.name))
-    console.log(categoryPosts)
   }, [router.query.slug])
 
   const loadMorePosts = () => {
@@ -86,9 +83,8 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
               <LoadingButton
                 loading={loading}
                 disabled
-                className="hover:bg-transparent capitalize text-16 transition-all"
               >
-                {!loading && 'Scroll to show more'}
+                {!loading && <span className='capitalize text-16 transition-all'>Scroll to show more</span>}
               </LoadingButton>
             </div>
           )
