@@ -22,9 +22,7 @@ const LatestPostsContainer: React.FC<Props> = ({ latestPosts }) => {
       <h2 className="mb-5">Latest posts</h2>
       <div className="grid grid-cols-12 gap-x-3 lg:gap-x-7 gap-y-3">
         <div className="col-span-7 row-span-2 transition-all duration-500 bg-[#fafcfa] hover:shadow-md dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active">
-          <PostLink
-            href={`/blog/${latestPosts.posts?.edges[0].node.slug}`}
-          >
+          <PostLink href={`/blog/${latestPosts.posts?.edges[0].node.slug}`}>
             <div>
               <div className="overflow-hidden">
                 <Image
@@ -45,14 +43,21 @@ const LatestPostsContainer: React.FC<Props> = ({ latestPosts }) => {
                 <h4 className="text-truncate-2 text-16 sm:text-20">
                   {latestPosts.posts?.edges[0].node.title}
                 </h4>
-                <p className="mt-1">
+                <p className="mt-1 font-light">
                   By{' '}
-                  <span className="font-semibold capitalize">
-                    {latestPosts.posts?.edges[0]?.node?.author?.node.name}
+                  <span className="font-normal capitalize">
+                    {latestPosts.posts?.edges[0]?.node?.author?.node
+                      .firstName &&
+                    latestPosts.posts?.edges[0]?.node?.author?.node.lastName
+                      ? latestPosts.posts?.edges[0]?.node?.author?.node
+                          .firstName +
+                        ' ' +
+                        latestPosts.posts?.edges[0]?.node?.author?.node.lastName
+                      : latestPosts.posts?.edges[0]?.node?.author?.node.name}
                   </span>
                   {' - '}
                   at{' '}
-                  <span className="font-semibold">
+                  <span>
                     {moment(latestPosts.posts?.edges[0].node.dateGmt).format(
                       'MMMM Do YYYY, h:mm:ss a',
                     )}
@@ -75,9 +80,7 @@ const LatestPostsContainer: React.FC<Props> = ({ latestPosts }) => {
           </PostLink>
         </div>
         <div className="col-span-5 transition-all duration-500 bg-[#fafcfa] hover:shadow-md cursor-pointer dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active">
-          <PostLink
-            href={`/blog/${latestPosts.posts?.edges[1].node.slug}`}
-          >
+          <PostLink href={`/blog/${latestPosts.posts?.edges[1].node.slug}`}>
             <div>
               <div className="overflow-hidden">
                 <Image
@@ -103,9 +106,7 @@ const LatestPostsContainer: React.FC<Props> = ({ latestPosts }) => {
           </PostLink>
         </div>
         <div className="col-span-5 transition-all duration-500 bg-[#fafcfa] hover:shadow-md cursor-pointer dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active">
-          <PostLink
-            href={`/blog/${latestPosts.posts?.edges[2].node.slug}`}
-          >
+          <PostLink href={`/blog/${latestPosts.posts?.edges[2].node.slug}`}>
             <div>
               <div className="overflow-hidden">
                 <Image

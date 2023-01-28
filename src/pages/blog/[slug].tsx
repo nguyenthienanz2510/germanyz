@@ -31,9 +31,9 @@ const PostDetail = ({ data, blogCategories, latestPosts }: PostDetailProps) => {
       latestPosts={latestPosts}
     >
       <h1>{data?.post?.title}</h1>
-      <p className="mb-5 mt-1">
+      <p className="mb-5 mt-1 font-light">
         By{' '}
-        <span className="font-semibold capitalize">
+        <span className="font-normal capitalize">
           {data?.post?.author?.node.firstName &&
           data?.post?.author?.node.lastName
             ? data?.post?.author?.node.firstName +
@@ -43,7 +43,7 @@ const PostDetail = ({ data, blogCategories, latestPosts }: PostDetailProps) => {
         </span>
         {' - '}
         at{' '}
-        <span className="font-semibold">
+        <span>
           {moment(data?.post?.dateGmt).format('MMMM Do YYYY, h:mm:ss a')}
         </span>
       </p>

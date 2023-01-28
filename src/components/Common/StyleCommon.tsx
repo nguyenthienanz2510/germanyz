@@ -28,6 +28,7 @@ export const CardLink = styled(Link)`
 `
 
 export const PostDescription = styled.div`
+  font-weight: 300;
   h1,
   h2,
   h3,
@@ -37,7 +38,10 @@ export const PostDescription = styled.div`
     display: none;
   }
   strong, a {
-    font-weight: 400;
+    font-weight: 300;
     text-decoration: none;
+  }
+  em {
+    font-style: normal;
   }
 `

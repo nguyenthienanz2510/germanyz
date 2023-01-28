@@ -3,6 +3,8 @@ import Image from 'next/legacy/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { PulseLoader } from 'react-spinners'
 import styled from 'styled-components'
 import { PostDescription } from '../../../components/Common/StyleCommon'
 import BlogLayout from '../../../components/Layout/BlogLayout'
@@ -13,12 +15,10 @@ import {
   GetPostByCategoryQuery,
   GetPostsDocument,
   GetPostsQuery,
-  useGetPostsPaginationQuery,
+  useGetPostsPaginationQuery
 } from '../../../generated/graphql'
 import client from '../../../lib/apolloClient'
 import { sanitize } from '../../../utils/miscellaneous'
-import LoadingButton from '@mui/lab/LoadingButton'
-import InfiniteScroll from 'react-infinite-scroll-component'
 
 interface GetPostsByCategoryProps {
   blogCategory: GetPostByCategoryQuery
@@ -80,12 +80,11 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
         loader={
           categoryPosts?.posts?.pageInfo?.offsetPagination?.hasMore && (
             <div className="mt-5 text-center">
-              <LoadingButton
-                loading={loading}
-                disabled
-              >
-                {!loading && <span className='capitalize text-16 transition-all'>Scroll to show more</span>}
-              </LoadingButton>
+              {loading ? (
+                <PulseLoader color="#0DABFF" />
+              ) : (
+                <span className="font-extralight">Scroll to show more</span>
+              )}
             </div>
           )
         }
@@ -116,7 +115,7 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
                         <h6 className="text-truncate-2">{post.node.title}</h6>
                         {isMount ? (
                           <PostDescription
-                            className="mt-1 text-truncate-4"
+                            className="mt-1 text-truncate-3"
                             dangerouslySetInnerHTML={{
                               __html: sanitize(post.node.content ?? {}),
                             }}

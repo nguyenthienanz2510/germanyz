@@ -9125,7 +9125,7 @@ export type GetPostsQuery = (
           { __typename?: 'NodeWithAuthorToUserConnectionEdge' }
           & { node: (
             { __typename?: 'User' }
-            & Pick<User, 'userId' | 'name' | 'slug' | 'uri' | 'username'>
+            & Pick<User, 'userId' | 'name' | 'slug' | 'uri' | 'username' | 'firstName' | 'lastName'>
             & { avatar?: Maybe<(
               { __typename?: 'Avatar' }
               & Pick<Avatar, 'url'>
@@ -9586,6 +9586,8 @@ export const GetPostsDocument = gql`
             slug
             uri
             username
+            firstName
+            lastName
           }
         }
         categories {

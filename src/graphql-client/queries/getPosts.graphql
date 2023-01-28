@@ -23,6 +23,8 @@ query getPosts($quantity: Int) {
             slug
             uri
             username
+            firstName
+            lastName
           }
         }
         categories {
