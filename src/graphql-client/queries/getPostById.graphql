@@ -6,9 +6,24 @@ query GetPostById($slug: ID!) {
     slug
     uri
     status
+    dateGmt
     featuredImage {
       node {
         mediaItemUrl
+      }
+    }
+    author {
+      node {
+        userId
+        avatar {
+          url
+        }
+        name
+        slug
+        uri
+        username
+        firstName
+        lastName
       }
     }
   }

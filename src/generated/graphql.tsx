@@ -9063,12 +9063,22 @@ export type GetPostByIdQuery = (
   { __typename?: 'RootQuery' }
   & { post?: Maybe<(
     { __typename?: 'Post' }
-    & Pick<Post, 'id' | 'title' | 'content' | 'slug' | 'uri' | 'status'>
+    & Pick<Post, 'id' | 'title' | 'content' | 'slug' | 'uri' | 'status' | 'dateGmt'>
     & { featuredImage?: Maybe<(
       { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge' }
       & { node: (
         { __typename?: 'MediaItem' }
         & Pick<MediaItem, 'mediaItemUrl'>
+      ) }
+    )>, author?: Maybe<(
+      { __typename?: 'NodeWithAuthorToUserConnectionEdge' }
+      & { node: (
+        { __typename?: 'User' }
+        & Pick<User, 'userId' | 'name' | 'slug' | 'uri' | 'username' | 'firstName' | 'lastName'>
+        & { avatar?: Maybe<(
+          { __typename?: 'Avatar' }
+          & Pick<Avatar, 'url'>
+        )> }
       ) }
     )> }
   )> }
@@ -9182,7 +9192,7 @@ export type GetPostByCategoryQuery = (
 export type GetPostsPaginationQueryVariables = Exact<{
   offset?: Maybe<Scalars['Int']>;
   size?: Maybe<Scalars['Int']>;
-  categoryId?: Maybe<Scalars['Int']>;
+  categoryName?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -9223,7 +9233,7 @@ export type GetPostsPaginationQuery = (
       { __typename?: 'WPPageInfo' }
       & { offsetPagination?: Maybe<(
         { __typename?: 'OffsetPaginationPageInfo' }
-        & Pick<OffsetPaginationPageInfo, 'total'>
+        & Pick<OffsetPaginationPageInfo, 'total' | 'hasMore' | 'hasPrevious'>
       )> }
     )> }
   )> }
@@ -9458,9 +9468,24 @@ export const GetPostByIdDocument = gql`
     slug
     uri
     status
+    dateGmt
     featuredImage {
       node {
         mediaItemUrl
+      }
+    }
+    author {
+      node {
+        userId
+        avatar {
+          url
+        }
+        name
+        slug
+        uri
+        username
+        firstName
+        lastName
       }
     }
   }
@@ -9680,9 +9705,9 @@ export type GetPostByCategoryQueryHookResult = ReturnType<typeof useGetPostByCat
 export type GetPostByCategoryLazyQueryHookResult = ReturnType<typeof useGetPostByCategoryLazyQuery>;
 export type GetPostByCategoryQueryResult = Apollo.QueryResult<GetPostByCategoryQuery, GetPostByCategoryQueryVariables>;
 export const GetPostsPaginationDocument = gql`
-    query getPostsPagination($offset: Int = 0, $size: Int = 12, $categoryId: Int) {
+    query getPostsPagination($offset: Int = 0, $size: Int = 12, $categoryName: String) {
   posts(
-    where: {categoryId: $categoryId, offsetPagination: {offset: $offset, size: $size}}
+    where: {categoryName: $categoryName, offsetPagination: {offset: $offset, size: $size}}
   ) {
     edges {
       node {
@@ -9722,6 +9747,8 @@ export const GetPostsPaginationDocument = gql`
     pageInfo {
       offsetPagination {
         total
+        hasMore
+        hasPrevious
       }
     }
   }
@@ -9742,7 +9769,7 @@ export const GetPostsPaginationDocument = gql`
  *   variables: {
  *      offset: // value for 'offset'
  *      size: // value for 'size'
- *      categoryId: // value for 'categoryId'
+ *      categoryName: // value for 'categoryName'
  *   },
  * });
  */

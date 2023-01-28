@@ -1,6 +1,13 @@
-query getPostsPagination($offset: Int = 0, $size: Int = 12, $categoryId: Int) {
+query getPostsPagination(
+  $offset: Int = 0
+  $size: Int = 12
+  $categoryName: String
+) {
   posts(
-    where: {categoryId: $categoryId, offsetPagination: {offset: $offset, size: $size}}
+    where: {
+      categoryName: $categoryName
+      offsetPagination: { offset: $offset, size: $size }
+    }
   ) {
     edges {
       node {
@@ -40,6 +47,8 @@ query getPostsPagination($offset: Int = 0, $size: Int = 12, $categoryId: Int) {
     pageInfo {
       offsetPagination {
         total
+        hasMore
+        hasPrevious
       }
     }
   }

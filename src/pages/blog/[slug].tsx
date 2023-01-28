@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { styled } from 'twin.macro'
 import BlogLayout from '../../components/Layout/BlogLayout'
@@ -29,7 +30,23 @@ const PostDetail = ({ data, blogCategories, latestPosts }: PostDetailProps) => {
       blogCategories={blogCategories}
       latestPosts={latestPosts}
     >
-      <h1 className="mb-5">{data?.post?.title}</h1>
+      <h1>{data?.post?.title}</h1>
+      <p className="mb-5 mt-1">
+        By{' '}
+        <span className="font-semibold capitalize">
+          {data?.post?.author?.node.firstName &&
+          data?.post?.author?.node.lastName
+            ? data?.post?.author?.node.firstName +
+              ' ' +
+              data?.post?.author?.node.lastName
+            : data?.post?.author?.node.name}
+        </span>
+        {' - '}
+        at{' '}
+        <span className="font-semibold">
+          {moment(data?.post?.dateGmt).format('MMMM Do YYYY, h:mm:ss a')}
+        </span>
+      </p>
       <BlogDetailBody
         dangerouslySetInnerHTML={{
           __html: sanitize(data?.post?.content ?? {}),
@@ -79,7 +96,7 @@ export const getStaticProps: GetStaticProps = async context => {
       blogCategories: blogCategories,
       latestPosts: latestPosts,
     },
-    revalidate: 1
+    revalidate: 1,
   }
 }
 
