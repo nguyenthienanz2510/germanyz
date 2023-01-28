@@ -23,8 +23,6 @@ const client = new ApolloClient({
                 )
               }
 
-              console.log(paginatedPosts.length)
-
               return { ...incoming, edges: paginatedPosts }
             }
           }

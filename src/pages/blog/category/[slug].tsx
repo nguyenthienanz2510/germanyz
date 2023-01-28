@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/legacy/image'
 import Link from 'next/link'
-import { Router } from 'next/router'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { PostDescription } from '../../../components/Common/StyleCommon'
@@ -18,6 +18,7 @@ import {
 import client from '../../../lib/apolloClient'
 import { sanitize } from '../../../utils/miscellaneous'
 import LoadingButton from '@mui/lab/LoadingButton'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 interface GetPostsByCategoryProps {
   blogCategory: GetPostByCategoryQuery
@@ -30,29 +31,32 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
   blogCategories,
   latestPosts,
 }) => {
+  const router = useRouter()
+  console.log(router.query.slug)
   const [isMount, setMount] = useState(false)
   useEffect(() => {
     setMount(true)
-    console.log('prefect')
   }, [])
 
   const {
     data: categoryPosts,
     loading: loading,
     fetchMore,
-    refetch
+    refetch,
   } = useGetPostsPaginationQuery({
     variables: {
       offset: 0,
-      size: 3,
+      size: 6,
       categoryName: String(blogCategory?.category?.name),
     },
     notifyOnNetworkStatusChange: true,
   })
 
-  Router.events.on('routeChangeComplete', () => {
+  useEffect(() => {
     refetch()
-  })
+    console.log(String(blogCategory?.category?.name))
+    console.log(categoryPosts)
+  }, [router.query.slug])
 
   const loadMorePosts = () => {
     fetchMore({
@@ -60,7 +64,6 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
         offset: Number(categoryPosts?.posts?.edges.length),
       },
     })
-    console.log(Number(categoryPosts?.posts?.edges.length))
   }
 
   return (
@@ -73,58 +76,67 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
       latestPosts={latestPosts}
     >
       <h2 className="mb-5">{blogCategory?.category?.name}</h2>
-      <div className="grid grid-cols-12 gap-x-3 gap-y-6">
-        {Boolean(categoryPosts?.posts?.edges.length) ? (
-          categoryPosts?.posts?.edges.map((post: any) => {
-            return (
-              <div
-                key={post.node.postId}
-                className="col-span-12 sm:col-span-6 md:col-span-4"
+      <InfiniteScroll
+        dataLength={Number(categoryPosts?.posts?.edges.length || 0)}
+        next={loadMorePosts}
+        hasMore={true}
+        loader={
+          categoryPosts?.posts?.pageInfo?.offsetPagination?.hasMore && (
+            <div className="mt-5 text-center">
+              <LoadingButton
+                loading={loading}
+                disabled
+                className="hover:bg-transparent capitalize text-16 transition-all"
               >
-                <PostLink
-                  className="transition-all duration-500 bg-[#fafcfa] hover:shadow-md dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active"
-                  href={`/blog/${post.node.slug}`}
+                {!loading && 'Scroll to show more'}
+              </LoadingButton>
+            </div>
+          )
+        }
+        className="overflow-hidden min-h-screen"
+      >
+        <div className="grid grid-cols-12 gap-x-3 gap-y-6">
+          {Boolean(categoryPosts?.posts?.edges.length) ? (
+            categoryPosts?.posts?.edges.map((post: any) => {
+              return (
+                <div
+                  key={post.node.postId}
+                  className="col-span-12 sm:col-span-6 md:col-span-4"
                 >
-                  <div>
-                    <div className="overflow-hidden">
-                      <Image
-                        src={`${post.node.featuredImage?.node.mediaItemUrl}`}
-                        alt={`${post.node.title}`}
-                        width={1920}
-                        height={1080}
-                      />
-                    </div>
-                    <div className="pt-2 px-3 pb-4">
-                      <h6 className="text-truncate-2">{post.node.title}</h6>
-                      {isMount ? (
-                        <PostDescription
-                          className="mt-1 text-truncate-4"
-                          dangerouslySetInnerHTML={{
-                            __html: sanitize(post.node.content ?? {}),
-                          }}
+                  <PostLink
+                    className="transition-all duration-500 bg-[#fafcfa] hover:shadow-md dark:bg-color-bg-dark-secondary dark:hover:bg-color-bg-dark-secondary-active"
+                    href={`/blog/${post.node.slug}`}
+                  >
+                    <div>
+                      <div className="overflow-hidden">
+                        <Image
+                          src={`${post.node.featuredImage?.node.mediaItemUrl}`}
+                          alt={`${post.node.title}`}
+                          width={1920}
+                          height={1080}
                         />
-                      ) : null}
+                      </div>
+                      <div className="pt-2 px-3 pb-4">
+                        <h6 className="text-truncate-2">{post.node.title}</h6>
+                        {isMount ? (
+                          <PostDescription
+                            className="mt-1 text-truncate-4"
+                            dangerouslySetInnerHTML={{
+                              __html: sanitize(post.node.content ?? {}),
+                            }}
+                          />
+                        ) : null}
+                      </div>
                     </div>
-                  </div>
-                </PostLink>
-              </div>
-            )
-          })
-        ) : (
-          <span className="col-span-12">Nothing to display</span>
-        )}
-      </div>
-      {categoryPosts?.posts?.pageInfo?.offsetPagination?.hasMore && (
-        <div className="mt-5 text-center">
-          <LoadingButton
-            loading={loading}
-            onClick={loadMorePosts}
-            className="text-color-text-dark dark:text-color-text-light hover:text-color-primary dark:hover:text-color-primary hover:underline hover:bg-transparent capitalize text-16 transition-all"
-          >
-            {!loading && "Show more"}
-          </LoadingButton>
+                  </PostLink>
+                </div>
+              )
+            })
+          ) : (
+            <span className="col-span-12">Nothing to display</span>
+          )}
         </div>
-      )}
+      </InfiniteScroll>
     </BlogLayout>
   )
 }
