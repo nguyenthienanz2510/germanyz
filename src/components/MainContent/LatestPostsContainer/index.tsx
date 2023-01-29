@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { GetPostsQuery } from '../../../generated/graphql'
 import { sanitize } from '../../../utils/miscellaneous'
+import { removeTags } from '../../../utils/removeTags'
 import { PostDescription } from '../../Common/StyleCommon'
 var moment = require('moment')
 
@@ -69,7 +70,7 @@ const LatestPostsContainer: React.FC<Props> = ({ latestPosts }) => {
                       className="mt-1 text-truncate-5"
                       dangerouslySetInnerHTML={{
                         __html: sanitize(
-                          latestPosts.posts?.edges[0].node.content ?? {},
+                          removeTags(latestPosts.posts?.edges[0].node.content ?? ''),
                         ),
                       }}
                     />

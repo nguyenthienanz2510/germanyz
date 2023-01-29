@@ -19,6 +19,7 @@ import {
 } from '../../../generated/graphql'
 import client from '../../../lib/apolloClient'
 import { sanitize } from '../../../utils/miscellaneous'
+import { removeTags } from '../../../utils/removeTags'
 
 interface GetPostsByCategoryProps {
   blogCategory: GetPostByCategoryQuery
@@ -117,7 +118,7 @@ const GetPostsByCategory: React.FC<GetPostsByCategoryProps> = ({
                           <PostDescription
                             className="mt-1 text-truncate-3"
                             dangerouslySetInnerHTML={{
-                              __html: sanitize(post.node.content ?? {}),
+                              __html: sanitize(removeTags(post.node.content ?? '')),
                             }}
                           />
                         ) : null}
