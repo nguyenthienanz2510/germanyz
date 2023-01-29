@@ -39,7 +39,7 @@ const PostDetail = ({ data, blogCategories, latestPosts }: PostDetailProps) => {
             ? data?.post?.author?.node.firstName +
               ' ' +
               data?.post?.author?.node.lastName
-            : data?.post?.author?.node.name}
+            : data?.post?.author?.node.username}
         </span>
         {' - '}
         at{' '}

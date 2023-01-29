@@ -54,7 +54,7 @@ const LatestPostsContainer: React.FC<Props> = ({ latestPosts }) => {
                           .firstName +
                         ' ' +
                         latestPosts.posts?.edges[0]?.node?.author?.node.lastName
-                      : latestPosts.posts?.edges[0]?.node?.author?.node.name}
+                      : latestPosts.posts?.edges[0]?.node?.author?.node.username}
                   </span>
                   {' - '}
                   at{' '}

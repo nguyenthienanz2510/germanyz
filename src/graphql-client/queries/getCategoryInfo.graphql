@@ -1,0 +1,8 @@
+query getCategoryInfo($slug: ID!) {
+  category(id: $slug, idType: SLUG) {
+    categoryId
+    count
+    name
+    slug
+  }
+}

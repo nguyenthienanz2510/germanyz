@@ -2,61 +2,16 @@ query getBlogCategories {
   categories {
     edges {
       node {
-        categoryId
-        slug
-        name
+        ...categoryFragment
         parent {
           node {
-            slug
-            name
-            uri
-            categoryId
+            ...categoryFragment
           }
         }
         children {
           edges {
             node {
-              slug
-              name
-              uri
-              categoryId
-            }
-          }
-        }
-        posts {
-          edges {
-            node {
-              postId
-              title
-              slug
-              status
-              dateGmt
-              content
-              featuredImage {
-                node {
-                  mediaItemUrl
-                }
-              }
-              author {
-                node {
-                  userId
-                  avatar {
-                    url
-                  }
-                  name
-                  slug
-                  uri
-                  username
-                }
-              }
-              categories {
-                nodes {
-                  categoryId
-                  slug
-                  name
-                  uri
-                }
-              }
+              ...categoryFragment
             }
           }
         }

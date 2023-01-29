@@ -1,0 +1,23 @@
+fragment postFragment on Post {
+  postId
+  slug
+  status
+  title
+  dateGmt
+  content
+  featuredImage {
+    node {
+      mediaItemUrl
+    }
+  }
+  author {
+    node {
+      ...userInfoFragment
+    }
+  }
+  categories {
+    nodes {
+      ...categoryFragment
+    }
+  }
+}

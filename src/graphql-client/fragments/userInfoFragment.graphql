@@ -1,7 +1,6 @@
 fragment userInfoFragment on User {
-  id
+  userId
   username
-  name
   email
   firstName
   lastName

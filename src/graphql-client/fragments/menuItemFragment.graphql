@@ -1,6 +1,0 @@
-fragment menuItemFragment on MenuItem {
-  id
-  label
-  url
-  path
-}

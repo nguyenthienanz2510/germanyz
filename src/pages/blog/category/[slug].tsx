@@ -11,8 +11,8 @@ import BlogLayout from '../../../components/Layout/BlogLayout'
 import {
   GetBlogCategoriesDocument,
   GetBlogCategoriesQuery,
-  GetPostByCategoryDocument,
-  GetPostByCategoryQuery,
+  GetCategoryInfoDocument,
+  GetCategoryInfoQuery,
   GetPostsDocument,
   GetPostsQuery,
   useGetPostsPaginationQuery
@@ -22,7 +22,7 @@ import { sanitize } from '../../../utils/miscellaneous'
 import { removeTags } from '../../../utils/removeTags'
 
 interface GetPostsByCategoryProps {
-  blogCategory: GetPostByCategoryQuery
+  blogCategory: GetCategoryInfoQuery
   blogCategories: GetBlogCategoriesQuery
   latestPosts: GetPostsQuery
 }
@@ -154,7 +154,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async context => {
   const { params } = context
   const { data: blogCategory } = await client.query({
-    query: GetPostByCategoryDocument,
+    query: GetCategoryInfoDocument,
     variables: {
       slug: String(params?.slug ?? ''),
     },
