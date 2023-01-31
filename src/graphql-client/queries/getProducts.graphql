@@ -1,0 +1,49 @@
+query getProducts {
+  products {
+    edges {
+      node {
+        databaseId
+        name
+        slug
+        date
+        dateGmt
+        description
+        status
+        totalSales
+        productCurrency
+        dateOnSaleFrom
+        dateOnSaleTo
+        onSale
+        modifiedGmt
+        modified
+        menuOrder
+        featuredImage {
+          node {
+            mediaItemUrl
+          }
+        }
+        ... on SimpleProduct {
+          price(format: FORMATTED)
+        }
+        ... on VariableProduct {
+          price(format: FORMATTED)
+          variations {
+            edges {
+              node {
+                name
+                price(format: FORMATTED)
+              }
+            }
+          }
+        }
+      }
+    }
+    pageInfo {
+      offsetPagination {
+        hasMore
+        hasPrevious
+        total
+      }
+    }
+  }
+}
