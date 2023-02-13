@@ -3,10 +3,11 @@ import Link from 'next/link'
 import React from 'react'
 import styled from 'styled-components'
 import { ProductVariation, SimpleProduct } from '../../../generated/graphql'
+import { removeTags } from '../../../utils/removeTags'
 
 interface ProductProps {
   product: {
-    node: SimpleProduct | ProductVariation
+    node: ProductVariation | SimpleProduct
   }
 }
 
@@ -26,6 +27,7 @@ const ProductLink = styled(Link)`
 const ProductCard: React.FC<ProductProps> = ({ product }) => {
   return (
     <div
+      key={product.node.databaseId}
       className="col-span-12 sm:col-span-6 md:col-span-4"
     >
       <ProductLink
@@ -41,9 +43,18 @@ const ProductCard: React.FC<ProductProps> = ({ product }) => {
               height={600}
             />
           </div>
-          <div className="pt-2 px-3 pb-4">
-            <h6 className="text-truncate-2 text-center">{product.node.name}</h6>
-            <p className="text-center">{product.node.price}</p>
+          <div className="max-h-[96px]">
+            <div className="min-h-[72px] mt-2 mb-4">
+              <h6 className="text-truncate-2 text-center">
+                {product.node.name}
+              </h6>
+              <p className="text-center">{product.node.price}</p>
+            </div>
+            <div>
+              <p className="text-truncate-3">
+                {removeTags(String(product.node.description))}
+              </p>
+            </div>
           </div>
         </div>
       </ProductLink>

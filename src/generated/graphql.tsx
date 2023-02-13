@@ -24332,7 +24332,13 @@ export type GetProductsQuery = (
       & { node: (
         { __typename?: 'ExternalProduct' }
         & Pick<ExternalProduct, 'databaseId' | 'name' | 'slug' | 'date' | 'dateGmt' | 'description' | 'status' | 'totalSales' | 'productCurrency' | 'dateOnSaleFrom' | 'dateOnSaleTo' | 'onSale' | 'modifiedGmt' | 'modified' | 'menuOrder'>
-        & { featuredImage?: Maybe<(
+        & { productTypes?: Maybe<(
+          { __typename?: 'ProductToProductTypeConnection' }
+          & { nodes: Array<(
+            { __typename?: 'ProductType' }
+            & Pick<ProductType, 'name'>
+          )> }
+        )>, featuredImage?: Maybe<(
           { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge' }
           & { node: (
             { __typename?: 'MediaItem' }
@@ -24342,7 +24348,13 @@ export type GetProductsQuery = (
       ) | (
         { __typename?: 'GroupProduct' }
         & Pick<GroupProduct, 'databaseId' | 'name' | 'slug' | 'date' | 'dateGmt' | 'description' | 'status' | 'totalSales' | 'productCurrency' | 'dateOnSaleFrom' | 'dateOnSaleTo' | 'onSale' | 'modifiedGmt' | 'modified' | 'menuOrder'>
-        & { featuredImage?: Maybe<(
+        & { productTypes?: Maybe<(
+          { __typename?: 'ProductToProductTypeConnection' }
+          & { nodes: Array<(
+            { __typename?: 'ProductType' }
+            & Pick<ProductType, 'name'>
+          )> }
+        )>, featuredImage?: Maybe<(
           { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge' }
           & { node: (
             { __typename?: 'MediaItem' }
@@ -24352,7 +24364,13 @@ export type GetProductsQuery = (
       ) | (
         { __typename?: 'SimpleProduct' }
         & Pick<SimpleProduct, 'price' | 'databaseId' | 'name' | 'slug' | 'date' | 'dateGmt' | 'description' | 'status' | 'totalSales' | 'productCurrency' | 'dateOnSaleFrom' | 'dateOnSaleTo' | 'onSale' | 'modifiedGmt' | 'modified' | 'menuOrder'>
-        & { featuredImage?: Maybe<(
+        & { productTypes?: Maybe<(
+          { __typename?: 'ProductToProductTypeConnection' }
+          & { nodes: Array<(
+            { __typename?: 'ProductType' }
+            & Pick<ProductType, 'name'>
+          )> }
+        )>, featuredImage?: Maybe<(
           { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge' }
           & { node: (
             { __typename?: 'MediaItem' }
@@ -24370,6 +24388,12 @@ export type GetProductsQuery = (
               { __typename?: 'ProductVariation' }
               & Pick<ProductVariation, 'name' | 'price'>
             ) }
+          )> }
+        )>, productTypes?: Maybe<(
+          { __typename?: 'ProductToProductTypeConnection' }
+          & { nodes: Array<(
+            { __typename?: 'ProductType' }
+            & Pick<ProductType, 'name'>
           )> }
         )>, featuredImage?: Maybe<(
           { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge' }
@@ -24769,6 +24793,11 @@ export const GetProductsDocument = gql`
   products {
     edges {
       node {
+        productTypes {
+          nodes {
+            name
+          }
+        }
         databaseId
         name
         slug

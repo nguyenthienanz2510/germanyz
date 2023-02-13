@@ -2,6 +2,11 @@ query getProducts {
   products {
     edges {
       node {
+        productTypes {
+          nodes {
+            name
+          }
+        }
         databaseId
         name
         slug
