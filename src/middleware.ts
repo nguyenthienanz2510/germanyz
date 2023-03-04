@@ -23,6 +23,9 @@ export async function middleware(request: NextRequest, _next: NextFetchEvent) {
       res.cookies.set("user-ip", ip, {
         httpOnly: false,
       });
+      res.cookies.set("test-ne", 'test-ne', {
+        httpOnly: false,
+      });
     }
     
     return res;
