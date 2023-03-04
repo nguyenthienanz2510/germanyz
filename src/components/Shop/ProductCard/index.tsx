@@ -25,6 +25,7 @@ const ProductLink = styled(Link)`
 `
 
 const ProductCard: React.FC<ProductProps> = ({ product }) => {
+  const productImage = product.node.featuredImage?.node.mediaItemUrl || '/logo.svg'
   return (
     <div
       key={product.node.databaseId}
@@ -37,13 +38,13 @@ const ProductCard: React.FC<ProductProps> = ({ product }) => {
         <div>
           <div className="overflow-hidden">
             <Image
-              src={`${product.node.featuredImage?.node.mediaItemUrl}`}
+              src={productImage}
               alt={`${product.node.name}`}
               width={600}
               height={600}
             />
           </div>
-          <div className="max-h-[96px]">
+          <div className="max-h-[96px] overflow-hidden">
             <div className="min-h-[72px] mt-2 mb-4">
               <h6 className="text-truncate-2 text-center">
                 {product.node.name}

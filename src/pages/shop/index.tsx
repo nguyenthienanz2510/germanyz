@@ -31,7 +31,7 @@ const IndexPage: React.FC<IndexPageProps> = ({
       SEO={{ title: 'Home', description: 'Germanyz - Bookie from Vietnamese' }}
     >
       <div>
-        <h2 className="mb-5">Product</h2>
+        <h2 className="mb-5">Products</h2>
         <div className="grid grid-cols-12 gap-x-5 gap-y-7">
           {products.products?.edges.map((product: any) => {
             return <ProductCard product={product} />
