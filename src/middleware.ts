@@ -7,6 +7,8 @@
 // };
 
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
+// import { GetPostsDocument } from "./generated/graphql";
+// import client from "./lib/apolloClient";
 
 // export default middleware;
 
@@ -18,12 +20,19 @@ export async function middleware(request: NextRequest, _next: NextFetchEvent) {
       ip = forwardedFor.split(',').at(0) ?? 'Unknown'
     } 
 
-    console.log("MIDDLEWARE", ip)
+    // const { data: latestPosts } = await client.query({
+    //     query: GetPostsDocument,
+    //     variables: {
+    //       quantity: 5,
+    //     },
+    // })
+
+    // console.log("MIDDLEWARE", latestPosts)
     if(ip){
       res.cookies.set("user-ip", ip, {
         httpOnly: false,
       });
-      res.cookies.set("test-ne", 'test-ne', {
+      res.cookies.set("test-set-cookie-ne", 'value-test-set-cookie-ne', {
         httpOnly: false,
       });
     }
